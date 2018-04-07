@@ -9,23 +9,29 @@ This is a project to display user’s github statistics in a way that can lead t
 ## Process/approach:
 
 Formulate purpose of app
+
 Whiteboard basic concept
+
 Use Sketch for wire-framing
+
 Do basic usability testing
+
 
 
 ## DELIVERABLES
 
-### Techonolgy Stack for gitStats
+### Techonolgy Stack for codeInsight
 Node.js/MongoDb/Express for the back-end
+
 HTML/CSS/JavaScript for the front-end
+
 Bonus level technologies: D3.js
 
 ### Audience:
 A coder who has a github account with repos that wants a visual representation of his/her code.
 
 ### User Story:
-User is able to create account and login to gitStats.
+User is able to create account and login to codeInsight.
 The main page is an insights dashboard displaying publicly available information via Github’s API.
 Information is displayed as graphs/charts representing major trends in the users own repo history.
 User can navigate to What’s Hot page for statistics for all Github repos
@@ -43,7 +49,7 @@ User can navigate to What’s Hot page for statistics for all Github repos
 
 ## User story in detail:
 
-### Sprint 1 Home page and Insights Page
+### Sprint 1 - Home page and Insights Page
 #### User can:
  1. Navigate to home page via “/“, this is the main page where user will have an opportunity to signup.
     * User sees name of the website and logo.
@@ -60,7 +66,7 @@ User sees github profile image next to their name.
 Working signup and login features with Passport or Github OAuth.
 User receives a welcome email after creating an account.
 
-### Sprint 2 Insights Page Graphical
+### Sprint 2 - Insights Page Graphical
 #### User can:
 1. Interact with graphical components (hover or click).
 2. On hover graphical elements will display pertinent data. For example, while hovering over a bar graph of user languages the total number of repos for that language is displayed.
@@ -69,7 +75,7 @@ User receives a welcome email after creating an account.
 User sees github profile image next to their name
 User sees a color representation of hotness for the languages they know. This data is derived by stats of repos with most stars on github. For example, currently if the user knows React.js that language would be considered “hot” and be colored appropriately. Whereas, if they know Erlang, then the language would be “obscure” and be colored in a muted, “cold” color.
 
-### Sprint 3 What’s Hot Page
+### Sprint 3 - What’s Hot Page
 #### User can:
 1. On home page user sees a link a to a page called What’s Hot.
 2.  What’s Hot is a list of the technologies ranked by language.
