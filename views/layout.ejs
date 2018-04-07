@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>github authentication</title>
+</head>
+<body>
+  <h1>Github LOGIN USING PASSPORT</h1>
+  <div>
+    <% if(user != undefined){ %>
+      <h2>Below is the data sent by github</h2>
+      <pre>
+        <%= user.gh %>
+      </pre>
+      <a href="/logout">Logout</a>
+    <% } else { %>
+      <a href="/auth/github">Login with github</a>
+    <% } %>
+  </div>
+</body>
+</html>
