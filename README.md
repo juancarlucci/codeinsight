@@ -1,8 +1,8 @@
-# codeinsight
+# codeInsight
 
 This is a project to display user’s github statistics in a way that can lead to insights about coding patterns and language usage.
 
-[Deployed on Heroku here](https://codeinsight.herokuapp.com/)
+
 
 [Story board, wireframes, and more details here](https://sketch.cloud/s/D44k2/all/welcome/basic-app/play)
 
