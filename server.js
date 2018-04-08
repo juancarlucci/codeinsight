@@ -19,7 +19,8 @@ var cookieParser   = require("cookie-parser");
 //////////////////////////////////////////////// mongoose.connect('mongodb://localhost:27017/github-authentication-app');
 //connect to mlab
 // https://mlab.com/databases/cosdeinsight-dev#users
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.mongoURI || keys.mongoURI);
+// mongoose.connect(process.env.mongoURI);
 
 ////////////////////////////
 // Middleware

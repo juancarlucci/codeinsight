@@ -19,10 +19,10 @@ module.exports = function(passport){
   });
 
   passport.use(new GitHubStrategy({
-    // clientID      : keys.githubClientID,
-    // clientSecret  : keys.githubClientSecret,
-    clientID      : process.env.githubClientID,
-    clientSecret  : process.env.githubClientSecret,
+    clientID      : keys.githubClientID,
+    clientSecret  : keys.githubClientSecret,
+    // clientID      : process.env.githubClientID || keys.githubClientID,
+    // clientSecret  : process.env.githubClientSecret || keys.githubClientSecret,
     // callbackURL: "https://127.0.0.1:3000/auth/github/callback"
     callbackURL   : "https://localhost:3000/auth/github/callback",
     // callbackURL: "/auth/github/callback",
@@ -30,36 +30,36 @@ module.exports = function(passport){
   }, function(accessToken, refreshToken, profile, cb) {
 
     console.log(profile);
-    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-
-
-    process.nextTick(function() {
-
-      User.findOne({ 'gh.id' : profile.id }, function(err, user) {
-        if (err) return done(err);
-        if (user) {
-          return done(null, user);
-        } else {
-
-          var newUser = new User();
-          newUser.gh.id           = profile.id;
-          newUser.gh.access_token = access_token;
-          newUser.gh.firstName    = profile.name.givenName;
-          newUser.gh.lastName     = profile.name.familyName;
-          newUser.gh.email        = profile.emails[0].value;
-
-          newUser.save(function(err) {
-            if (err)
-              throw err;
-
-            return done(null, newUser);
-          });
-        }
-
-      });
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return cb(err, user);
     });
+
+
+    // process.nextTick(function() {
+    //
+    //   User.findOne({ 'gh.id' : profile.id }, function(err, user) {
+    //     if (err) return done(err);
+    //     if (user) {
+    //       return done(null, user);
+    //     } else {
+    //
+    //       var newUser = new User();
+    //       newUser.gh.id           = profile.id;
+    //       newUser.gh.access_token = access_token;
+    //       newUser.gh.firstName    = profile.name.givenName;
+    //       newUser.gh.lastName     = profile.name.familyName;
+    //       newUser.gh.email        = profile.emails[0].value;
+    //
+    //       newUser.save(function(err) {
+    //         if (err)
+    //           throw err;
+    //
+    //         return done(null, newUser);
+    //       });
+    //     }
+    //
+    //   });
+    // });
   }));
 
 }
