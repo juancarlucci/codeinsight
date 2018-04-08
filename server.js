@@ -62,6 +62,7 @@ app.get("/logout", function(req, res){
   res.redirect("/")
 })
 
+//dynamic port assignment on heroku || localhost
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
