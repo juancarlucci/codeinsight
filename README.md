@@ -90,6 +90,8 @@ A second API call is made, this time to LinkedIn or Glassdoor to get statistics 
 
 ## Biggest wins and challenges:
 
+[passport callback](https://www.evernote.com/l/ARxWA_O_P6pGrquz_4T5ycrV4OW_BJvzJyo)
+
 ## Code Snippets
 
 ### Github OAuth
