@@ -21,8 +21,8 @@ module.exports = function(passport){
   passport.use(new GitHubStrategy({
     // clientID      : keys.githubClientID,
     // clientSecret  : keys.githubClientSecret,
-    clientID      : keys.githubClientID || process.env.githubClientID,
-    clientSecret  : keys.githubClientSecret || process.env.githubClientSecret,
+    clientID      : keys.githubClientID || process.env.GITHUB_CLIENT_ID,
+    clientSecret  : keys.githubClientSecret || process.env.GITHUB_CLIENT_SECRET,
     // callbackURL: "https://127.0.0.1:3000/auth/github/callback"
     callbackURL   : "https://localhost:3000/auth/github/callback",
     // callbackURL: "/auth/github/callback",
