@@ -4,14 +4,26 @@ var logger         = require('morgan');
 var bodyParser     = require('body-parser');
 var app            = express();
 var mongoose       = require('mongoose');
+const keys         = require("./config/keys");
 var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");
 
-// Mongoose Setup
-mongoose.connect('mongodb://localhost:27017/github-authentication-app');
+// require('./models/User');
 
+
+
+////////////////////////////////////////////////
+//       DATABASE
+// Mongoose Setup via mLab
+//////////////////////////////////////////////// mongoose.connect('mongodb://localhost:27017/github-authentication-app');
+//connect to mlab
+// https://mlab.com/databases/cosdeinsight-dev#users
+mongoose.connect(keys.mongoURI);
+
+////////////////////////////
 // Middleware
+///////////////////////////
 app.use( cookieParser() );
 app.use(expressSession({secret: 'mySecretKey'}));
 app.use(passport.initialize());
