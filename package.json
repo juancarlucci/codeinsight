@@ -5,11 +5,11 @@
   "main": "server.js",
   "engines": {
     "node": "9.4.0",
-    "npm": "5.6.0",
+    "npm": "5.6.0"
   },
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
