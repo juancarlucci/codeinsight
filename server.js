@@ -1,3 +1,6 @@
+/////////////////////////////
+//  SETUP and CONFIGURATION
+/////////////////////////////
 var express        = require('express');
 var path           = require('path');
 var logger         = require('morgan');
@@ -8,6 +11,8 @@ const keys         = require("./config/keys");
 var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");
+const fs = require('fs');
+
 
 // require('./models/User');
 
@@ -26,15 +31,18 @@ mongoose.connect(process.env.MONGO_URI || keys.mongoURI);
 // Middleware
 ///////////////////////////
 app.use( cookieParser() );
-app.use(expressSession({secret: 'mySecretKey'}));
+// app.use(expressSession({secret: 'octopuslikesroundstones'}));
+app.use(expressSession({secret: process.env.EXPRESS_SESSION_SECRET || keys.expressSessionSecret}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
 app.use(bodyParser.json());
+// body parser config to accept datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
+// serve static files in public
 app.use(express.static(__dirname + '/public'));
 
 // Setting up the Passport Strategies
@@ -42,9 +50,33 @@ app.use(express.static(__dirname + '/public'));
 //invokes that function with "passport" as parameter
 require("./config/passport")(passport)
 
-app.get('/', function(req, res){
-  res.render('layout', {user: req.user});
-});
+///////////////////////////////////////////
+ /// ROUTES
+ /////////////////////////////////////////
+
+//////////////////
+ // HTML Endpoints
+ app.get('/', function homepage(req, res) {
+   res.render('index', {user: req.user});
+ });
+
+ app.get ('/api/profile', function profile(req, res) {
+   res.render('profile', {user: req.user});
+ });
+
+
+/////////////////////
+ //JSON API Endpoints
+
+// app.get('/', function(req, res){
+//   res.render('index', {user: req.user});
+// });
+
+//test current user
+app.get('/auth/current_user', (req, res) => {
+  console.log("current user");
+  res.send(req.user);
+})
 
 //begins authentication. tell passport to use github strategy
 app.get('/auth/github',
@@ -62,6 +94,10 @@ app.get("/logout", function(req, res){
   req.logout();
   res.redirect("/")
 })
+
+///////////////////////////////////////////
+ /// SERVER
+ /////////////////////////////////////////
 
 //dynamic port assignment on heroku || localhost
 const PORT = process.env.PORT || 3000;
