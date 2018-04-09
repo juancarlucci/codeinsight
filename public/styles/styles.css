@@ -1,0 +1,18 @@
+html { font-size: 2vw; }
+
+body {
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  background: linear-gradient(to right, #e66465, #C86DD7);
+}
+
+h1 {
+  margin-top: 100px;
+  text-align: center;
+  font-size: calc(1em + 6vw);
+}
+
+img {
+  display: flex;
+  width: 13em;
+}
