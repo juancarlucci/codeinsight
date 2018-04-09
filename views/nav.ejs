@@ -1,11 +1,21 @@
 <nav>
+
+  <svg height="100" width="100">
+
+
+    <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="orangered" />
+  </svg>
+
+  <h4>codeInsight</h4>
   <% if(user != undefined){ %>
     <h2>Below is the data sent by github</h2>
     <pre>
       <%= user.gh %>
     </pre>
-    <a href="/logout">Logout</a>
+    <a href="blog.html">what's hot</a>
+    <a href="/logout">profile</a>
+    <a href="/logout">logout</a>
   <% } else { %>
-    <a href="/auth/github">Login with github</a>
+    <a href="/auth/github">login with github</a>
   <% } %>
 </nav>

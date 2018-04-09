@@ -1,4 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
 html { font-size: 2vw; }
+
+.hamburger {
+  display: none;
+}
+  @media screen and (max-width: 26.25em) {
+    .hamburger {
+      display: block;
+      color: #fff;
+      font-size: 1.7rem;
+      position: absolute;
+      top: 1em;
+      left: 1.3em;
+    }
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  background: linear-gradient(to right, #e66465, #C86DD7);
+  text-align: center;
+  padding: 1.25em 17.188em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  @media screen and (max-width: 26.25em) {
+    nav {
+      display: none; } }
+
+a {
+  font-family: "Relaway", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 0.063em;
+  font-size: 1.125em;
+  margin: 0 1.25em;
+  border-bottom: 0.125em solid transparent; }
+  a:hover {
+    border-color: #fff; }
+
 
 body {
   color: #fff;
@@ -15,4 +62,26 @@ h1 {
 img {
   display: flex;
   width: 13em;
+}
+
+
+
+#heartBeat {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear alternate infinite;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#heartBeat-bottom {
+  position: absolute;
+  top: 107px;
 }

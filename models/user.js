@@ -19,6 +19,7 @@ module.exports = mongoose.model('User', {
      access_token: String,
      firstName: String,
      lastName: String,
+     username: String,
      email: String
    }
 });
