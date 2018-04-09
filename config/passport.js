@@ -38,10 +38,6 @@ module.exports = function(passport){
     // User.findOrCreate({ 'gh.id' : profile.id }, function (err, user) {
     //   return done(err, user);
     // });
-
-
-  //  process.nextTick(function() {
-
       User.findOne({ 'gh.id' : profile.id }, function(err, user) {
         if (err) return done(err);
         if (user) {
@@ -61,7 +57,6 @@ module.exports = function(passport){
         }
 
       });
-    //});//tick
   }));
 
 }
