@@ -12,6 +12,8 @@
 
     <!-- VENDOR SCRIPTS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
+    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> </script>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -30,6 +32,10 @@
       <%= user.gh.username %>
       repos: <%= user.gh.repos %>
 
+<div class="ui-widget">
+   <input id="search">
+    <button type="button" onclick="searchRepo()">Search</button>
+</div>
 <button id="language">Language split</button>
 <button id="all">All</button>
 <button id="concentric">Concentric</button>
@@ -307,6 +313,37 @@ d3.select("#concentric").on("click", function(){
       })
   }
 
+////////////////Search //////////////////
+/////////////////////////////////////////
+//adapted from http://jsfiddle.net/simonraper/Bf5nM/?utm_source=website&utm_medium=embed&utm_campaign=Bf5nM
+  var searchableNamesArray = [];
+  for (var i = 0; i < data.length - 1; i++) {
+      searchableNamesArray.push(data[i].name);
+  }
+  searchableNamesArray = searchableNamesArray.sort();
+  $(function () {
+      $("#search").autocomplete({
+          source: searchableNamesArray
+      });
+  });
+  function searchRepo() {
+      //find the repo node
+      var selectedVal = document.getElementById('search').value;
+      var node = svg.selectAll(".repo");
+      if (selectedVal == "none") {
+          node.style("stroke", "white").style("stroke-width", "1");
+      } else {
+          var selected = node.filter(function (d, i) {
+              return d.name != selectedVal;
+          });
+          selected.style("opacity", "0");
+          var link = svg.selectAll(".link")
+          link.style("opacity", "0");
+          d3.selectAll(".repo, .link").transition()
+              .duration(5000)
+              .style("opacity", 1);
+      }
+  }
 
   // });//end csv function
 
