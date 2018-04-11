@@ -71,18 +71,27 @@
     </svg> -->
 
 <script>
+
+// function htmlDecode(input){
+//     var e = document.createElement('div');
+//     e.innerHTML = input;
+//     return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+//   }
+//   var myVar = JSON.parse(htmlDecode("<%= JSON.stringify(myVar) %>"));
+//
+//
   $("#nav").load("nav.html");
-  
+
   $(document).ready(function() {
   //populate adter ready
   $popularList = $("#popular-list");
   //index route
-  //   $.ajax({
-  //     method: "GET",
-  //     url: "/api/popularRepos",
-  //     success: handleSuccess,
-  //     error: handleError
-  // });
+    $.ajax({
+      method: "GET",
+      url: "/api/popularRepos",
+      success: handleSuccess,
+      error: handleError
+  });
 
 function handleSuccess(json) {
   allRepos = json.popular;

@@ -93,6 +93,27 @@ require("./config/passport")(passport)
    // res.render('hot', {user: req.user, popular: popular});
  });
 
+///SEARCH Repos by TOPIC
+app.get ('/api/search/:topic', function hot(req, res) {
+  var topic = req.params.topic;
+  console.log(topic);
+//   var encodedURI = encodeURI("https://github.com/search?utf8=%E2%9C%93&q=topic%3A"+ topic + "&type=Repositories&ref=searchresults");
+//
+// console.log(encodedURI);
+//   axios
+//     .get(encodedURI)
+//     .then(function (response) {
+//       console.log("*******************topic",response.data.items);
+//       res.json({user: req.user, topic: response.data.items});
+//     })
+//     .catch(err => {
+//       return err;
+//     })
+
+  });
+
+
+
  // const axios = require('axios');
  //
  // var id = keys.githubClientID || process.env.GITHUB_CLIENT_ID;
