@@ -22,7 +22,7 @@ module.exports = function(passport){
 //turn token into User
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
-      console.log('deserializing user:',user);
+
       done(err, user);
     });
   });
@@ -34,10 +34,9 @@ module.exports = function(passport){
     proxy         : true
   }, function(accessToken, refreshToken, profile, done) {
 
-    console.log(profile);
-    // User.findOrCreate({ 'gh.id' : profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
+    process.nextTick(function() {
+
+
       User.findOne({ 'gh.id' : profile.id }, function(err, user) {
         if (err) return done(err);
         if (user) {
@@ -47,6 +46,16 @@ module.exports = function(passport){
           var newUser = new User();
           newUser.gh.id           = profile.id;
           newUser.gh.username     = profile.username;
+          newUser.gh.accessToken  = accessToken;
+          newUser.gh.refreshToken = refreshToken;
+          newUser.gh.location     = profile._json.location;
+          newUser.gh.hireable     = profile._json.hireable;
+          newUser.gh.email        = profile._json.email;
+          newUser.gh.blog         = profile._json.blog;
+          newUser.gh.repos        = profile._json.public_repos;
+          newUser.gh.gists        = profile._json.public_gists;
+          newUser.gh.followers    = profile._json.followers;
+          newUser.gh.following    = profile._json.following;
 
           newUser.save(function(err) {
             if (err)
@@ -55,7 +64,7 @@ module.exports = function(passport){
             return done(null, newUser);
           });
         }
-
+      });
       });
   }));
 

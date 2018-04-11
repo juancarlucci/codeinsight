@@ -10,7 +10,7 @@ html { font-size: 2vw; }
   @media screen and (max-width: 26.25em) {
     .hamburger {
       display: block;
-      color: #fff;
+      color: gray;
       font-size: 1.7rem;
       position: absolute;
       top: 1em;
@@ -19,12 +19,12 @@ html { font-size: 2vw; }
 }
 
 nav {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
   background-color: #fff;
-  background: linear-gradient(to right, #e66465, #C86DD7);
+  /* background: linear-gradient(to right, #e66465, #C86DD7); */
   text-align: center;
   padding: 1.25em 17.188em;
   display: flex;
@@ -38,19 +38,19 @@ a {
   font-family: "Relaway", sans-serif;
   font-weight: 600;
   text-decoration: none;
-  color: #fff;
+  color: gray;
   letter-spacing: 0.063em;
   font-size: 1.125em;
   margin: 0 1.25em;
   border-bottom: 0.125em solid transparent; }
   a:hover {
-    border-color: #fff; }
+    border-color: gray; }
 
 
 body {
-  color: #fff;
+  color: gray;
   font-family: Helvetica, Arial, sans-serif;
-  background: linear-gradient(to right, #e66465, #C86DD7);
+  /* background: linear-gradient(to right, #e66465, #C86DD7); */
 }
 
 h1 {
@@ -63,8 +63,23 @@ img {
   display: flex;
   width: 13em;
 }
+/* /////////////////////
+      D3
+/////////////////////// */
+.node {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 2px;
+}
 
+.link {
+    stroke: #777;
+    stroke-width: 2px;
+}
 
+/* /////////////////////////
+       SVG
+/////////////////////////// */
 
 #heartBeat {
   stroke-dasharray: 1000;

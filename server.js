@@ -11,8 +11,11 @@ const keys         = require("./config/keys");
 var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");
+var axios          = require('axios');
 const fs = require('fs');
-
+const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
+const api = require('./public/scripts/api');
+// var db = require('./models');
 
 // require('./models/User');
 
@@ -24,7 +27,7 @@ const fs = require('fs');
 //////////////////////////////////////////////// mongoose.connect('mongodb://localhost:27017/github-authentication-app');
 //connect to mlab
 // https://mlab.com/databases/cosdeinsight-dev#users
-mongoose.connect(process.env.MONGO_URI || keys.mongoURI);
+mongoose.connect(dbUrl);
 // mongoose.connect(process.env.mongoURI);
 
 ////////////////////////////
@@ -43,7 +46,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 // serve static files in public
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
+
+app.use(express.static('public'));
 
 // Setting up the Passport Strategies
 //NOTE: two parens, the first rturns a function, the second immediately
@@ -58,11 +63,100 @@ require("./config/passport")(passport)
  // HTML Endpoints
  app.get('/', function homepage(req, res) {
    res.render('index', {user: req.user});
+   // res.sendFile(path.join(__dirname+'/index.html'));
+   // res.render('index.html');
  });
 
  app.get ('/api/profile', function profile(req, res) {
    res.render('profile', {user: req.user});
  });
+ app.get ('/api/hot', function hot(req, res) {
+   // res.render('hot', {user: req.user});
+   //NOTE sendFile no longer works in Express v3.x
+   //need to use sendfile instead (lowercase f)
+   //https://stackoverflow.com/questions/34194245/res-sendfile-is-not-a-function-node-js
+   res.sendfile(__dirname + '/views/hot.html');
+ });
+
+ app.get ('/api/popularRepos', function hot(req, res) {
+   var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
+
+   axios
+     .get(encodedURI)
+     .then(function (response) {
+       console.log("**********************popular",response.data.items);
+       res.json({user: req.user, popular: response.data.items});
+     })
+     .catch(err => {
+       return err;
+     })
+   // res.render('hot', {user: req.user, popular: popular});
+ });
+
+ // const axios = require('axios');
+ //
+ // var id = keys.githubClientID || process.env.GITHUB_CLIENT_ID;
+ // var sec = keys.githubClientSecret || process.env.GITHUB_CLIENT_SECRET;
+ // var params = "?client_id=" + id + "&client_secret=" + sec;
+ //
+ // app.get ('/api/hot', function hot(req, res) {
+ //
+ //     axios.get('https://api.github.com/users/' + req.user.gh.username + params)
+ //       .then((user) => {
+ //       console.log(user);
+ //         res.render('hot', {user: req.user, userData:user.data});
+ //       }).catch(error => {
+ //         console.log("ERROR: ", error)
+ //       })
+ //
+ //
+ // });
+
+
+
+
+
+//  app.get("/allGames", function(req, res) {
+//
+//
+// const url =
+//   "https://api.fantasydata.net/v3/cbb/scores/JSON/Tournament/sim?key=e415ccd5602b4e06870ba5c497510cbd";
+// fetch(url)
+//   .then(response => {
+//     response.json().then(json => {
+//       res.json(
+//         createGamesFromData(json)
+//       );
+//     });
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
+//
+//
+//   function createGamesFromData(json){
+//     json.Games.forEach(function (game){
+//
+//       var newGame = new Game({
+//         user: null,
+//         email: null,
+//         gameDay: game.Day,
+//         gameAwayTeam: game.AwayTeam,
+//         awayTeamScore: game.AwayTeamScore,
+//         gameHomeTeam: game.HomeTeam,
+//         homeTeamScore: game.HomeTeamScore
+//       });
+//       newGame.save(function(err, game) {
+//         if (err) {
+//           return console.log("save error: " + err);
+//         }
+//         console.log("Game saved:", game);
+//
+//       });
+//
+//     }) //end forEach
+//   } //end createGamesFromData
+// });
 
 
 /////////////////////
@@ -77,6 +171,18 @@ app.get('/auth/current_user', (req, res) => {
   console.log("current user");
   res.send(req.user);
 })
+
+// // get all repos
+// app.get('/api/repos', function (req, res) {
+//  // send all repos as JSON response
+//  db.Project.find({},function(err, repos){
+//    if (err) {
+//      console.log("index error: " + err);
+//      return res.sendStatus(500);
+//    }
+//    res.json(repos);
+//  });
+// });
 
 //begins authentication. tell passport to use github strategy
 app.get('/auth/github',

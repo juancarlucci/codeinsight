@@ -1,19 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>profile</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>codeInsight</title>
+
     <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="/styles/profile.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
-</head>
-<body>
-<h4>Juan Carlos Collins</h4>
-<h4>githubUsername: juancarlucci</h4>
-<h4>githubLink: juancarlucci</h4>
+    <!-- VENDOR SCRIPTS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="/scripts/app.js"></script>
+  </head>
+  <body>
 
 
-</body>
+    <%- include('nav'); %>
+
+
+    <h2>Welcome</h2>
+
+
+      <%= user.gh.username %>
+      repos: <%= user.gh.repos %>
+
+<button id="language">Language split</button>
+<button id="all">All</button>
+<button id="concentric">Concentric</button>
+
+    <article id="stars-layout"></article>
+    <!-- <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+    	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 513 93.8"
+    	 enable-background="new 0 0 513 93.8" xml:space="preserve">
+
+
+    		<path id="heartBeat" fill="none" stroke="#F26522" stroke-width="2" d="M0,72.2c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
+    			c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
+    			c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
+    			c8,0.7,16,17.3,16,17.3s28,0,28,0c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
+    			c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
+    			c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
+    			s16,17.3,16,17.3h28"/>
+
+    </svg> -->
+    <!-- <svg version="1.1" id="heartBeat-bottom" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+    	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 513 699.3"
+    	 enable-background="new 0 0 513 699.3" xml:space="preserve">
+
+    	<g i:extraneous="self">
+    		<path display="none" fill="none" stroke="#F26522" d="M0,73.2c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5
+    			c2.7-0.2,3.5,0.5,5.2,2.5c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1
+    			c1.3-8.4,3-51.8,4-82.5c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3
+    			c0,0,13.3-19,21.3-18.3s16,17.3,16,17.3s28,0,28,0c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
+    			c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
+    			c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
+    			c8,0.7,16,17.3,16,17.3h28"/>
+    		<g>
+    			<path display="none" fill="#8DC63F" d="M99.4,59.8c2.7-0.2,3.5,0.5,5.2,2.4c1.3,1.5,6.8,6.6,9,8.7c0.6,0.6,1.5,0.9,2.4,0.9h15.9
+    				c0.8,0,1.6,0.5,2,1.2c2.1,4.3,9.3,18.4,10.4,11.6c1.3-8,3-49.7,4-79.2c0.1-1.7,2.7-1.7,2.8,0l5.1,86.4c0.1,1.3,2,1.5,2.4,0.2
+    				l5.1-18.6c0.2-0.7,0.9-1.2,1.7-1.2l26-0.3c0,0,13.3-18.2,21.3-17.6s16,16.6,16,16.6h28c8.8-0.3,77.5-0.3,77.5-0.3
+    				c10.3-5.8,17.5-11.7,21.8-12c2.7-0.2,3.5,0.5,5.2,2.4c1.3,1.5,6.8,6.6,9,8.7c0.6,0.6,1.5,0.9,2.4,0.9h15.9c0.8,0,1.6,0.5,2,1.2
+    				c2.1,4.3,9.3,18.4,10.4,11.6c1.3-8,3-49.7,4-79.2c0.1-1.7,2.7-1.7,2.8,0l5.1,86.4c0.1,1.3,2,1.5,2.4,0.2l5.1-18.6
+    				c0.2-0.7,0.9-1.2,1.7-1.2l26-0.3c0,0,13.3-18.2,21.3-17.6c8,0.6,16,16.6,16,16.6h27.5V0H0.5v72.1c10.6-0.3,77-0.3,77-0.3
+    				C87.9,66.1,95,60.1,99.4,59.8z"/>
+    			<path fill="#8DC63F" d="M485,69.6c0,0-8-16-16-16.6c-8-0.6-21.3,17.6-21.3,17.6l-26,0.3c-0.8,0-1.5,0.5-1.7,1.2l-5.1,18.6
+    				c-0.3,1.3-2.3,1.1-2.4-0.2l-5.1-86.4c-0.1-1.7-2.7-1.7-2.8,0c-1,29.5-2.7,71.2-4,79.2c-1.1,6.8-8.3-7.3-10.4-11.6
+    				c-0.4-0.7-1.1-1.2-2-1.2h-15.9c-0.9,0-1.7-0.3-2.4-0.9c-2.3-2.1-7.7-7.2-9-8.7c-1.7-1.9-2.5-2.6-5.2-2.4
+    				c-4.3,0.3-11.5,6.2-21.8,12c0,0-68.7,0-77.5,0.3h-28c0,0-8-16-16-16.6s-21.3,17.6-21.3,17.6l-26,0.3c-0.8,0-1.5,0.5-1.7,1.2
+    				L158.4,92c-0.3,1.3-2.3,1.1-2.4-0.2L151,5.4c-0.1-1.7-2.7-1.7-2.8,0c-1,29.5-2.7,71.2-4,79.2c-1.1,6.8-8.3-7.3-10.4-11.6
+    				c-0.4-0.7-1.1-1.2-2-1.2h-15.9c-0.9,0-1.7-0.3-2.4-0.9c-2.3-2.1-7.7-7.2-9-8.7c-1.7-1.9-2.5-2.6-5.2-2.4
+    				c-4.3,0.3-11.5,6.2-21.8,12c0,0-66.4,0-77,0.3v627.1h512V69.6H485z"/>
+    		</g>
+    	</g>
+    </svg> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2" id='content'>
+          <article class="projects" id="projects-list"></article>
+        </div>
+      </div>
+    </div>
+
+  <script>
+
+  /////////////DATA
+
+  ///////////////
+  data = [
+    {
+      name:"vue",
+      language: 'JavaScript',
+      stars: 90163,
+      avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4'
+    },
+    {
+      name:"bootstrap",
+      language: 'Python',
+      stars: 123511,
+      avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
+    },
+    {
+      name:"reaJact",
+      language: 'Java',
+      stars: 93126,
+      avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
+    },
+    {
+    name:"javascript",
+    language: 'JavaScript',
+    stars: 69186,
+    avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
+    },
+    {
+      name:"eJava",
+      language: 'Java',
+      stars: 52765
+    },
+    {
+      name:"jquery",
+      language: 'Python',
+      stars: 48613
+    }
+
+];
+
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var width = 840,
+    height = 680;
+
+// Define the div for the tooltip
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var svg = d3.select("#stars-layout")
+  .append("svg")
+  .attr("height", height)
+  .attr("width", width)
+  .append("g")
+  .attr("transform", "translate(0,0)")
+
+var defs = svg.append("defs");
+
+defs.append("pattern")
+  .attr("id", "avatar")
+  .attr("height", "100%")
+  .attr("width", "100%")
+  .attr("patternContentUnits", "objectBoundingBox")
+  .append("image")
+  .attr("height", "1")
+  .attr("width", "1")
+  .attr("preserveAspectRatio", "none")
+  .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+  .attr("xlink:href", data.avatar_url)
+
+
+
+//RADIUS scale
+var radiusScale = d3.scaleSqrt()
+  .domain([48613, 123511])
+  .range([10,50])
+//FORCE SiMULATION
+// a collection of forces to apply to circles
+
+//NESTED CIRCLES///////////////
+// var simulation = d3.forceSimulation()
+//   .force("x", d3.forceX(width / 2).strength(0.05))
+//   .force("y", d3.forceY(height / 2).strength(0.05))
+//   //related to redius, so if r = 10, a force of 10 had edges touching
+//   .force("collide", d3.forceCollide(function(d){
+//     return radiusScale(d.stars)+3
+//   }))
+
+//REGULAR Circles
+  var forceXSeparate = d3.forceX(function(d){
+    if(d.language === "JavaScript"){
+    return 250
+  } else {
+    return 750
+  }
+  }).strength(0.05)
+
+  var forceXJoin = d3.forceX(width / 2).strength(0.05)
+
+  var forceCollide = d3.forceCollide(function(d){
+    return radiusScale(d.stars) + 3
+  })
+
+  var forceXconcentric = d3.forceY(width / 2).strength(0.05)
+  // var concentric = circles.attr("cx", 30).attr("cy", 30)
+
+
+  //a collection of forces to apply to circles
+  var simulation = d3.forceSimulation()
+    .force("x", forceXJoin)
+    .force("y", d3.forceY(height / 2).strength(0.05))
+    //collide related to radius, so if r = 10, a force of 10 had edges touching
+    .force("collide", forceCollide)
+
+    // d3.csv("stars.csv", function(error, data) {
+    //   if (error) throw error;
+
+    // d3.queue()
+    //   .defer(d3.csv, "stars.csv")
+    //   .await(ready)
+
+  // function ready(error, data) {
+
+
+  defs.selectAll(".avatar-pattern")
+    .data(data)
+    .enter().append("pattern")
+    .attr("class", "avatar-pattern")
+    .attr("id", function(d){
+      return d.name
+    })
+    .attr("height", "100%")
+    .attr("width", "100%")
+    .attr("patternContentUnits", "objectBoundingBox")
+    .append("image")
+    .attr("height", "1")
+    .attr("width", "1")
+    .attr("preserveAspectRatio", "none")
+    .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+    .attr("xlink:href", function(d){
+      return d.avatar_url
+    });
+
+    var circles = svg.selectAll(".repo")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "repo")
+      .attr("r", function(d){
+        return radiusScale(d.stars)
+      })
+      // .attr("fill", function(d){
+      //   return "url(#" + d.avatar_url +")"
+      // })
+      // .attr("fill", "red")
+      .attr("fill", function(d) { return color(d.language); })
+      .on("click", function(d){
+        console.log(d.name, d.stars)
+      })
+      .on("mouseover", function(d) {
+          div.transition()
+              .duration(200)
+              .style("opacity", .9);
+          div.html("<div><span>Repo:</span> <span>" + d.name + "</span></div>" + "<div><span>Stars:</span> <span>" + d.stars + "</span></div>")
+              .style("left", (d3.event.pageX - 50) + "px")
+              .style("top", (d3.event.pageY - 50) + "px");
+          })
+      .on("mouseout", function(d) {
+          div.transition()
+              .duration(500)
+              .style("opacity", 0);
+      });
+
+
+
+d3.select("#language").on("click", function(){
+  simulation
+    .force("x", forceXSeparate)
+    //NOTE: needed to reset force simulation
+    .alphaTarget(0.5)
+    .restart()
+})
+
+d3.select("#all").on("click", function(){
+  simulation
+    .force("x", forceXJoin)
+    .alphaTarget(.5)
+    .restart()
+})
+
+// d3.select("#concentric").on("click", function(){
+//   circles
+//     .attr("cx", 30)
+//     .attr("cy", 30)
+// })
+
+
+d3.select("#concentric").on("click", function(){
+  simulation
+    .force("cx", concentric)
+    .force("cy", concentric)
+})
+
+
+  simulation.nodes(data)
+    .on("tick", ticked)
+
+  function ticked(){
+    circles
+      .attr("cx", function(d){
+        return d.x
+      })
+      .attr("cy", function(d){
+        return d.y
+      })
+  }
+
+
+  // });//end csv function
+
+  </script>
+  </body>
 </html>

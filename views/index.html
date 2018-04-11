@@ -13,16 +13,16 @@
     <!-- VENDOR SCRIPTS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
     <script src="/scripts/app.js"></script>
   </head>
   <body>
 
-    <%- include('nav'); %>
 
-      <p>EJS</p>
+
+  
 
     <article id="forced-layout"></article>
     <!-- <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
@@ -120,7 +120,7 @@
   // container to hold the visualization. We only need to specify
   // the dimensions for this container.
 
-  var svg = d3.select('#forced-layout').append('svg')
+  var svg = d3.select('forced-layout').append('svg')
       .attr('width', width)
       .attr('height', height);
 

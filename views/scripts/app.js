@@ -7,12 +7,12 @@ $(document).ready(function() {
   //populate adter ready
   $projectsList = $("#projects-list");
   //index route
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/projects",
-  //   success: handleSuccess,
-  //   error: handleError
-  // });
+  $.ajax({
+    method: "GET",
+    url: "/api/projects",
+    success: handleSuccess,
+    error: handleError
+  });
 
   function handleSuccess(json) {
     allProject = json;
@@ -22,12 +22,12 @@ $(document).ready(function() {
     // append html to the view
     $projectsList.append(projetsHtml);
   }
-
+  
   function handleError(e) {
     console.log('uh oh');
     $('#projects-list').text('Failed to load projects, is the server working?');
   }
-
+  
   function getProjectHtml(project) {
     console.log(project.title);
     return `<hr>
@@ -49,7 +49,7 @@ $(document).ready(function() {
   function getAllProjectsHtml(projects) {
     return projects.map(getProjectHtml).join("");
   }
-
+  
   //the secodn arg, '.viewProjectBtn' is event delegation
 $projectsList.on('click', '.viewProjectBtn', function() {
   console.log('clicked viewProject button to', '/api/projects/'+$(this).attr('data-id'));
