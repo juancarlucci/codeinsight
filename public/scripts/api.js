@@ -1,7 +1,6 @@
 //this code adapted from Tyler MCGinnis https://tylermcginnis.com/courses/react-fundamentals/
 
 var axios = require('axios');
-const keys = require("../../config/keys");
 
 
 var id = process.env.GITHUB_CLIENT_ID;

@@ -103,8 +103,8 @@ A second API call is made, this time to LinkedIn or Glassdoor to get statistics 
 config/passport.js
 
 passport.use(new GitHubStrategy({
-  clientID: keys.githubClientID,
-  clientSecret: keys.githubClientSecret,
+  clientID      : process.env.GITHUB_CLIENT_ID,
+  clientSecret  : process.env.GITHUB_CLIENT_SECRET,
   callbackURL: "https://localhost:3000/auth/github/callback"
 },
 function(accessToken, refreshToken, profile, cb) {
