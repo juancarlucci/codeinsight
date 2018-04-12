@@ -302,12 +302,12 @@ var simulation = d3.forceSimulation()
 
 
   // var circles = svg.selectAll(".repo")
-  //   .data(data)
+  //   .data(nodes)
   //   .enter().append("circle")
   //   .attr("class", "repo")
-    // .attr("r", function(d){
-    //   return radiusScale(d.stars)
-    // })
+  //   .attr("r", function(d){
+  //     return radiusScale(d.stars)
+  //   })
   //   // .attr("fill", function(d){
   //   //   return "url(#" + d.avatar_url +")"
   //   // })
@@ -369,68 +369,69 @@ d3.select("#concentric").on("click", function(){
 
 })
 
+
 var node = svg.selectAll("circle.node")
    .data(nodes)
    .enter().append("g")
    .attr("class", "node")
 
-   //MOUSEOVER
-   .on("mouseover", function(d,i) {
-     if (i>0) {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .transition()
-       .duration(250)
-       .style("cursor", "none")
-       .attr("r", function(d){
-         return radiusScale(d.stars)
-       })
-       .attr("fill",function(d) { return color(d.language); })
-
-       //TEXT
-       d3.select(this).select("text")
-       .transition()
-       .style("cursor", "none")
-       .duration(250)
-       .style("cursor", "none")
-       .attr("font-size","1.5em")
-       .attr({
-         "alignment-baseline": "middle",
-         "text-anchor" : "middle"
-             })
-       .attr("x", 0 )
-       .attr("y", 5 )
-     } else {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .style("cursor", "none")
-
-       //TEXT
-       d3.select(this).select("text")
-       .style("cursor", "none")
-     }
-   })
-
-   //MOUSEOUT
-   .on("mouseout", function(d) {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .transition()
-       .duration(250)
-       .attr("r", function(d){
-         return radiusScale(d.stars)
-       })
-       .attr("fill", function(d) { return color(d.language); })
-
-       //TEXT
-       d3.select(this).select("text")
-       .transition()
-       .duration(250)
-       .attr("font-size","1em")
-       .attr("x", 0 )
-       .attr("y", 0 )
-
-   })
+   // //MOUSEOVER
+   // .on("mouseover", function(d,i) {
+   //   if (i>0) {
+   //     //CIRCLE
+   //     d3.select(this).selectAll("circle")
+   //     .transition()
+   //     .duration(250)
+   //     .style("cursor", "none")
+   //     .attr("r", function(d){
+   //       return radiusScale(d.stars)
+   //     })
+   //     .attr("fill",function(d) { return color(d.language); })
+   //
+   //     //TEXT
+   //     d3.select(this).select("text")
+   //     .transition()
+   //     .style("cursor", "none")
+   //     .duration(250)
+   //     .style("cursor", "none")
+   //     .attr("font-size","1.5em")
+   //     .attr({
+   //       "alignment-baseline": "middle",
+   //       "text-anchor" : "middle"
+   //           })
+   //     .attr("x", 0 )
+   //     .attr("y", 5 )
+   //   } else {
+   //     //CIRCLE
+   //     d3.select(this).selectAll("circle")
+   //     .style("cursor", "none")
+   //
+   //     //TEXT
+   //     d3.select(this).select("text")
+   //     .style("cursor", "none")
+   //   }
+   // })
+   //
+   // //MOUSEOUT
+   // .on("mouseout", function(d) {
+   //     //CIRCLE
+   //     d3.select(this).selectAll("circle")
+   //     .transition()
+   //     .duration(250)
+   //     .attr("r", function(d){
+   //       return radiusScale(d.stars)
+   //     })
+   //     .attr("fill", function(d) { return color(d.language); })
+   //
+   //     //TEXT
+   //     d3.select(this).select("text")
+   //     .transition()
+   //     .duration(250)
+   //     .attr("font-size","1em")
+   //     .attr("x", 0 )
+   //     .attr("y", 0 )
+   //
+   // })
 
    // .call(force.drag);
 
