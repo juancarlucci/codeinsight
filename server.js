@@ -36,7 +36,7 @@ mongoose.connect(dbUrl);
 ///////////////////////////
 app.use( cookieParser() );
 // app.use(expressSession({secret: 'octopuslikesroundstones'}));
-app.use(expressSession({secret: process.env.EXPRESS_SESSION_SECRET || keys.expressSessionSecret}));
+app.use(expressSession({secret: process.env.EXPRESS_SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
