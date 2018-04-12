@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>codeInsight</title>
+    <name>codeInsight</name>
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -14,35 +15,29 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
     <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> </script>
-
+    <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
-    
-    <!-- <script src="/scripts/d3-profile.js"></script> -->
-    <script src="/scripts/app.js" defer></script>
+    <!-- <script src="/scripts/app.js"></script> -->
   </head>
   <body>
-
-
+    <!-- <div id="nav">Nav</div> -->
     <%- include('nav'); %>
 
-
-    <h2>Welcome</h2>
-
-
-      <%= user.gh.username %>
-      repos: <%= user.gh.repos %>
-
-<div class="ui-widget">
-   <input id="search">
-    <button type="button" onclick="searchRepo()">Search</button>
-</div>
-<button id="language">Language split</button>
-<button id="all">All</button>
-<button id="concentric">Concentric</button>
-
-    <article id="profile-layout"></article>
+    <div class="ui-widget">
+       <input id="search" placeholder="search repos...">
+        <button type="button" onclick="searchRepo()">Search</button>
+    </div>
+      <div id="selectors">
+        <button id="language">Language split</button>
+        <button id="all">All</button>
+        <button id="concentric">Concentric</button>
+      </div>
+  <container class="main flex-contaier">
+    <div id="popular-list" ></div>
+    <article id="stars-layout"></article>
+  </container>
     <!-- <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
     	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 513 93.8"
     	 enable-background="new 0 0 513 93.8" xml:space="preserve">
@@ -87,28 +82,12 @@
     		</g>
     	</g>
     </svg> -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2" id='content'>
-          <article class="projects" id="projects-list"></article>
-        </div>
-      </div>
-    </div>
 
-  <script>
-
-  function htmlDecode(input){
-      var e = document.createElement('div');
-      e.innerHTML = input;
-      return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-    }
-    var myVar = JSON.parse(htmlDecode("<%= JSON.stringify(user.gh.repos) %>"));
-
-console.log(myVar);
+  <script src="/scripts/d3.js" defer></script>
+  <script src="/scripts/app.js" defer></script>
 
 
 
-  </script>
-  <script src="/scripts/d3-profile.js" defer></script>
+
   </body>
 </html>

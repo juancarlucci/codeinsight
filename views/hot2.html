@@ -17,7 +17,7 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
-    <script src="/scripts/app.js"></script>
+    <!-- <script src="/scripts/app.js"></script> -->
   </head>
   <body>
     <div id="nav">Nav</div>
@@ -107,7 +107,7 @@ function handleError(e) {
     $("#popular-list").text('Failed to load repos, is the server working?');
   }
 
-  function getProjectHtml(repo) {
+  function getRepoHtml(repo) {
     console.log(repo.name);
     return `<hr>
         <p>
@@ -126,7 +126,32 @@ function handleError(e) {
   }
 
   function getAllReposHtml(repos) {
-    return repos.map(getProjectHtml).join("");
+    return repos.map(getRepoHtml).join("");
+  }
+
+  //the secodn arg, '.viewProjectBtn' is event delegation
+  $projectsList.on('click', '.viewProjectBtn', function() {
+  console.log('clicked viewProject button to', '/api/projects/'+$(this).attr('data-id'));
+  $.ajax({
+    method: 'GET',
+    url: '/api/projects/'+$(this).attr('data-id'),
+    success: viewProjectSuccess,
+    error: viewProjectError
+  });
+  });
+  //function to repopulate
+  function viewProjectSuccess(project) {
+    //hide
+    $('#content').hide('3000',function(){
+      //after hide
+      $('#content').empty();
+      console.log(project);
+    $('#content').append( getProjectViewHtml(project));
+    $('#content').show('1000');
+  });
+  }
+  function viewProjectError(err) {
+    console.log("view success",err);
   }
 
 }); //end on ready

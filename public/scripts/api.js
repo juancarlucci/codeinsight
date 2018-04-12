@@ -1,4 +1,4 @@
-//this code from Tyler MCGinnis https://tylermcginnis.com/courses/react-fundamentals/
+//this code adapted from Tyler MCGinnis https://tylermcginnis.com/courses/react-fundamentals/
 
 var axios = require('axios');
 const keys = require("../../config/keys");
@@ -7,6 +7,21 @@ const keys = require("../../config/keys");
 var id = keys.githubClientID || process.env.GITHUB_CLIENT_ID;
 var sec = keys.githubClientSecret || process.env.GITHUB_CLIENT_SECRET;
 var params = "?client_id=" + id + "&client_secret=" + sec;
+
+// app.get ('/api/repos/popular', function hot(req, res) {
+//   var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
+//
+//   axios
+//     .get(encodedURI)
+//     .then(function (response) {
+//       console.log("**********************popular",response.data.items);
+//       res.json({user: req.user, popular: response.data.items});
+//     })
+//     .catch(err => {
+//       return err;
+//     })
+//
+// });
 
 function getProfile (username) {
 	return axios.get('https://api.github.com/users/' + username + params)
@@ -24,13 +39,6 @@ function getStarCount (repos) {
 	return repos.data.reduce(function(count, repo) {
 		return count + repo.stargazers_count
 	}, 0);
-}
-
-function calculateScore (profile, repos) {
-	var followers = profile.followers;
-	var totalStars = getStarCount(repos);
-
-	return (followers * 3) + totalStars;
 }
 
 function handleError (error) {

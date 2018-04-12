@@ -23,7 +23,7 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #fff;
+  /* background-color: #fff; */
   /* background: linear-gradient(to right, #e66465, #C86DD7); */
   text-align: center;
   padding: 1.25em 17.188em;
@@ -38,6 +38,7 @@ a {
   font-family: "Relaway", sans-serif;
   font-weight: 600;
   text-decoration: none;
+  color: #fff;
   color: gray;
   letter-spacing: 0.063em;
   font-size: 1.125em;
@@ -48,7 +49,7 @@ a {
 
 
 body {
-  color: gray;
+  /* color: #fff; */
   font-family: Helvetica, Arial, sans-serif;
   /* background: linear-gradient(to right, #e66465, #C86DD7); */
 }
@@ -59,23 +60,21 @@ h1 {
   font-size: calc(1em + 6vw);
 }
 
-img {
+.repo-image {
   display: flex;
-  width: 13em;
+  /* width: 13em; */
+  width: 1em;
+  height: 1em;
 }
 /* /////////////////////
       D3
 /////////////////////// */
-.node {
+/* .node {
     fill: #ccc;
     stroke: #fff;
     stroke-width: 2px;
-}
+} */
 
-.link {
-    stroke: #777;
-    stroke-width: 2px;
-}
 
 /* /////////////////////////
        SVG
@@ -99,4 +98,24 @@ img {
 #heartBeat-bottom {
   position: absolute;
   top: 107px;
+}
+
+/* /////////////////////////
+       HOT
+/////////////////////////// */
+.flex-contaier {
+  display: flex;
+}
+
+#popular-list {
+  text-align: center;
+  height: 680px;
+  overflow-y: scroll;
+}
+
+
+.bar { fill: steelblue; }
+
+.node text {
+  font: 9px helvetica;
 }
