@@ -30,7 +30,7 @@ module.exports = function(passport){
   passport.use(new GitHubStrategy({
     clientID      : process.env.GITHUB_CLIENT_ID,
     clientSecret  : process.env.GITHUB_CLIENT_SECRET,
-    callbackURL   : "https://codeinsight.herokuapp.com/auth/github/callback",
+    callbackURL   : process.env.CALLBACK_URL,
     proxy         : true
   }, function(accessToken, refreshToken, profile, done) {
 
