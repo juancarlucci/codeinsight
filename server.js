@@ -116,8 +116,8 @@ app.get ('/api/search/:topic', function hot(req, res) {
 
  // const axios = require('axios');
  //
- // var id = keys.githubClientID || process.env.GITHUB_CLIENT_ID;
- // var sec = keys.githubClientSecret || process.env.GITHUB_CLIENT_SECRET;
+ // var id = process.env.GITHUB_CLIENT_ID;
+ // var sec = process.env.GITHUB_CLIENT_SECRET;
  // var params = "?client_id=" + id + "&client_secret=" + sec;
  //
  // app.get ('/api/hot', function hot(req, res) {
