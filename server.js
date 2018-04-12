@@ -7,7 +7,6 @@ var logger         = require('morgan');
 var bodyParser     = require('body-parser');
 var app            = express();
 var mongoose       = require('mongoose');
-const keys         = require("./config/keys");
 var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");

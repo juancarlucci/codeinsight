@@ -3,7 +3,7 @@
 var User = require('../models/user');
 // const User = mongoose.model('users');
 // var FacebookStrategy = require('passport-facebook').Strategy;
-const keys = require("./keys");
+
 const GitHubStrategy = require('passport-github').Strategy;
 
 /////////////////////////
