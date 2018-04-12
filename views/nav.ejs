@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/styles/styles.css">
+<nav>
+  <svg height="100" width="100">
+    <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="orangered" />
+  </svg>
+
+  <h4>codeInsight</h4>
+  <% if(user != undefined){ %>
+
+    <a href="/api/hot">what's hot</a>
+    <a href="/api/profile">profile</a>
+    <a href="/logout">logout</a>
+    <p>Welcome, <%= user.gh.username %></p>
+  <% } else { %>
+    <a href="/auth/github">login with github</a>
+  <% } %>
+</nav>
