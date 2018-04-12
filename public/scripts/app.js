@@ -1,139 +1,47 @@
 console.log("Sanity insanitum: JS is working!");
 $(document).ready(function() {
-///FAKE TEST DATA
-// var  repos = [
-//   {
-//     name:"vue",
-//     language: 'JavaScript',
-//     stargazers_count: 90163,
-//     avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4',
-//     homepage: 'http://vuejs.org'
-//   },
-//   {
-//     name:"bootstrap",
-//     language: 'Python',
-//     stargazers_count: 123511,
-//     avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
-//     homepage: 'http://getbootstrap.com'
-//   },
-//   {
-//     name:"reaJact",
-//     language: 'Java',
-//     stargazers_count: 93126,
-//     avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
-//   },
-//   {
-//   name:"javascript",
-//   language: 'JavaScript',
-//   stargazers_count: 69186,
-//   avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
-//   },
-//   {
-//     name:"eJava",
-//     language: 'Java',
-//     stargazers_count: 52765
-//   },
-//   {
-//     name:"jquery",
-//     language: 'Python',
-//     stargazers_count: 48613
-//   },
-//   {
-//     name:"lamda",
-//     language: 'Lisp',
-//     stargazers_count: 8613
-//   }
-//
-// ];
 
 
+
+
+///////////////////////////////////////////////////////////////
+// POPULAR LIST SIDEBAR
+/////////////////////////////////////////////////////////////
 var $popularList;
 var allRepos = [];
 var nodes = [];
 
 
-//populate adter ready
+// populate adter ready
 $popularList = $("#popular-list");
-//index route
+
   $.ajax({
     method: "GET",
-    // url: "/api/repos/all",
     url: "/api/repos/popular",
     success: handleSuccess,
     error: handleError
 });
 
-///TEST Trigger ////////
-// handleSuccess(repos);
-
-////////////////////////
 
 function handleSuccess(json) {
 allRepos = json.popular;
-// allReposFake = json;
-// console.log(allRepos);
-// pass `allRepos` into the template function
-// var reposHtml = getAllReposHtml(allRepos);
 var reposHtml = getAllReposHtml(allRepos);
-// changeStyle(reposHtml);
-// append html to the view
 $popularList.append(reposHtml);
-// allRepos.push(reposHtml);
-// console.log(allRepos);
 var newNodes = createD3nodes(allRepos);
-// nodes.push(newNodes);
-// console.log('newNodes: \n',newNodes);
 }
 
 function handleError(e) {
   $("#popular-list").text('Failed to load popular repos, is the server working?');
 }
 
-// function getRepoHtml(repo) {
-//   console.log(repo.name);
-//   return `<hr>
-//       <p>
-//         <b class="repo-name">${repo.name}</b>
-//         <span class="view-input" style="display: none">
-//           <input type="text" value="${repo.name}" />
-//           </span>
-//           <p>
-//             ${repo.name}
-//           </p>
-//           <button class="viewRepoBtn">View</button>
-//         stars ${repo.stargazers_count}
-//         <br>
-//         </p>
-//       `;
-// }
-
 function changeStyle(reposHtml) {
-  // var $repoItemsNodeArray = document.getElementsByClassName("repo-item");
   var list = document.getElementsByClassName("repo-item");
-    // console.log($repoItemsNodeArray[0]);
-//   for (var i =0 ; i<$repoItemsNodeArray.length; i++){
-//   console.log($repoItemsNodeArray);
-// }
 for (var item of reposHtml) {
     // console.log(item.dataset);
  }
-
-  // if (.dataset. === "red"){
-  //   document.getElementById("myDiv").style.color = "yellow";
-  // } else {
-  //   document.getElementById("myDiv").style.color = "red";
-  // }
 }
-// function addClass() {
-//     document.getElementById("myDiv").classList.add("mystyle");
-// }
-// function removeClass() {
-//     document.getElementById("myDiv").classList.remove("mystyle");
-// }
 
 function getRepoHtml(repo) {
-
-  // console.log(repo.name);
   return `<hr>
           <p class="repo-item" data-stars=${repo.stargazers_count}>
             <a href="${repo.homepage}" target="_blank">
@@ -151,109 +59,19 @@ function getAllReposHtml(repos) {
   // repos = changeStyle(repos)
   return repos.map(getRepoHtml).join("");
 }
-
-//the secodn arg, '.viewRepoBtn' is event delegation
-// $popularList.on('click', '.viewRepoBtn', function() {
-// console.log('clicked viewRepo button to', '/api/repo/'+$(this).attr('data-id'));
-// // $.ajax({
-// //   method: 'GET',
-// //   url: '/api/repo/'+$(this).attr('data-id'),
-// //   success: viewRepoSuccess,
-// //   error: viewRepoError
-// // });
-// });
-// //function to repopulate
-// function viewRepoSuccess(repo) {
-//   //hide
-//   $('#content').hide('3000',function(){
-//     //after hide
-//   $('#content').empty();
-//
-//   $('#content').append( getRepoViewHtml(repo));
-//   $('#content').show('1000');
-// });
-// }
-// function viewRepoError(err) {
-//   console.log("view success",err);
-// }
-
 //////////////////////////////////////////////////////////
+// END of POPULAR LIST
 ///////////////////////////////////////////////////////////
+ });  //end document ready
 
-
-///////////////////////////
-///////////D3////////////////
-
-
+///////////////////////////////////////////////////////////
+///////////D3 FORCE LAYOUT begin////////////////
+///////////////////////////////////////////////////////////
 //
-// /////////////DATA////////////
-// var data =[
-// {id: 2126244, name: "bootstrap", owner_avatar: "https://avatars0.githubusercontent.com/u/2918581?v=4", homepage: "http://getbootstrap.com", language: "CSS"},
-// {id: 45717250, name: "tensorflow", owner_avatar: "https://avatars1.githubusercontent.com/u/15658638?v=4", homepage: "https://tensorflow.org", language: "C++"},
-// {id: 10270250, name: "react", owner_avatar: "https://avatars3.githubusercontent.com/u/69631?v=4", homepage: "https://reactjs.org", language: "JavaScript"},
-// {id: 11730342, name: "vue", owner_avatar: "https://avatars1.githubusercontent.com/u/6128107?v=4", homepage: "http://vuejs.org", language: "JavaScript"},
-// {id: 21737465, name: "awesome", owner_avatar: "https://avatars1.githubusercontent.com/u/170270?v=4", homepage: "", language: null},
-// {id: 943149, name: "d3", owner_avatar: "https://avatars1.githubusercontent.com/u/1562726?v=4", homepage: "https://d3js.org", language: "JavaScript"},
-// {id: 6498492, name: "javascript", owner_avatar: "https://avatars3.githubusercontent.com/u/698437?v=4", homepage: null, language: "JavaScript"},
-// {id: 29028775, name: "react-native", owner_avatar: "https://avatars3.githubusercontent.com/u/69631?v=4", homepage: "http://facebook.github.io/react-native/", language: "JavaScript"},
-// {id: 9384267, name: "electron", owner_avatar: "https://avatars1.githubusercontent.com/u/13409222?v=4", homepage: "https://electronjs.org", language: "C++"},
-// {id: 460078, name: "angular.js", owner_avatar: "https://avatars3.githubusercontent.com/u/139426?v=4", homepage: "https://angularjs.org", language: "JavaScript"},
-// {id: 2325298, name: "linux", owner_avatar: "https://avatars0.githubusercontent.com/u/1024025?v=4", homepage: "", language: "C"},
-// {id: 3470471, name: "Font-Awesome", owner_avatar: "https://avatars0.githubusercontent.com/u/1505683?v=4", homepage: "https://fontawesome.com", language: "CSS"},
-// {id: 2561582, name: "animate.css", owner_avatar: "https://avatars3.githubusercontent.com/u/439365?v=4", homepage: "http://daneden.github.io/animate.css", language: "CSS"},
-// {id: 167174, name: "jquery", owner_avatar: "https://avatars1.githubusercontent.com/u/70142?v=4", homepage: "https://jquery.com/", language: "JavaScript"},
-// {id: 7691631, name: "moby", owner_avatar: "https://avatars1.githubusercontent.com/u/27259197?v=4", homepage: "https://mobyproject.org/", language: "Go"},
-// {id: 21289110, name: "awesome-python", owner_avatar: "https://avatars2.githubusercontent.com/u/652070?v=4", homepage: "https://awesome-python.com/", language: "Python"}
-// ]
-//
-// // var data = [
-// // var  nodes = [
-// //   {
-// //     name:"vue",
-// //     language: 'JavaScript',
-// //     stars: 90163,
-// //     avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4'
-// //   },
-// //   {
-// //     name:"bootstrap",
-// //     language: 'Python',
-// //     stars: 123511,
-// //     avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
-// //   },
-// //   {
-// //     name:"reaJact",
-// //     language: 'Java',
-// //     stars: 93126,
-// //     avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
-// //   },
-// //   {
-// //   name:"javascript",
-// //   language: 'JavaScript',
-// //   stars: 69186,
-// //   avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
-// //   },
-// //   {
-// //     name:"eJava",
-// //     language: 'Java',
-// //     stars: 52765
-// //   },
-// //   {
-// //     name:"jquery",
-// //     language: 'Python',
-// //     stars: 48613
-// //   },
-// //   {
-// //     name:"lamda",
-// //     language: 'Lisp',
-// //     stars: 8613
-// //   }
-// //
-// // ];
-//
+// //Get data from success
 function createD3nodes(data){
 
-  data = data.map(function(repo) {
-
+  var nodes = data.map(function(repo) {
 
     return {
       id:repo.id,
@@ -268,327 +86,359 @@ function createD3nodes(data){
 
     }
   });
-  // console.log(data);
+/////////////DATA////////////
+var nodes =[
+{ created_at : "2011-07-29T21:19:00Z",
+  forks_count : 58909,
+  homepage : "http://getbootstrap.com",
+  id : 2126244,
+  language : "CSS",
+  name : "bootstrap",
+  owner_avatar : "https://avatars0.githubusercontent.com/u/2918581?v=4",
+  stars : 123578,
+  updated_at : "2018-04-12T04:14:41Z",
+},
+{ created_at : "2015-11-07T01:19:20Z",
+  forks_count : 61149,
+  homepage : "https://tensorflow.org",
+  id : 45717250,
+  language : "C++",
+  name : "tensorflow",
+  owner_avatar: "https://avatars1.githubusercontent.com/u/15658638?v=4",
+  stars: 95925,
+  updated_at: "2018-04-12T04:25:33Z",
+},
+{ created_at:"2013-05-24T16:15:54Z",
+  forks_count:17572,
+  homepage:"https://reactjs.org",
+  id:10270250,
+  language:"JavaScript",
+  name:"react",
+  owner_avatar:"https://avatars3.githubusercontent.com/u/69631?v=4",
+  stars:93256,
+  updated_at:"2018-04-12T04:10:52Z",
+},
+{ created_at : "2013-07-29T03:24:51Z",
+  forks_count : 13265,
+  homepage : "http://vuejs.org",
+  id : 11730342,
+  language : "JavaScript",
+  name : "vue",
+  owner_avatar : "https://avatars1.githubusercontent.com/u/6128107?v=4",
+  stars : 90384,
+  updated_at : "2018-04-12T04:23:28Z"
+
+},
+{ created_at : "2010-09-27T17:22:42Z",
+  forks_count : 19068,
+  homepage : "https://d3js.org",
+  id : 943149,
+  language : "JavaScript",
+  name : "d3",
+  owner_avatar : "https://avatars1.githubusercontent.com/u/1562726?v=4",
+  stars : 74708,
+  updated_at : "2018-04-12T03:33:14Z"
+},
+{ created_at : "2012-11-01T23:13:50Z",
+  forks_count : 13211,
+  homepage : null,
+  id : 6498492,
+  language : "JavaScript",
+  name : "javascript",
+  owner_avatar : "https://avatars3.githubusercontent.com/u/698437?v=4",
+  stars : 69267,
+  updated_at : "2018-04-12T03:23:30Z"
+},
+{ created_at : "2009-08-28T18:15:37Z",
+  forks_count : 14399,
+  homepage : "http://ohmyz.sh/",
+  id : 291137,
+  language : "Shell",
+  name : "oh-my-zsh",
+  owner_avatar : "https://avatars2.githubusercontent.com/u/257?v=4",
+  stars : 68602,
+  updated_at : "2018-04-12T04:23:19Z"
+},
+{ created_at : "2015-01-09T18:10:16Z",
+  forks_count : 14204,
+  homepage : "http://facebook.github.io/react-native/",
+  id : 29028775,
+  language : "JavaScript",
+  name : "react-native",
+  owner_avatar : "https://avatars3.githubusercontent.com/u/69631?v=4",
+  stars : 62451,
+  updated_at : "2018-04-12T03:00:43Z"
+},
+{ created_at : "2013-04-12T01:47:36Z",
+  forks_count : 7678,
+  homepage : "https://electronjs.org",
+  id : 9384267,
+  language : "C++",
+  name : "electron",
+  owner_avatar : "https://avatars1.githubusercontent.com/u/13409222?v=4",
+  stars : 58825,
+  updated_at : "2018-04-12T02:57:46Z"
+},
+{ created_at : "2010-01-06T00:34:37Z",
+  forks_count : 28892,
+  homepage : "https://angularjs.org",
+  id : 460078,
+  language : "JavaScript",
+  name : "angular.js",
+  owner_avatar : "https://avatars3.githubusercontent.com/u/139426?v=4",
+  stars : 58285,
+  updated_at : "2018-04-12T04:05:39Z"
+},
+{ created_at : "2011-09-04T22:48:12Z",
+  forks_count : 21130,
+  homepage : "",
+  id : 2325298,
+  language : "C",
+  name : "linux",
+  owner_avatar : "https://avatars0.githubusercontent.com/u/1024025?v=4",
+  stars : 57480,
+  updated_at : "2018-04-12T04:18:52Z"
+},
+{ created_at : "2012-02-17T14:19:43Z",
+  forks_count : 9587,
+  homepage : "https://fontawesome.com",
+  id : 3470471,
+  language : "CSS",
+  name : "Font-Awesome",
+  owner_avatar : "https://avatars0.githubusercontent.com/u/1505683?v=4",
+  stars : 55773,
+  updated_at : "2018-04-12T03:17:31Z"
+},
+{ created_at : "2011-10-12T10:07:38Z",
+  forks_count : 10882,
+  homepage : "http://daneden.github.io/animate.css",
+  id : 2561582,
+  language : "CSS",
+  name : "animate.css",
+  owner_avatar : "https://avatars3.githubusercontent.com/u/439365?v=4",
+  stars : 50568,
+  updated_at : "2018-04-12T02:39:35Z"
+},
+{ created_at : "2009-04-03T15:20:14Z",
+  forks_count : 15351,
+  homepage : "https://jquery.com/",
+  id : 167174,
+  language : "JavaScript",
+  name : "jquery",
+  owner_avatar : "https://avatars1.githubusercontent.com/u/70142?v=4",
+  stars : 48640,
+  updated_at : "2018-04-12T03:24:15Z"
+},
+{ created_at : "2013-01-18T18:10:57Z",
+  forks_count : 14238,
+  homepage : "https://mobyproject.org/",
+  id : 7691631,
+  language : "Go",
+  name : "moby",
+  owner_avatar : "https://avatars1.githubusercontent.com/u/27259197?v=4",
+  stars : 48429,
+  updated_at : "2018-04-12T03:57:52Z"
+},
+{ created_at : "2014-06-27T21:00:06Z",
+  forks_count : 9346,
+  homepage : "https://awesome-python.com/",
+  id : 21289110,
+  language : "Python",
+  name : "awesome-python",
+  owner_avatar : "https://avatars2.githubusercontent.com/u/652070?v=4",
+  stars : 48312,
+  updated_at : "2018-04-12T04:20:30Z"
 }
-//
-//
-//
-//
-// // var color = d3.scaleOrdinal(d3.schemeCategory20);
-// var color = d3.scaleLinear()
-//     .domain([10, 100])
-//     .range(["brown", "steelblue"]);
-//
-// var width = 840,
-//   height = 680;
-//
-// // Define the div for the tooltip
-// var div = d3.select("body").append("div")
-//   .attr("class", "tooltip")
-//   .style("opacity", 0);
-//
-// var svg = d3.select("#stars-layout")
-// .append("svg")
-// .attr("height", height)
-// .attr("width", width)
-// .append("g")
-// .attr("transform", "translate(0,0)")
-//
-// // var defs = svg.append("defs");
-// //
-// // defs.append("pattern")
-// //   .attr("id", "avatar")
-// //   .attr("height", "100%")
-// //   .attr("width", "100%")
-// //   .attr("patternContentUnits", "objectBoundingBox")
-// //   .append("image")
-// //   .attr("height", "1")
-// //   .attr("width", "1")
-// //   .attr("preserveAspectRatio", "none")
-// //   .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-// //   .attr("xlink:href", data.avatar_url)
-//
-//
-//
-// //RADIUS scale
-// var radiusScale = d3.scaleSqrt()
-// .domain([8613, 123511])
-// .range([10,70])
-// //FORCE SiMULATION
-// // a collection of forces to apply to circles
-//
-// //NESTED CIRCLES///////////////
-// // var simulation = d3.forceSimulation()
-// //   .force("x", d3.forceX(width / 2).strength(0.05))
-// //   .force("y", d3.forceY(height / 2).strength(0.05))
-// //   //related to redius, so if r = 10, a force of 10 had edges touching
-// //   .force("collide", d3.forceCollide(function(d){
-// //     return radiusScale(d.stars)+3
-// //   }))
-//
-// //REGULAR Circles
-// var forceXSeparate = d3.forceX(function(d){
-//   if(d.language === "JavaScript"){
-//   return (width / 2)
-// } else {
-//   return 750
-// }
-// }).strength(0.5)
-//
-// var forceXJoin = d3.forceX(width / 2).strength(0.05)
-//
-// var forceCollide = d3.forceCollide(function(d){
-//   return radiusScale(d.stars) + 3
-// })
-//
-// // var forceXconcentric = d3.forceY(width / 2).strength(0.05)
-// // var concentric = circles.attr("cx", 30).attr("cy", 30)
-//
-//
-// //a collection of forces to apply to circles
-// var simulation = d3.forceSimulation()
-//   .force("x", forceXJoin)
-//   .force("y", d3.forceY(height / 2).strength(0.05))
-//   //collide related to radius, so if r = 10, a force of 10 had edges touching
-//   .force("collide", forceCollide)
-//
-//   // d3.csv("stars.csv", function(error, data) {
-//   //   if (error) throw error;
-//
-//   // d3.queue()
-//   //   .defer(d3.csv, "stars.csv")
-//   //   .await(ready)
-//
-// // function ready(error, data) {
-//
-//
-// // defs.selectAll(".avatar-pattern")
-// //   .data(data)
-// //   .enter().append("pattern")
-// //   .attr("class", "avatar-pattern")
-// //   .attr("id", function(d){
-// //     return d.name
-// //   })
-// //   .attr("height", "100%")
-// //   .attr("width", "100%")
-// //   .attr("patternContentUnits", "objectBoundingBox")
-// //   .append("image")
-// //   .attr("height", "1")
-// //   .attr("width", "1")
-// //   .attr("preserveAspectRatio", "none")
-// //   .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
-// //   .attr("xlink:href", function(d){
-// //     return d.avatar_url
-// //   });
-//
-//   // var circles = svg.selectAll(".repo")
-//   //   .data(data)
-//   //   .enter().append("circle")
-//   //   .attr("class", "repo")
-//     // .attr("r", function(d){
-//     //   return radiusScale(d.stars)
-//     // })
-//   //   // .attr("fill", function(d){
-//   //   //   return "url(#" + d.avatar_url +")"
-//   //   // })
-//   //   // .attr("fill", "red")
-//   //   .attr("fill", function(d) { return color(d.language); })
-//   //   .on("click", function(d){
-//   //     console.log(d.name, d.stars)
-//   //   })
-//   //   .on("mouseover", function(d) {
-//   //       div.transition()
-//   //           .duration(200)
-//   //           .style("opacity", .9);
-//   //       div.html("<div><span>Repo:</span> <span>" + d.name + "</span></div>" + "<div><span>Stars:</span> <span>" + d.stars + "</span></div>")
-//   //           .style("left", (d3.event.pageX - 50) + "px")
-//   //           .style("top", (d3.event.pageY - 50) + "px");
-//   //       })
-//   //   .on("mouseout", function(d) {
-//   //       div.transition()
-//   //           .duration(500)
-//   //           .style("opacity", 0);
-//   //   });
-//
-//     // circles.append("text")
-//     // .attr("dx", 10)
-//     // .attr("dy", ".35em")
-//     // .text(function(d) { return d.name })
-//     // .style("stroke", "gray");
-//
-//
-//
-// d3.select("#language").on("click", function(){
-// simulation
-//   .force("x", forceXSeparate)
-//   //NOTE: needed to reset force simulation
-//   .alphaTarget(0.5)
-//   .restart()
-// })
-//
-// d3.select("#all").on("click", function(){
-// simulation
-//   .force("x", forceXJoin)
-//   .alphaTarget(.5)
-//   .restart()
-// })
-//
-// // d3.select("#concentric").on("click", function(){
-// //   circles
-// //     .attr("cx", 30)
-// //     .attr("cy", 30)
-// // })
-//
-//
-// // d3.select("#concentric").on("click", function(){
-// //   simulation
-// //     .force("x", forceXconcentric)
-// //     .alphaTarget(.5)
-// //     .restart()
-// //
-// // })
-//
-// var node = svg.selectAll("circle.node")
-//    .data(data)
-//    .enter().append("g")
-//    .attr("class", "node")
-//
-//
-//    //MOUSEOVER
-//    .on("mouseover", function(d,i) {
-//      if (i>0) {
-//        //CIRCLE
-//        d3.select(this).selectAll("circle")
-//        .transition()
-//        .duration(250)
-//        .style("cursor", "none")
-//        .attr("r", function(d){
-//          return radiusScale(d.stars)
-//        })
-//        .attr("fill",function(d) { return color(d.language); })
-//
-//        //TEXT
-//        d3.select(this).select("text")
-//        .transition()
-//        .style("cursor", "none")
-//        .duration(250)
-//        .style("cursor", "none")
-//        .attr("font-size","1.5em")
-//        .attr({
-//          "alignment-baseline": "middle",
-//          "text-anchor" : "middle"
-//              })
-//        .attr("x", 15 )
-//        .attr("y", 5 )
-//      } else {
-//        //CIRCLE
-//        d3.select(this).selectAll("circle")
-//        .style("cursor", "none")
-//
-//        //TEXT
-//        d3.select(this).select("text")
-//        .style("cursor", "none")
-//      }
-//    })
-//
-//    //MOUSEOUT
-//    .on("mouseout", function(d,i) {
-//      if (i>0) {
-//        //CIRCLE
-//        d3.select(this).selectAll("circle")
-//        .transition()
-//        .duration(250)
-//        .attr("r", function(d){
-//          return radiusScale(d.stars)
-//        })
-//        .attr("fill", function(d) { return color(d.language); })
-//
-//        //TEXT
-//        d3.select(this).select("text")
-//        .transition()
-//        .duration(250)
-//        .attr("font-size","1em")
-//        .attr("x", 8 )
-//        .attr("y", 4 )
-//      }
-//    })
-//
-//    // .call(force.drag);
-//
-//
-//  //CIRCLE
-//  node.append("svg:circle")
-//    .attr("cx", function(d) { return d.x; })
-//    .attr("cy", function(d) { return d.y; })
-//    .attr("r", function(d){
-//        return radiusScale(d.stars)
-//      })
-//    .attr("fill", function(d) { return color(d.language); })
-//
-//  //TEXT
-//  node.append("text")
-//    .text(function(d, i) { return d.name; })
-//    .attr("x",    function(d, i) { return radiusScale(d.stars) + 5; })
-//    .attr("y",    function(d, i) { if (i>0) { return radiusScale(d.stars) + 0 }    else { return 8 } })
-//    .attr("fill",  "red")
-//    .attr("font-size",    function(d, i) {  return  "1em"; })
-//    .attr("text-anchor",  function(d, i) { if (i>0) { return  "beginning"; }      else { return "end" } })
-//
-//
-// simulation.nodes(nodes)
-//   .on("tick", ticked)
-//
-// function ticked(e){
-//   // circles
-//   //   .attr("cx", function(d){
-//   //     return d.x
-//   //   })
-//   //   .attr("cy", function(d){
-//   //     return d.y
-//   //   })
-//     node.attr("transform", function(d) {
-//      return "translate(" + d.x + "," + d.y + ")";
-//  });
-// }
-// /////////////////////////////////////////
-// ////////////////Search //////////////////
-// /////////////////////////////////////////
-// //adapted from http://jsfiddle.net/simonraper/Bf5nM/?utm_source=website&utm_medium=embed&utm_campaign=Bf5nM
-// var searchableNamesArray = [];
-// console.log(data);
-// for (var i = 0; i < data.length - 1; i++) {
-//     searchableNamesArray.push(data[i].name);
-// }
-// searchableNamesArray = searchableNamesArray.sort();
-// $(function () {
-//     $("#search").autocomplete({
-//         source: searchableNamesArray
-//     });
-// });
-// function searchRepo() {
-//     //find the repo node
-//     var selectedVal = document.getElementById('search').value;
-//     var node = svg.selectAll(".node");
-//     if (selectedVal == "none") {
-//         node.style("stroke", "red").style("stroke-width", "1");
-//     } else {
-//         var selected = node.filter(function (d, i) {
-//             return d.name != selectedVal;
-//         });
-//         selected.style("opacity", "0");
-//
-//         d3.selectAll(".node").transition()
-//             .duration(5000)
-//             .style("opacity", 1);
-//     }
-// } //end searchRepo
-//
-// // });//end csv function
-//
+];
+
+
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var width = 840,
+  height = 680;
+
+// Define the div for the tooltip
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+
+var svg = d3.select("#stars-layout")
+.append("svg")
+.attr("height", height)
+.attr("width", width)
+.append("g")
+.attr("transform", "translate(0,0)")
 
 
 
-// }//end createD3nodes
+
+//RADIUS scale
+var radiusScale = d3.scaleSqrt()
+.domain([8613, 123511])
+.range([2,28])
+//FORCE SiMULATION
+// a collection of forces to apply to circles
+
+//REGULAR Circles
+var forceXSeparate = d3.forceX(function(d){
+  if(d.language === "Shell"){
+    return (width / 4.8)
+  } else if (d.language === "C" || d.language === "C++"){
+    return (width / 3.4)
+  } else if (d.language === "JavaScript"){
+    return (width / 2.4)
+  } else if (d.language === "Python"){
+    return (width / 1.8)
+  } else if (d.language === "Css"){
+    return (width / 1.7)
+  } else if (d.language === "Go"){
+    return (width / 1.5)
+  } else if (d.language === "Css"){
+    return (width / 1.4)
+  } else {
+    return 780
+  }
+}).strength(0.5)
+
+var forceXJoin = d3.forceX(width / 2).strength(0.25)
+
+var forceCollide = d3.forceCollide(function(d){
+  return radiusScale(d.stars) + 3
+})
+
+var forceXconcentric = d3.forceY(width / 3).strength(0.55)
+// var concentric = circles.attr("cx", 30).attr("cy", 30)
 
 
-});  //end docunment ready
+//a collection of forces to apply to circles
+var simulation = d3.forceSimulation()
+  .force("x", forceXJoin)
+  .force("y", d3.forceY(height / 2).strength(0.05))
+  //collide related to radius, so if r = 10, a force of 10 had edges touching
+  .force("collide", forceCollide)
+
+
+d3.select("#language").on("click", function(){
+simulation
+  .force("x", forceXSeparate)
+  //NOTE: needed to reset force simulation
+  .alphaTarget(0.5)
+  .restart()
+})
+
+d3.select("#all").on("click", function(){
+simulation
+  .force("x", forceXJoin)
+  .alphaTarget(.5)
+  .restart()
+})
+
+d3.select("#concentric").on("click", function(){
+
+  simulation
+    .force("x", forceXconcentric)
+    .alphaTarget(.5)
+    .restart()
+
+})
+
+
+var node = svg.selectAll("circle.node")
+   .data(nodes)
+   .enter().append("g")
+   .attr("class", "node")
+   .on("start", dragstarted)
+   .on("drag", dragged)
+   .on("end", dragended);
+
+function dragstarted(d) {
+d3.select(this).raise().classed("active", true);
+}
+
+function dragged(d) {
+d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}
+
+function dragended(d) {
+d3.select(this).classed("active", false);
+}
+
+ //CIRCLE
+ node.append("svg:circle")
+   .attr("cx", function(d) { return d.x; })
+   .attr("cy", function(d) { return d.y; })
+   .attr("r", function(d){
+       return radiusScale(d.stars)
+     })
+   .attr("fill", function(d) { return color(d.language); })
+
+ //TEXT
+ node.append("text")
+   .text(function(d) { return d.name; })
+   .attr("dx", 10)
+   .attr("dy", ".35em")
+   .attr("fill",  "green")
+   .attr("font-size",  "1em")
+   // .attr("text-anchor",  function(d) { if (i>0) { return  "beginning"; }      else { return "end" } })
+   .attr({
+         "alignment-baseline": "middle",
+         "text-anchor" : "middle"
+             })
+
+
+simulation.nodes(nodes)
+  .on("tick", ticked)
+
+function ticked(e){
+
+    node.attr("transform", function(d, i) {
+     return "translate(" + d.x + "," + d.y + ")";
+
+ });
+}
+/////////////////////////////////////////
+////////////////Search //////////////////
+/////////////////////////////////////////
+//adapted from http://jsfiddle.net/simonraper/Bf5nM/?utm_source=website&utm_medium=embed&utm_campaign=Bf5nM
+
+$("#searchbutton").on("click", function(){
+  console.log("clicked");
+  //find the repo node
+  var selectedVal = document.getElementById('search').value;
+  var node = svg.selectAll(".node");
+  var selected = node.filter(function (d, i) {
+          return d.name != selectedVal;
+      });
+  selected.style("opacity", "0.3");
+
+  d3.selectAll(".node").transition()
+      .duration(5000)
+      .style("opacity", 1);
+ document.getElementById('search').value = '';
+})
+var searchableNamesArray = [];
+for (var i = 0; i < nodes.length - 1; i++) {
+    searchableNamesArray.push(nodes[i].name);
+}
+$(function () {
+    $("#search").autocomplete({
+        source: searchableNamesArray
+    });
+});
+function searchRepo() {
+    //find the repo node
+    var selectedVal = document.getElementById('search').value;
+    var node = svg.selectAll(".node");
+    var selected = node.filter(function (d, i) {
+            return d.name != selectedVal;
+        });
+    selected.style("opacity", "0.3");
+
+    d3.selectAll(".node").transition()
+        .duration(5000)
+        .style("opacity", 1);
+   document.getElementById('search').value = '';
+}
+
+} //end createD3nodes
