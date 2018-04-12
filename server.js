@@ -15,6 +15,7 @@ var axios          = require('axios');
 const fs = require('fs');
 const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
 const api = require('./public/scripts/api');
+require('./config/passport')(passport);
 // var db = require('./models');
 
 // require('./models/User');
@@ -58,6 +59,16 @@ require("./config/passport")(passport)
 ///////////////////////////////////////////
  /// ROUTES
  /////////////////////////////////////////
+
+ // VERIFY AUTHENTICATION
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        console.log("User authenticated.");
+        return next(); }
+    // res.redirect('/api/');
+}
+
+app.use('/api', ensureAuthenticated);
 
 //////////////////
  // HTML Endpoints

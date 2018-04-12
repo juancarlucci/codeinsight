@@ -166,56 +166,9 @@ var nodes =[
   updated_at : "2018-04-12T04:20:30Z"
 }
 ]
-// var  nodes = [
-//   {
-//     name:"vue",
-//     language: 'JavaScript',
-//     stars: 90163,
-//     avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4'
-//   }
-//   ,
-//   {
-//     name:"bootstrap",
-//     language: 'Python',
-//     stars: 123511,
-//     avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
-//   },
-//   {
-//     name:"reaJact",
-//     language: 'Java',
-//     stars: 93126,
-//     avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
-//   },
-//   {
-//   name:"javascript",
-//   language: 'JavaScript',
-//   stars: 69186,
-//   avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
-//   },
-//   {
-//     name:"eJava",
-//     language: 'Java',
-//     stars: 52765
-//   },
-//   {
-//     name:"jquery",
-//     language: 'Python',
-//     stars: 48613
-//   },
-//   {
-//     name:"lamda",
-//     language: 'Lisp',
-//     stars: 8613
-//   }
-//
-// ];
+
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-// var color = d3.scaleLinear()
-//         .domain([1, 20])
-//         .range(['#d73027', '#1a9850'])
-//         .interpolate(d3.interpolateRgb);
 
 var width = 840,
   height = 680;
@@ -243,15 +196,6 @@ var radiusScale = d3.scaleSqrt()
 //FORCE SiMULATION
 // a collection of forces to apply to circles
 
-//NESTED CIRCLES///////////////
-// var simulation = d3.forceSimulation()
-//   .force("x", d3.forceX(width / 2).strength(0.05))
-//   .force("y", d3.forceY(height / 2).strength(0.05))
-//   //related to redius, so if r = 10, a force of 10 had edges touching
-//   .force("collide", d3.forceCollide(function(d){
-//     return radiusScale(d.stars)+3
-//   }))
-
 //REGULAR Circles
 var forceXSeparate = d3.forceX(function(d){
   if(d.language === "Shell"){
@@ -273,13 +217,13 @@ var forceXSeparate = d3.forceX(function(d){
   }
 }).strength(0.5)
 
-var forceXJoin = d3.forceX(width / 2).strength(0.05)
+var forceXJoin = d3.forceX(width / 2).strength(0.25)
 
 var forceCollide = d3.forceCollide(function(d){
   return radiusScale(d.stars) + 3
 })
 
-var forceXconcentric = d3.forceY(width / 3).strength(0.05)
+var forceXconcentric = d3.forceY(width / 3).strength(0.55)
 // var concentric = circles.attr("cx", 30).attr("cy", 30)
 
 
@@ -289,53 +233,6 @@ var simulation = d3.forceSimulation()
   .force("y", d3.forceY(height / 2).strength(0.05))
   //collide related to radius, so if r = 10, a force of 10 had edges touching
   .force("collide", forceCollide)
-
-  // d3.csv("stars.csv", function(error, data) {
-  //   if (error) throw error;
-
-  // d3.queue()
-  //   .defer(d3.csv, "stars.csv")
-  //   .await(ready)
-
-// function ready(error, data) {
-
-
-
-  // var circles = svg.selectAll(".repo")
-  //   .data(data)
-  //   .enter().append("circle")
-  //   .attr("class", "repo")
-    // .attr("r", function(d){
-    //   return radiusScale(d.stars)
-    // })
-  //   // .attr("fill", function(d){
-  //   //   return "url(#" + d.avatar_url +")"
-  //   // })
-  //   // .attr("fill", "red")
-  //   .attr("fill", function(d) { return color(d.language); })
-  //   .on("click", function(d){
-  //     console.log(d.name, d.stars)
-  //   })
-  //   .on("mouseover", function(d) {
-  //       div.transition()
-  //           .duration(200)
-  //           .style("opacity", .9);
-  //       div.html("<div><span>Repo:</span> <span>" + d.name + "</span></div>" + "<div><span>Stars:</span> <span>" + d.stars + "</span></div>")
-  //           .style("left", (d3.event.pageX - 50) + "px")
-  //           .style("top", (d3.event.pageY - 50) + "px");
-  //       })
-  //   .on("mouseout", function(d) {
-  //       div.transition()
-  //           .duration(500)
-  //           .style("opacity", 0);
-  //   });
-
-    // circles.append("text")
-    // .attr("dx", 10)
-    // .attr("dy", ".35em")
-    // .text(function(d) { return d.name })
-    // .style("stroke", "gray");
-
 
 
 d3.select("#language").on("click", function(){
@@ -353,13 +250,6 @@ simulation
   .restart()
 })
 
-//  d3.select("#concentric").on("click", function(){
-//   circles
-//     .attr("cx", 30)
-//     .attr("cy", 30)
-// })
-
-
 d3.select("#concentric").on("click", function(){
 
   simulation
@@ -369,71 +259,26 @@ d3.select("#concentric").on("click", function(){
 
 })
 
+
 var node = svg.selectAll("circle.node")
    .data(nodes)
    .enter().append("g")
    .attr("class", "node")
+   .on("start", dragstarted)
+   .on("drag", dragged)
+   .on("end", dragended);
 
-   //MOUSEOVER
-   .on("mouseover", function(d,i) {
-     if (i>0) {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .transition()
-       .duration(250)
-       .style("cursor", "none")
-       .attr("r", function(d){
-         return radiusScale(d.stars)
-       })
-       .attr("fill",function(d) { return color(d.language); })
+function dragstarted(d) {
+d3.select(this).raise().classed("active", true);
+}
 
-       //TEXT
-       d3.select(this).select("text")
-       .transition()
-       .style("cursor", "none")
-       .duration(250)
-       .style("cursor", "none")
-       .attr("font-size","1.5em")
-       .attr({
-         "alignment-baseline": "middle",
-         "text-anchor" : "middle"
-             })
-       .attr("x", 0 )
-       .attr("y", 5 )
-     } else {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .style("cursor", "none")
+function dragged(d) {
+d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}
 
-       //TEXT
-       d3.select(this).select("text")
-       .style("cursor", "none")
-     }
-   })
-
-   //MOUSEOUT
-   .on("mouseout", function(d) {
-       //CIRCLE
-       d3.select(this).selectAll("circle")
-       .transition()
-       .duration(250)
-       .attr("r", function(d){
-         return radiusScale(d.stars)
-       })
-       .attr("fill", function(d) { return color(d.language); })
-
-       //TEXT
-       d3.select(this).select("text")
-       .transition()
-       .duration(250)
-       .attr("font-size","1em")
-       .attr("x", 0 )
-       .attr("y", 0 )
-
-   })
-
-   // .call(force.drag);
-
+function dragended(d) {
+d3.select(this).classed("active", false);
+}
 
  //CIRCLE
  node.append("svg:circle")
@@ -446,27 +291,26 @@ var node = svg.selectAll("circle.node")
 
  //TEXT
  node.append("text")
-   .text(function(d, i) { return d.name; })
-   .attr("x",    function(d, i) { return radiusScale(d.stars) + 5; })
-   .attr("y",    function(d, i) { if (i>0) { return radiusScale(d.stars) + 0 }    else { return 8 } })
+   .text(function(d) { return d.name; })
+   .attr("dx", 10)
+   .attr("dy", ".35em")
    .attr("fill",  "red")
-   .attr("font-size",    function(d, i) {  return  "1em"; })
-   .attr("text-anchor",  function(d, i) { if (i>0) { return  "beginning"; }      else { return "end" } })
+   .attr("font-size",  "1em")
+   // .attr("text-anchor",  function(d) { if (i>0) { return  "beginning"; }      else { return "end" } })
+   .attr({
+         "alignment-baseline": "middle",
+         "text-anchor" : "middle"
+             })
 
 
 simulation.nodes(nodes)
   .on("tick", ticked)
 
 function ticked(e){
-  // circles
-  //   .attr("cx", function(d){
-  //     return d.x
-  //   })
-  //   .attr("cy", function(d){
-  //     return d.y
-  //   })
+
     node.attr("transform", function(d, i) {
      return "translate(" + d.x + "," + d.y + ")";
+
  });
 }
 /////////////////////////////////////////
