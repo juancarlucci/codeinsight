@@ -164,7 +164,7 @@ export CALLBACK_URL="http://localhost:3000/auth/github/callback"
   s16,17.3,16,17.3h28"/>
 </svg>
 ```
-
+![heart beat svg](readme-assets/heartBeat.png "Heart Beat SVG")
 ### D3
 
 #### Radius scale
