@@ -1,40 +1,31 @@
 /////////////////////////////
 //  SETUP and CONFIGURATION
 /////////////////////////////
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var app = express();
-var mongoose = require('mongoose');
-var passport = require('passport');
-var expressSession = require('express-session');
-var cookieParser = require("cookie-parser");
-var axios = require('axios');
-const fs = require('fs');
-const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
-// const api = require('./public/scripts/api');
+var express         = require('express');
+var path            = require('path');
+var logger          = require('morgan');
+var bodyParser      = require('body-parser');
+var app             = express();
+var mongoose        = require('mongoose');
+var passport        = require('passport');
+var expressSession  = require('express-session');
+var cookieParser    = require("cookie-parser");
+var axios           = require('axios');
+const fs            = require('fs');
+const dbUrl         = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
 require('./config/passport')(passport);
-// var db = require('./models');
-
-// require('./models/User');
-
 
 
 ////////////////////////////////////////////////
 //       DATABASE
 // Mongoose Setup via mLab
-//////////////////////////////////////////////// mongoose.connect('mongodb://localhost:27017/github-authentication-app');
-//connect to mlab
-// https://mlab.com/databases/cosdeinsight-dev#users
+////////////////////////////////////////////////
 mongoose.connect(dbUrl);
-// mongoose.connect(process.env.mongoURI);
 
 ////////////////////////////
 // Middleware
 ///////////////////////////
 app.use(cookieParser());
-// app.use(expressSession({secret: 'octopuslikesroundstones'}));
 app.use(expressSession({
   secret: process.env.EXPRESS_SESSION_SECRET
 }));
@@ -50,8 +41,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 // serve static files in public
-// app.use(express.static(__dirname + '/public'));
-
 app.use(express.static('public'));
 
 // Setting up the Passport Strategies
@@ -69,7 +58,6 @@ function ensureAuthenticated(req, res, next) {
     console.log("User authenticated.");
     return next();
   }
-  // res.redirect('/api/');
 }
 
 app.use('/api', ensureAuthenticated);
@@ -80,8 +68,6 @@ app.get('/', function homepage(req, res) {
   res.render('index', {
     user: req.user
   });
-  // res.sendFile(path.join(__dirname+'/index.html'));
-  // res.render('index.html');
 });
 
 app.get('/api/profile', function profile(req, res) {
@@ -105,32 +91,8 @@ app.get('/api/popularRepos', function hot(req, res) {
   });
 });
 
-///SEARCH Repos by TOPIC
-app.get('/api/search/:topic', function hot(req, res) {
-  var topic = req.params.topic;
-  // console.log(topic);
-  //   var encodedURI = encodeURI("https://github.com/search?utf8=%E2%9C%93&q=topic%3A"+ topic + "&type=Repositories&ref=searchresults");
-  //
-  // console.log(encodedURI);
-  //   axios
-  //     .get(encodedURI)
-  //     .then(function (response) {
-  //       console.log("*******************topic",response.data.items);
-  //       res.json({user: req.user, topic: response.data.items});
-  //     })
-  //     .catch(err => {
-  //       return err;
-  //     })
-
-});
-
-
 /////////////////////
 //JSON API Endpoints
-
-// app.get('/', function(req, res){
-//   res.render('index', {user: req.user});
-// });
 
 //test current user
 app.get('/auth/current_user', (req, res) => {
@@ -145,19 +107,6 @@ app.get('/api/current_user/:id', function(req, res) {
 
   });
 });
-
-// app.get('/api/current_user', (req, res) => {
-//   var encodedURI = encodeURI('https://api.github.com/users/' + req.user.gh.username);
-//
-//   axios
-//     .get(encodedURI)
-//     .then(function (response) {
-//       res.json({user: req.user, userRepos: response.data});
-//     })
-//     .catch(err => {
-//       return err;
-//     })
-// });
 
 app.get('/api/repos/popular', function hot(req, res) {
   var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
