@@ -72,6 +72,10 @@
 button {
   color: #C86DD7;
 }
+.main-title {
+  margin: auto;
+  text-align: center;
+}
 /* ///////////////////////// SVG /////////////////////////// */
  #Layer_1 {
      position: absolute;
