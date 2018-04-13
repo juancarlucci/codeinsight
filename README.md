@@ -218,3 +218,6 @@ function searchRepo() {
   document.getElementById('search').value = '';
 }
 ```
+## Future Development
+
+Incorporate LinkedIn or Glassdoor job trends to compare to repo popularity (Garima)
