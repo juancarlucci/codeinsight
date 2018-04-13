@@ -148,6 +148,22 @@ export EXPRESS_SESSION_SECRET="octopuseatsroundstones"
 export MONGO_URI="mongodb://juancarlucci:octopuseatsroundstones@ds239009.mlab.com:39009/cosdeinsight-dev"
 export CALLBACK_URL="http://localhost:3000/auth/github/callback"
 ```
+### SVG
+
+```
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 513 93.8" enable-background="new 0 0 513 93.8"
+    xml:space="preserve">
+
+
+<path id="heartBeat" fill="none" stroke="#F26522" stroke-width="3" d="M0,72.2c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
+  c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
+  c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
+  c8,0.7,16,17.3,16,17.3s28,0,28,0c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
+  c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
+  c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
+  s16,17.3,16,17.3h28"/>
+</svg>
+```
 
 ### D3
 
