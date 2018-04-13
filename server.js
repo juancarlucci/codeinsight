@@ -112,33 +112,6 @@ app.get ('/api/search/:topic', function hot(req, res) {
   });
 
 
-
- // const axios = require('axios');
- //
- // var id = process.env.GITHUB_CLIENT_ID;
- // var sec = process.env.GITHUB_CLIENT_SECRET;
- // var params = "?client_id=" + id + "&client_secret=" + sec;
- //
- // app.get ('/api/hot', function hot(req, res) {
- //
- //     axios.get('https://api.github.com/users/' + req.user.gh.username + params)
- //       .then((user) => {
- //       console.log(user);
- //         res.render('hot', {user: req.user, userData:user.data});
- //       }).catch(error => {
- //         console.log("ERROR: ", error)
- //       })
- //
- //
- // });
-
-
-
-
-
-
-
-
 /////////////////////
  //JSON API Endpoints
 
@@ -151,16 +124,24 @@ app.get('/auth/current_user', (req, res) => {
   // console.log("current user");
   res.send(req.user);
 })
+app.get('/api/current_user/:id', function (req, res) {
+  db.User.findOne({_id: req.params.id }, function(err, data) {
+    res.json(data);
 
-// app.get('/api/repos/all', function (req, res) {
-//   // send all repos as JSON response
-//   db.Repo.find({},function(err, repos){
-//     if (err) {
-//       console.log("index error: " + err);
-//       return res.sendStatus(500);
-//     }
-//     res.json(repos);
-//   });
+  });
+});
+
+// app.get('/api/current_user', (req, res) => {
+//   var encodedURI = encodeURI('https://api.github.com/users/' + req.user.gh.username);
+//
+//   axios
+//     .get(encodedURI)
+//     .then(function (response) {
+//       res.json({user: req.user, userRepos: response.data});
+//     })
+//     .catch(err => {
+//       return err;
+//     })
 // });
 
 app.get ('/api/repos/popular', function hot(req, res) {
@@ -204,60 +185,7 @@ app.get ('/api/repos/popular', function hot(req, res) {
 //
 });
 
-// app.get("/allGames", function(req, res) {
-//
-//
-// const url =
-//  "https://api.fantasydata.net/v3/cbb/scores/JSON/Tournament/sim?key=e415ccd5602b4e06870ba5c497510cbd";
-// fetch(url)
-//  .then(response => {
-//    response.json().then(json => {
-//      res.json(
-//        createGamesFromData(json)
-//      );
-//    });
-//  })
-//  .catch(error => {
-//    console.log(error);
-//  });
-//
-//
-//  function createGamesFromData(json){
-//    json.Games.forEach(function (game){
-//
-//      var newGame = new Game({
-//        user: null,
-//        email: null,
-//        gameDay: game.Day,
-//        gameAwayTeam: game.AwayTeam,
-//        awayTeamScore: game.AwayTeamScore,
-//        gameHomeTeam: game.HomeTeam,
-//        homeTeamScore: game.HomeTeamScore
-//      });
-//      newGame.save(function(err, game) {
-//        if (err) {
-//          return console.log("save error: " + err);
-//        }
-//        console.log("Game saved:", game);
-//
-//      });
-//
-//    }) //end forEach
-//  } //end createGamesFromData
-// });
-
-// // get all repos
-// app.get('/api/repos', function (req, res) {
-//  // send all repos as JSON response
-//  db.Project.find({},function(err, repos){
-//    if (err) {
-//      console.log("index error: " + err);
-//      return res.sendStatus(500);
-//    }
-//    res.json(repos);
-//  });
-// });
-
+/////////////////////////////////////////////////////////////
 //begins authentication. tell passport to use github strategy
 app.get('/auth/github',
   passport.authenticate('github')); //takes user to oauth flow

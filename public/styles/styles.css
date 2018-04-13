@@ -114,8 +114,27 @@ h1 {
 }
 
 
-.bar { fill: steelblue; }
+/* .bar { fill: steelblue; } */
 
 .node text {
   font: 9px helvetica;
+}
+
+/* PROFILE///////////////// */
+.line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+
+.bar {
+  /* fill: steelblue; */
+}
+
+.bar:hover {
+  fill: orangered;
+}
+
+.axis--x path {
+  display: none;
 }
