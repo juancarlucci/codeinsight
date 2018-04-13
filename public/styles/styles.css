@@ -1,140 +1,142 @@
 * {
-  box-sizing: border-box;
+     box-sizing: border-box;
 }
-
-html { font-size: 2vw; }
-
-.hamburger {
-  display: none;
+ html {
+     font-size: 2vw;
 }
-  @media screen and (max-width: 26.25em) {
-    .hamburger {
-      display: block;
-      color: gray;
-      font-size: 1.7rem;
-      position: absolute;
-      top: 1em;
-      left: 1.3em;
+ .hamburger {
+     display: none;
+}
+ @media screen and (max-width: 26.25em) {
+     .hamburger {
+         display: block;
+         color: gray;
+         font-size: 1.7rem;
+         position: absolute;
+         top: 1em;
+         left: 1.3em;
     }
 }
+ nav {
+    /* position: fixed;
+     */
+     top: 0;
+     left: 0;
+     right: 0;
+    /* background-color: #fff;
+     */
+     background: linear-gradient(to right, #e66465, #C86DD7);
+     text-align: center;
+     padding: 1.25em 17.188em;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+ @media screen and (max-width: 26.25em) {
+     nav {
+         display: none;
+    }
+}
+ a {
+     font-family: "Relaway", sans-serif;
+     font-weight: 600;
+     text-decoration: none;
+     color: #fff;
+    /* color: gray;
+     */
+     letter-spacing: 0.063em;
+     font-size: 1.125em;
+     margin: 0 1.25em;
+     border-bottom: 0.125em solid transparent;
+}
+ a:hover {
+     border-color: gray;
+}
+ body {
+     color: #fff;
 
-nav {
-  /* position: fixed; */
-  top: 0;
-  left: 0;
-  right: 0;
-  /* background-color: #fff; */
-  /* background: linear-gradient(to right, #e66465, #C86DD7); */
-  text-align: center;
-  padding: 1.25em 17.188em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; }
-  @media screen and (max-width: 26.25em) {
-    nav {
-      display: none; } }
-
-a {
-  font-family: "Relaway", sans-serif;
-  font-weight: 600;
-  text-decoration: none;
-  color: #fff;
-  color: gray;
-  letter-spacing: 0.063em;
-  font-size: 1.125em;
-  margin: 0 1.25em;
-  border-bottom: 0.125em solid transparent; }
-  a:hover {
-    border-color: gray; }
-
-
-body {
-  /* color: #fff; */
-  font-family: Helvetica, Arial, sans-serif;
-  /* background: linear-gradient(to right, #e66465, #C86DD7); */
+     font-family: "Relaway", sans-serif;
+     background: linear-gradient(to right, #e66465, #C86DD7);
+}
+ h1 {
+     margin-top: 100px;
+     text-align: center;
+     font-size: calc(1em + 6vw);
+}
+ .repo-image {
+     display: flex;
+    /* width: 13em;
+     */
+     width: 1em;
+     height: 1em;
 }
 
-h1 {
-  margin-top: 100px;
-  text-align: center;
-  font-size: calc(1em + 6vw);
+/* ///////////////////////// SVG /////////////////////////// */
+ #Layer_1 {
+     position: absolute;
+     top: 148px;
 }
-
-.repo-image {
-  display: flex;
-  /* width: 13em; */
-  width: 1em;
-  height: 1em;
+ #heartBeat {
+     stroke-dasharray: 1000;
+     stroke-dashoffset: 1000;
+     animation: dash 5s linear alternate infinite;
 }
-/* /////////////////////
-      D3
-/////////////////////// */
-/* .node {
-    fill: #ccc;
-    stroke: #fff;
-    stroke-width: 2px;
-} */
-
-
-/* /////////////////////////
-       SVG
-/////////////////////////// */
-
-#heartBeat {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 5s linear alternate infinite;
+ @keyframes dash {
+     from {
+         stroke-dashoffset: 1000;
+    }
+     to {
+         stroke-dashoffset: 0;
+    }
 }
-
-@keyframes dash {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+ #heartBeat-bottom {
+     position: absolute;
+     top: 149px;
 }
-
-#heartBeat-bottom {
-  position: absolute;
-  top: 107px;
+/* ///////////////////////// HOT /////////////////////////// */
+ .flex-contaier {
+     display: flex;
+     align-items: center;
+     justify-content: center;
 }
-
-/* /////////////////////////
-       HOT
-/////////////////////////// */
-.flex-contaier {
-  display: flex;
+ #popular-list {
+     text-align: center;
+     height: 680px;
+     overflow-y: scroll;
 }
-
-#popular-list {
-  text-align: center;
-  height: 680px;
-  overflow-y: scroll;
+ .node text {
+     font: 9px "Relaway", sans-serif
 }
-
-
-/* .bar { fill: steelblue; } */
-
-.node text {
-  font: 9px helvetica;
+ .selectors {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 1em;
 }
-
 /* PROFILE///////////////// */
-.line {
-      fill: none;
-      stroke: steelblue;
-      stroke-width: 1.5px;
-    }
-
-.bar {
-  /* fill: steelblue; */
+ .line {
+     fill: none;
+     stroke: steelblue;
+     stroke-width: 1.5px;
+}
+ .bar {
+    /* fill: steelblue;
+     */
+}
+ .bar:hover {
+     fill: orangered;
+}
+ .axis--x path {
+     display: none;
+}
+.bar-title {
+  margin: auto;
+  /* width: 60%; */
+  text-align: center;
 }
 
-.bar:hover {
-  fill: orangered;
-}
-
-.axis--x path {
-  display: none;
+.charts-container {
+  margin: 3em 2em;
+  align-items: center;
+  justify-content: center
 }
