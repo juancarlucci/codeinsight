@@ -4,7 +4,9 @@ This is a project to display user’s github statistics in a way that can lead t
 
 
 
-[Story board, wireframes, and more details here](https://sketch.cloud/s/D44k2/all/welcome/basic-app/play)
+[Sketch: Story board, wireframes, and more details](https://sketch.cloud/s/D44k2/all/welcome/basic-app/play)
+
+[Heroku Deployed App](https://codeinsight.herokuapp.com/)
 
 ## Process/approach:
 
