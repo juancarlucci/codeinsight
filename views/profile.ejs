@@ -44,6 +44,15 @@
     <h4>Recent commits</h4>
   </div>
   <article id="profile-layout"></article>
+  <div class="bar-title">
+    <h4>Areas of growth in the job market</h4>
+  </div>
+  <svg id="bar-chart2" width="860" height="200"></svg>
+
+  <div class="bar-title">
+    <h4>Trends in languages vs jobs</h4>
+  </div>
+  <article id="profile-layout2"></article>
 </container>
 
 <script>
@@ -135,6 +144,99 @@ var svg = d3.select("#profile-layout").append("svg")
         .style("fill", function(d, i) { return color(i); })
 
     legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+}
+//////////////LINE graph2
+//Inspired by
+
+var svg4 = d3.select("#profile-layout2").append("svg")
+      .attr("width", 860)
+      .attr("height", 200)
+
+    var margin = {left:30, right:30, top: 10, bottom: 20}
+    var width = svg.attr("width") - margin.left - margin.right;
+    var height = svg.attr("height") - margin.bottom - margin.top;
+
+
+    var data4 = [{"name": "javascript", "date":"04/04/2018", "JS": 25, "PY": 60, "C": 10, "JV": 42},
+                {"name": "python","date":"04/03/2018", "JS": 20, "PY": 30, "C": 50, "JV": 61},
+                {"name": "c","date":"04/02/2018", "JS": 31, "PY": 30, "C": 10, "JV": 30},
+                {"name": "java","date":"04/01/2018", "JS": 4, "PY": 3, "C": 24, "JV": 63}
+
+               ]
+
+    var x = d3.scaleTime()
+    	.rangeRound([0, width]);
+    var x_axis = d3.axisBottom(x);
+
+    var y = d3.scaleLinear()
+    	.rangeRound([height, 0]);
+    var y_axis = d3.axisBottom(y);
+
+    var parseTime = d3.timeParse("%d/%m/%Y");
+
+    x.domain(d3.extent(data4, function(d) { return parseTime(d.date); }));
+  	y.domain([0,
+              d3.max(data4, function(d) {
+                return d3.max([d.JS, d.PY, d.C, d.JV]);
+              })]);
+
+    var multiline = function(category) {
+      var line = d3.line()
+                  .x(function(d) { return x(parseTime(d.date)); })
+                  .y(function(d) { return y(d[category]); });
+      return line;
+    }
+
+    var line = d3.line()
+      .x(function(d) { return x(parseTime(d.date)); })
+      .y(function(d) { return y(d); });
+
+    var categories = ['JS', 'PY', 'C', 'JV'];
+
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var g = svg4.append("g")
+        .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+    for (i in categories) {
+      var lineFunction = multiline(categories[i]);
+      g.append("path")
+        .datum(data4)
+        .attr("class", "line")
+        .style("stroke",  color(i))
+        .attr("d", lineFunction);
+
+    // }
+
+      // Add the X Axis
+  		g.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+      // Add the Y Axis
+  		g.append("g")
+      .call(d3.axisLeft(y));
+
+      //LEGEND
+      var legend2 = svg.selectAll(".legend")
+        .data(categories)
+      .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend2.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d, i) { return color(i); })
+
+    legend2.append("text")
         .attr("x", width - 24)
         .attr("y", 9)
         .attr("dy", ".35em")
@@ -256,6 +358,117 @@ g.selectAll(".bar")
   .attr("height", function(d) {
     return height2 - y(d.stargazers_count);
   });
+
+
+///////////////////////////////////////////////////////////
+  var  data3 = [
+    {
+      name:"vue",
+      language: 'JavaScript',
+      stargazers_count: 1,
+      avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4',
+      homepage: 'http://vuejs.org'
+    },
+    {
+      name:"bootstrap",
+      language: 'Python',
+      stargazers_count: 13,
+      avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
+      homepage: 'http://getbootstrap.com'
+    },
+    {
+      name:"reaJact",
+      language: 'Python',
+      stargazers_count: 31,
+      avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
+    },
+    {
+    name:"javascript",
+    language: 'JavaScript',
+    stargazers_count: 36,
+    avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
+    },
+    {
+      name:"eJava",
+      language: 'C++',
+      stargazers_count: 15
+    },
+    {
+      name:"jquery",
+      language: 'Python',
+      stargazers_count: 43
+    },
+    {
+      name:"lamda",
+      language: 'Clojure',
+      stargazers_count: 3
+    }
+
+  ];
+
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+  var svg3 = d3.select("#bar-chart2"),
+    margin3 = {
+      top: 20,
+      right: 20,
+      bottom: 30,
+      left: 40
+    },
+    width3 = +svg2.attr("width") - margin3.left - margin3.right,
+    height3 = +svg2.attr("height") - margin3.top - margin3.bottom;
+
+  var x = d3.scaleBand().rangeRound([0, width3]).padding(0.4),
+    y = d3.scaleLinear().rangeRound([height3, 0]);
+
+  var g = svg3.append("g")
+    .attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
+
+  // var data = d3.csvParse(csv, function(d) {
+  //   d.stargazers_count = +d.stargazers_count;
+  //   return d;
+  // })
+
+  x.domain(data3.map(function(d) {
+    return d.language;
+  }));
+  y.domain([0, d3.max(data3, function(d) {
+    return d.stargazers_count;
+  })]);
+
+  g.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + height3 + ")")
+    .call(d3.axisBottom(x));
+
+  g.append("g")
+    .attr("class", "axis axis--y")
+    .call(d3.axisLeft(y).ticks(12, "s"))
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em")
+    .attr("text-anchor", "end")
+    .text("Frequency");
+
+  g.selectAll(".bar")
+    .data(data3)
+    .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) {
+      return x(d.language);
+    })
+    .attr("fill", function(d) { return color(d.language); })
+    .attr("y", height3)
+    .transition().duration(1500)
+    .ease(d3.easeExp)
+    .attr("y", function(d) {
+      return y(d.stargazers_count);
+    })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) {
+      return height3 - y(d.stargazers_count);
+    });
 
   </script>
   </body>
