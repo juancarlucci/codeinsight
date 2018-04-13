@@ -381,9 +381,9 @@ function createD3nodes(data) {
       .text(function(d) {
         return d.name;
       })
-      .attr("dx", 10)
+      .attr("dx", 0)
       .attr("dy", ".35em")
-      .attr("fill", "slategray")
+      .attr("fill", "white")
       .attr("font-size", "1em")
 
     //LEGEND
@@ -406,6 +406,7 @@ function createD3nodes(data) {
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
+      .style("fill", "white")
       .text(function(d) {
         return d;
       });
