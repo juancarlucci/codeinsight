@@ -1,16 +1,16 @@
 /////////////////////////////
 //  SETUP and CONFIGURATION
 /////////////////////////////
-var express        = require('express');
-var path           = require('path');
-var logger         = require('morgan');
-var bodyParser     = require('body-parser');
-var app            = express();
-var mongoose       = require('mongoose');
-var passport       = require('passport');
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var app = express();
+var mongoose = require('mongoose');
+var passport = require('passport');
 var expressSession = require('express-session');
-var cookieParser   = require("cookie-parser");
-var axios          = require('axios');
+var cookieParser = require("cookie-parser");
+var axios = require('axios');
 const fs = require('fs');
 const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
 const api = require('./public/scripts/api');
@@ -33,15 +33,19 @@ mongoose.connect(dbUrl);
 ////////////////////////////
 // Middleware
 ///////////////////////////
-app.use( cookieParser() );
+app.use(cookieParser());
 // app.use(expressSession({secret: 'octopuslikesroundstones'}));
-app.use(expressSession({secret: process.env.EXPRESS_SESSION_SECRET}));
+app.use(expressSession({
+  secret: process.env.EXPRESS_SESSION_SECRET
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 // body parser config to accept datatypes
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
@@ -56,64 +60,73 @@ app.use(express.static('public'));
 require("./config/passport")(passport)
 
 ///////////////////////////////////////////
- /// ROUTES
- /////////////////////////////////////////
+/// ROUTES
+/////////////////////////////////////////
 
- // VERIFY AUTHENTICATION
+// VERIFY AUTHENTICATION
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        console.log("User authenticated.");
-        return next(); }
-    // res.redirect('/api/');
+  if (req.isAuthenticated()) {
+    console.log("User authenticated.");
+    return next();
+  }
+  // res.redirect('/api/');
 }
 
 app.use('/api', ensureAuthenticated);
 
 //////////////////
- // HTML Endpoints
- app.get('/', function homepage(req, res) {
-   res.render('index', {user: req.user});
-   // res.sendFile(path.join(__dirname+'/index.html'));
-   // res.render('index.html');
- });
+// HTML Endpoints
+app.get('/', function homepage(req, res) {
+  res.render('index', {
+    user: req.user
+  });
+  // res.sendFile(path.join(__dirname+'/index.html'));
+  // res.render('index.html');
+});
 
- app.get ('/api/profile', function profile(req, res) {
-   res.render('profile', {user: req.user});
- });
- app.get ('/api/hot', function hot(req, res) {
-   res.render('hot', {user: req.user});
-   //NOTE sendFile no longer works in Express v3.x
-   //need to use sendfile instead (lowercase f)
-   //https://stackoverflow.com/questions/34194245/res-sendfile-is-not-a-function-node-js
-   // res.sendfile(__dirname + '/views/hot.html');
- });
+app.get('/api/profile', function profile(req, res) {
+  res.render('profile', {
+    user: req.user
+  });
+});
+app.get('/api/hot', function hot(req, res) {
+  res.render('hot', {
+    user: req.user
+  });
+  //NOTE sendFile no longer works in Express v3.x
+  //need to use sendfile instead (lowercase f)
+  //https://stackoverflow.com/questions/34194245/res-sendfile-is-not-a-function-node-js
+  // res.sendfile(__dirname + '/views/hot.html');
+});
 
- app.get ('/api/popularRepos', function hot(req, res) {
-   res.render('hot', {user: req.user});
- });
+app.get('/api/popularRepos', function hot(req, res) {
+  res.render('hot', {
+    user: req.user
+  });
+});
 
 ///SEARCH Repos by TOPIC
-app.get ('/api/search/:topic', function hot(req, res) {
+app.get('/api/search/:topic', function hot(req, res) {
   var topic = req.params.topic;
   // console.log(topic);
-//   var encodedURI = encodeURI("https://github.com/search?utf8=%E2%9C%93&q=topic%3A"+ topic + "&type=Repositories&ref=searchresults");
-//
-// console.log(encodedURI);
-//   axios
-//     .get(encodedURI)
-//     .then(function (response) {
-//       console.log("*******************topic",response.data.items);
-//       res.json({user: req.user, topic: response.data.items});
-//     })
-//     .catch(err => {
-//       return err;
-//     })
+  //   var encodedURI = encodeURI("https://github.com/search?utf8=%E2%9C%93&q=topic%3A"+ topic + "&type=Repositories&ref=searchresults");
+  //
+  // console.log(encodedURI);
+  //   axios
+  //     .get(encodedURI)
+  //     .then(function (response) {
+  //       console.log("*******************topic",response.data.items);
+  //       res.json({user: req.user, topic: response.data.items});
+  //     })
+  //     .catch(err => {
+  //       return err;
+  //     })
 
-  });
+});
 
 
 /////////////////////
- //JSON API Endpoints
+//JSON API Endpoints
 
 // app.get('/', function(req, res){
 //   res.render('index', {user: req.user});
@@ -124,8 +137,10 @@ app.get('/auth/current_user', (req, res) => {
   // console.log("current user");
   res.send(req.user);
 })
-app.get('/api/current_user/:id', function (req, res) {
-  db.User.findOne({_id: req.params.id }, function(err, data) {
+app.get('/api/current_user/:id', function(req, res) {
+  db.User.findOne({
+    _id: req.params.id
+  }, function(err, data) {
     res.json(data);
 
   });
@@ -144,45 +159,48 @@ app.get('/api/current_user/:id', function (req, res) {
 //     })
 // });
 
-app.get ('/api/repos/popular', function hot(req, res) {
+app.get('/api/repos/popular', function hot(req, res) {
   var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
 
   axios
     .get(encodedURI)
-    .then(function (response) {
+    .then(function(response) {
 
-      res.json({user: req.user, popular: response.data.items});
+      res.json({
+        user: req.user,
+        popular: response.data.items
+      });
       res.json(createReposFromData(json));
     })
     .catch(err => {
       return err;
     })
 
-    function createReposFromData(json){
-      json.data.items.forEach(function (repo){
+  function createReposFromData(json) {
+      json.data.items.forEach(function(repo) {
 
-        var newRepo = new Repo({
-          id:repo.id,
-          name: repo.name,
-          owner_avatar: repo.owner.avatar_url,
-          homepage: repo.homepage,
-          language: repo.language,
-          stars: repo.stargazers_count,
-          forks_count: repo.forks,
-          created_at: repo.created_at,
-          updated_at: repo.updated_at
-        });
-        newRepo.save(function(err, repo) {
-          if (err) {
-            return console.log("save error: " + err);
-          }
-          console.log("Repo saved:", repo);
+          var newRepo = new Repo({
+            id: repo.id,
+            name: repo.name,
+            owner_avatar: repo.owner.avatar_url,
+            homepage: repo.homepage,
+            language: repo.language,
+            stars: repo.stargazers_count,
+            forks_count: repo.forks,
+            created_at: repo.created_at,
+            updated_at: repo.updated_at
+          });
+          newRepo.save(function(err, repo) {
+            if (err) {
+              return console.log("save error: " + err);
+            }
+            console.log("Repo saved:", repo);
 
-        });
+          });
 
-      }) //end forEach
+        }) //end forEach
     } //end createReposFromData
-//
+    //
 });
 
 /////////////////////////////////////////////////////////////
@@ -192,20 +210,22 @@ app.get('/auth/github',
 
 //after passport gets token we are redirected here
 app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', {
+    failureRedirect: '/login'
+  }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
   });
 
-app.get("/logout", function(req, res){
+app.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/")
 })
 
 ///////////////////////////////////////////
- /// SERVER
- /////////////////////////////////////////
+/// SERVER
+/////////////////////////////////////////
 
 //dynamic port assignment on heroku || localhost
 const PORT = process.env.PORT || 3000;

@@ -27,21 +27,24 @@
 
 
     <%- include('nav'); %>
+  <container class="userInfo">
+    <p>location: san francisco
+    hireable: true
+    repos: 48
+    gists: 3</p>
+  </container>
 
-      <p>location: san francisco</p>
-      <p>hireable: true</p>
-      <p>repos: 48</p>
-      <p>gists: 3</p>
+<container class="charts-container">
+  <div class="bar-title">
+    <h4 class="bar-title">Your repos by language</h4>
+  </div>
+  <svg id="bar-chart" width="860" height="200"></svg>
 
-
-
-<h4 class="bar-title">Your repos by language</h4>
-
-    <svg id="bar-chart" width="960" height="200"></svg>
-
-    <h4 class="bar-title">Recent commits</h4>
-    <article id="profile-layout"></article>
-
+  <div class="bar-title">
+    <h4>Recent commits</h4>
+  </div>
+  <article id="profile-layout"></article>
+</container>
 
 <script>
 
@@ -49,7 +52,7 @@
 //Inspired by
 
 var svg = d3.select("#profile-layout").append("svg")
-      .attr("width", 960)
+      .attr("width", 860)
       .attr("height", 200)
 
     var margin = {left:30, right:30, top: 10, bottom: 20}

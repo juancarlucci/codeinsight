@@ -1,0 +1,11 @@
+<svg version="1.1" id="arrow" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 70.5 132.1"
+	 enable-background="new 0 0 70.5 132.1" xml:space="preserve">
+
+	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+
+		<path fill="#F26522" stroke="#F26522" stroke-miterlimit="10" d="M35.3,68.3h23c9,0,14.6,9.8,10.1,17.6l-11.5,19.9l-11.5,19.9
+			c-4.5,7.8-15.8,7.8-20.3,0l-11.5-19.9L2.1,85.8C-2.4,78,3.2,68.3,12.2,68.3H35.3z"/>
+		<path fill="#F26522" stroke="#F26522" stroke-miterlimit="10" d="M36.3,89.9h-2.1c-10.3,0-18.6-8.3-18.6-18.6V19.1
+			C15.7,8.8,24,0.5,34.2,0.5h2.1c10.3,0,18.6,8.3,18.6,18.6v52.3C54.8,81.6,46.5,89.9,36.3,89.9z"/>
+	</g>

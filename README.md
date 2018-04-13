@@ -87,11 +87,13 @@ A second API call is made, this time to LinkedIn or Glassdoor to get statistics 
 
 ## Unsolved problems:
 
-[passport callback](https://www.evernote.com/l/ARxWA_O_P6pGrquz_4T5ycrV4OW_BJvzJyo)
+
 
 
 ## Biggest wins and challenges:
 
+[passport callback](https://www.evernote.com/l/ARxWA_O_P6pGrquz_4T5ycrV4OW_BJvzJyo)
+![oauth with github](readme-assets/oauth.png "OAuth Github")
 
 ## Code Snippets
 
@@ -137,3 +139,82 @@ app.get('/auth/github/callback',
     res.redirect('/');
   });
   ```
+### Dev and Production Setup
+
+```
+export GITHUB_CLIENT_ID="32a8c37dfcdddd5b"
+export GITHUB_CLIENT_SECRET="c86b44f3760c0a4ce320d3d365529733a9"
+export EXPRESS_SESSION_SECRET="octopuseatsroundstones"
+export MONGO_URI="mongodb://juancarlucci:octopuseatsroundstones@ds239009.mlab.com:39009/cosdeinsight-dev"
+export CALLBACK_URL="http://localhost:3000/auth/github/callback"
+```
+
+### D3
+
+#### Radius scale
+
+```
+var radiusScale = d3.scaleSqrt()
+  .domain([8613, 123511])
+  .range([2, 28])
+```
+
+#### Force Simulations
+
+```
+var simulation = d3.forceSimulation()
+  .force("x", forceXJoin)
+  .force("y", d3.forceY(height / 2).strength(0.05))
+  //collide related to radius, so if r = 10, a force of 10 had edges touching
+  .force("collide", forceCollide)
+```
+##### apply new forces
+
+```
+d3.select("#language").on("click", function() {
+  simulation
+    .force("x", forceXSeparate)
+    //NOTE: needed to reset force simulation
+    .alphaTarget(0.5)
+    .restart()
+})
+```
+
+```
+var forceXSeparate = d3.forceX(function(d) {
+  if (d.language === "Shell") {
+    return (width / 4.8)
+  } else if (d.language === "C" || d.language === "C++") {
+    return (width / 3.4)
+  } else if (d.language === "JavaScript") {
+    return (width / 2.4)
+  } else if (d.language === "Python") {
+    return (width / 1.8)
+  } else if (d.language === "Css") {
+    return (width / 1.7)
+  } else if (d.language === "Go") {
+    return (width / 1.5)
+  } else if (d.language === "Css") {
+    return (width / 1.4)
+  } else {
+    return 780
+  }
+}).strength(0.5)
+```
+#### Search
+```
+function searchRepo() {
+  //find the repo node
+  var selectedVal = document.getElementById('search').value;
+  var node = svg.selectAll(".node");
+  var selected = node.filter(function(d, i) {
+    return d.name != selectedVal;
+  });
+  selected.style("opacity", "0.3");
+
+  d3.selectAll(".node").transition()
+    .duration(5000)
+    .style("opacity", 1);
+  document.getElementById('search').value = '';
+}
+```
