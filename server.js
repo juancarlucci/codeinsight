@@ -13,7 +13,7 @@ var cookieParser = require("cookie-parser");
 var axios = require('axios');
 const fs = require('fs');
 const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
-const api = require('./public/scripts/api');
+// const api = require('./public/scripts/api');
 require('./config/passport')(passport);
 // var db = require('./models');
 
