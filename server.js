@@ -14,6 +14,7 @@ var axios           = require('axios');
 const fs            = require('fs');
 const dbUrl         = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
 require('./config/passport')(passport);
+const User = require('mongoose').model('user');
 
 
 ////////////////////////////////////////////////
@@ -21,6 +22,8 @@ require('./config/passport')(passport);
 // Mongoose Setup via mLab
 ////////////////////////////////////////////////
 mongoose.connect(dbUrl);
+
+// var db = require('./models/user');
 
 ////////////////////////////
 // Middleware
@@ -100,7 +103,7 @@ app.get('/auth/current_user', (req, res) => {
   res.send(req.user);
 })
 app.get('/api/current_user/:id', function(req, res) {
-  db.User.findOne({
+  User.findOne({
     _id: req.params.id
   }, function(err, data) {
     res.json(data);

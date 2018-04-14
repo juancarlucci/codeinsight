@@ -97,7 +97,8 @@ var svg = d3.select("#profile-layout").append("svg")
       var line = d3.line()
                   .x(function(d) { return x(parseTime(d.date)); })
                   .y(function(d) { return y(d[category]); })
-                  .curve(d3.curveMonotoneX);
+                  //https://github.com/d3/d3-shape#line_curve
+                  .curve(d3.curveNatural);
       return line;
     }
 
@@ -122,7 +123,6 @@ var svg = d3.select("#profile-layout").append("svg")
         .style("stroke",  color(i))
         .attr("d", lineFunction);
 
-    // }
 
       // Add the X Axis
   		g.append("g")
@@ -156,8 +156,8 @@ var svg = d3.select("#profile-layout").append("svg")
         .attr("fill", "white")
         .text(function(d) { return d; });
 }
-//////////////LINE graph2
-//Inspired by
+//////////////LINE graph2/////////////////////////////////
+
 
 var svg4 = d3.select("#profile-layout2").append("svg")
       .attr("width", 860)
