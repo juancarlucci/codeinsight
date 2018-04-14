@@ -1,149 +1,184 @@
 * {
-     box-sizing: border-box;
+  box-sizing: border-box;
 }
- html {
-     font-size: 2vw;
+
+html {
+  font-size: 2vw;
 }
- .hamburger {
-     display: none;
+
+.hamburger {
+  display: none;
 }
- @media screen and (max-width: 26.25em) {
-     .hamburger {
-         display: block;
-         color: gray;
-         font-size: 1.7rem;
-         position: absolute;
-         top: 1em;
-         left: 1.3em;
-    }
+
+@media screen and (max-width: 26.25em) {
+  .hamburger {
+    display: block;
+    color: gray;
+    font-size: 1.7rem;
+    position: absolute;
+    top: 1em;
+    left: 1.3em;
+  }
 }
- nav {
-    /* position: fixed;
+
+nav {
+  /* position: fixed;
      */
-     top: 0;
-     left: 0;
-     right: 0;
-    /* background-color: #fff;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* background-color: #fff;
      */
-     background: linear-gradient(to right, #e66465, #c86dd796);
-     text-align: center;
-     padding: 1.25em 17.188em;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
+  background: linear-gradient(to right, #e66465, #c86dd796);
+  text-align: center;
+  padding: 1.25em 17.188em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
- @media screen and (max-width: 26.25em) {
-     nav {
-         display: none;
-    }
+
+@media screen and (max-width: 26.25em) {
+  nav {
+    display: none;
+  }
 }
- a {
-     font-family: "Relaway", sans-serif;
-     font-weight: 600;
-     text-decoration: none;
-     color: #fff;
-    /* color: gray;
+
+a {
+  font-family: "Relaway", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  /* color: gray;
      */
-     letter-spacing: 0.063em;
-     font-size: 1.125em;
-     margin: 0 1.25em;
-     border-bottom: 0.125em solid transparent;
+  letter-spacing: 0.063em;
+  font-size: 1.125em;
+  margin: 0 1.25em;
+  border-bottom: 0.125em solid transparent;
 }
- a:hover {
-     border-color: gray;
+
+a:hover {
+  border-color: gray;
 }
- body {
-     color: #fff;
-     font-family: "Relaway", sans-serif;
-     background: linear-gradient(to right, #e66465, #c86dd796);
+
+body {
+  color: #fff;
+  font-family: "Relaway", sans-serif;
+  background: linear-gradient(to right, #e66465, #c86dd796);
 }
- h1 {
-     margin-top: 100px;
-     text-align: center;
-     font-size: calc(1em + 6vw);
+
+h1 {
+  margin-top: 100px;
+  text-align: center;
+  font-size: calc(1em + 6vw);
 }
- .repo-image {
-     display: flex;
-    /* width: 13em;
+
+.repo-image {
+  display: flex;
+  /* width: 13em;
      */
-     width: 1em;
-     height: 1em;
+  width: 1em;
+  height: 1em;
 }
+
 button {
   color: #C86DD7;
 }
+
 .main-title {
   margin: auto;
   text-align: center;
 }
+
+
 /* ///////////////////////// SVG /////////////////////////// */
- #Layer_1 {
-     position: absolute;
-     top: 148px;
+
+#Layer_1 {
+  position: absolute;
+  top: 148px;
 }
- #heartBeat {
-     stroke-dasharray: 1000;
-     stroke-dashoffset: 1000;
-     animation: dash 5s linear alternate 2;
+
+#heartBeat {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear alternate 2;
 }
- @keyframes dash {
-     from {
-         stroke-dashoffset: 1000;
-    }
-     to {
-         stroke-dashoffset: 0;
-    }
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
- #heartBeat-bottom {
-     position: absolute;
-     top: 149px;
+
+#heartBeat-bottom {
+  position: absolute;
+  top: 149px;
 }
+
+
 /* ///////////////////////// HOT /////////////////////////// */
- .flex-contaier {
-     display: flex;
-     align-items: center;
-     justify-content: center;
+
+.flex-contaier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
- #popular-list {
-     text-align: center;
-     height: 680px;
-     overflow-y: scroll;
+
+#popular-list {
+  text-align: center;
+  height: 680px;
+  overflow-y: scroll;
 }
- .node text {
-     font-family: "Relaway", sans-serif
+
+.node text {
+  font-family: "Relaway", sans-serif
 }
- .selectors {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin: 1em;
+
+.selectors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
 }
+
+
 /* PROFILE///////////////// */
- .line {
-     fill: none;
-     stroke: steelblue;
-     stroke-width: 1.5px;
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }
- .bar:hover {
-     fill: orangered;
+
+.bar:hover {
+  fill: orangered;
 }
- .axis--x path {
-     display: none;
+
+.axis--x path {
+  display: none;
 }
- .bar-title {
-     margin: auto;
-     text-align: center;
+
+.bar-title {
+  margin: auto;
+  text-align: center;
 }
-#bar-chart {
+
+#bar-chart,
+#bar-chart2,
+#profile-layout {
   margin-bottom: 8em;
 }
- .charts-container {
-     display: flex;
-     flex-direction: column;
-     margin: 3em 2em;
-     align-items: center;
-     justify-content: center
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 2em;
+  align-items: center;
+  justify-content: center
 }
+
 .userInfo {
   display: flex;
   flex-direction: column;
@@ -152,6 +187,14 @@ button {
   justify-content: center
 }
 
-.tick {
+.axisColor line{
+  stroke: white;
+}
+
+.axisColor path{
+  stroke: white;
+}
+
+.axisColor text{
   fill: white;
 }

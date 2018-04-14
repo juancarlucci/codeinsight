@@ -58,7 +58,7 @@
 <script>
 
 //////////////LINE graph
-//Inspired by
+//Inspired by https://bl.ocks.org/ocarneiro/a083012a5899c46390681352a549220d
 
 var svg = d3.select("#profile-layout").append("svg")
       .attr("width", 860)
@@ -93,9 +93,11 @@ var svg = d3.select("#profile-layout").append("svg")
               })]);
 
     var multiline = function(category) {
+      //https://bl.ocks.org/d3noob/ced1b9b18bd8192d2c898884033b5529
       var line = d3.line()
                   .x(function(d) { return x(parseTime(d.date)); })
-                  .y(function(d) { return y(d[category]); });
+                  .y(function(d) { return y(d[category]); })
+                  .curve(d3.curveMonotoneX);
       return line;
     }
 
@@ -116,6 +118,7 @@ var svg = d3.select("#profile-layout").append("svg")
       g.append("path")
         .datum(data)
         .attr("class", "line")
+        .attr("stroke-width", 2)
         .style("stroke",  color(i))
         .attr("d", lineFunction);
 
@@ -124,11 +127,13 @@ var svg = d3.select("#profile-layout").append("svg")
       // Add the X Axis
   		g.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x))
+      .attr("class", "axisColor");
 
       // Add the Y Axis
   		g.append("g")
-      .call(d3.axisLeft(y));
+      .call(d3.axisLeft(y))
+      .attr("class", "axisColor");
 
       //LEGEND
       var legend = svg.selectAll(".legend")
@@ -148,6 +153,7 @@ var svg = d3.select("#profile-layout").append("svg")
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
+        .attr("fill", "white")
         .text(function(d) { return d; });
 }
 //////////////LINE graph2
@@ -188,7 +194,8 @@ var svg4 = d3.select("#profile-layout2").append("svg")
     var multiline = function(category) {
       var line = d3.line()
                   .x(function(d) { return x(parseTime(d.date)); })
-                  .y(function(d) { return y(d[category]); });
+                  .y(function(d) { return y(d[category]); })
+                  .curve(d3.curveMonotoneX);;
       return line;
     }
 
@@ -212,16 +219,17 @@ var svg4 = d3.select("#profile-layout2").append("svg")
         .style("stroke",  color(i))
         .attr("d", lineFunction);
 
-    // }
 
       // Add the X Axis
   		g.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x))
+      .attr("class", "axisColor");
 
       // Add the Y Axis
   		g.append("g")
-      .call(d3.axisLeft(y));
+      .call(d3.axisLeft(y))
+      .attr("class", "axisColor");
 
       //LEGEND
       var legend2 = svg.selectAll(".legend")
@@ -328,17 +336,20 @@ y.domain([0, d3.max(data2, function(d) {
 g.append("g")
   .attr("class", "axis axis--x")
   .attr("transform", "translate(0," + height2 + ")")
-  .call(d3.axisBottom(x));
+  .call(d3.axisBottom(x))
+  .attr("class", "axisColor")
 
 g.append("g")
   .attr("class", "axis axis--y")
   .call(d3.axisLeft(y).ticks(12, "s"))
+  .attr("class", "axisColor")
   .append("text")
   .attr("transform", "rotate(-90)")
   .attr("y", 6)
   .attr("dy", "0.71em")
   .attr("text-anchor", "end")
-  .text("Frequency");
+  .text("repos")
+  .attr("fill", "white")
 
 g.selectAll(".bar")
   .data(data2)
@@ -439,17 +450,20 @@ g.selectAll(".bar")
   g.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height3 + ")")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x))
+    .attr("class", "axisColor")
 
   g.append("g")
     .attr("class", "axis axis--y")
     .call(d3.axisLeft(y).ticks(12, "s"))
+    .attr("class", "axisColor")
     .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 6)
     .attr("dy", "0.71em")
     .attr("text-anchor", "end")
-    .text("Frequency");
+    .text("percent growth")
+    .attr("fill", "white")
 
   g.selectAll(".bar")
     .data(data3)
