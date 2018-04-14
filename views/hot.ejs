@@ -1,56 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <name>codeInsight</name>
-
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
-
     <!-- VENDOR SCRIPTS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js">
-    </script>
-    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-    </script>
+    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"></script>
     <!-- <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script> -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-
     <!-- APPLICATION SCRIPTS -->
     <!-- <script src="/scripts/app.js"></script> -->
-</head>
-
-<body>
+  </head>
+  <body>
     <!-- <div id="nav">Nav</div> -->
     <%- include('nav'); %>
-        <container class "flex-contaier">
-            <div class="ui-widget selectors">
-                <input id="search" placeholder="search repos...">
-                <button id="searchbutton" type="button">Search</button>
-            </div>
-
-            <div class="selectors">
-                <button id="language">Language split</button>
-                <button id="all">All</button>
-                <button id="concentric">Linear</button>
-            </div>
-        </container>
-        <container class="main flex-contaier">
-            <div id="popular-list"></div>
-            <article id="stars-layout"></article>
-        </container>
-
-
-        <!-- <script src="/scripts/d3.js" defer></script> -->
-        <script src="/scripts/app.js" defer></script>
-
-
-
-
-</body>
-
+    <container class "flex-contaier">
+      <div class="ui-widget selectors">
+        <input id="search" placeholder="search repos...">
+        <button id="searchbutton" type="button">Search</button>
+      </div>
+      <div class="selectors">
+        <button id="language">Language split</button>
+        <button id="all">All</button>
+        <button id="concentric">Linear</button>
+      </div>
+    </container>
+    <container class="main flex-contaier">
+      <div id="popular-list"></div>
+      <article id="stars-layout"></article>
+    </container>
+    <!-- <script src="/scripts/d3.js" defer></script> -->
+    <script src="/scripts/app.js" defer></script>
+  </body>
 </html>
