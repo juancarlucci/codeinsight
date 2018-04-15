@@ -89,6 +89,57 @@ button {
   text-align: center;
 }
 
+/*menu ideas from Bret Boss */
+#menu {
+  position: fixed;
+  left: -6.95em;
+  top: 50%;
+  width: 8em;
+  background: rgba(141, 198, 63, 0.81);
+  color: white;
+  margin: -3em 0 0 0;
+  padding: 0.5em;
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(.61,0,.5,.99);
+  text-align: center;
+}
+@supports (transform: translate(0, -50%)) {
+  #menu {
+    margin-top: 0;
+    transform: translate(0, -50%);
+  }
+}
+
+#menu:hover {
+  left: 0;
+}
+
+#menu a:focus {
+  left: -7em;
+  background: hsla(80, 90%, 40%, 0.7);
+}
+
+#menu:hover a:focus {
+  left: 0;
+  /* background: none; */
+}
+
+.menuTitle  {
+  position: absolute;
+  top:50%;
+  transform: rotate(270deg);
+  left: 76%;
+  font-weight: 400;
+  font-size: 1em;
+
+}
+
+#menu:hover .menuTitle{
+  position: absolute;
+  top: -9.5%;
+  transform: rotate(0deg);
+  left: 2em;
+}
 
 /* ///////////////////////// SVG /////////////////////////// */
 
