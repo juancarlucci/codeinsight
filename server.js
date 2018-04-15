@@ -9,7 +9,6 @@ var app             = express();
 var mongoose        = require('mongoose');
 var passport        = require('passport');
 var expressSession  = require('express-session');
-// const cookieSession = require('cookie-session');
 var cookieParser    = require("cookie-parser");
 var axios           = require('axios');
 const fs            = require('fs');
@@ -31,14 +30,6 @@ var db = require('./models');
 ////////////////////////////
 // Middleware
 ///////////////////////////
-// app.use(
-//   cookieSession({
-//     //30 days
-//     maxAge: 30 * 24 * 60 * 60 * 1000,
-//     //cookie encryption
-//     keys: [process.env.EXPRESS_SESSION_SECRET]
-//   })
-// );
 app.use(cookieParser());
 app.use(expressSession({
   secret: process.env.EXPRESS_SESSION_SECRET
