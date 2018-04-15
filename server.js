@@ -25,7 +25,8 @@ const User = require('mongoose').model('User');
 ////////////////////////////////////////////////
 mongoose.connect(dbUrl);
 
-var db = require('./models');
+//Error: Cannot find module './models'
+// var db = require('./models');
 
 ////////////////////////////
 // Middleware
