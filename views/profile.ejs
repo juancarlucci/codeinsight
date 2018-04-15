@@ -27,12 +27,20 @@
 
 
     <%- include('nav'); %>
-  <container class="userInfo">
-    <p>location: san francisco
-    hireable: true
-    repos: 48
-    gists: 3</p>
+  <container id=menu>
+    <h5 class="menuTitle">profile</h5>
+    <div class="menu-items">
+      <p>location: san francisco</p>
+      <p>hireable: true</p>
+      <p>repos: 48</p>
+      <p>gists: 3</p>
+      <p>location: san francisco</p>
+      <p>hireable: true</p>
+      <p>repos: 48</p>
+      <p>gists: 3</p>
+    </div>
   </container>
+
 
 <container class="charts-container">
   <div class="bar-title">
@@ -97,7 +105,8 @@ var svg = d3.select("#profile-layout").append("svg")
       var line = d3.line()
                   .x(function(d) { return x(parseTime(d.date)); })
                   .y(function(d) { return y(d[category]); })
-                  .curve(d3.curveMonotoneX);
+                  //https://github.com/d3/d3-shape#line_curve
+                  .curve(d3.curveNatural);
       return line;
     }
 
@@ -122,7 +131,6 @@ var svg = d3.select("#profile-layout").append("svg")
         .style("stroke",  color(i))
         .attr("d", lineFunction);
 
-    // }
 
       // Add the X Axis
   		g.append("g")
@@ -156,8 +164,8 @@ var svg = d3.select("#profile-layout").append("svg")
         .attr("fill", "white")
         .text(function(d) { return d; });
 }
-//////////////LINE graph2
-//Inspired by
+//////////////LINE graph2/////////////////////////////////
+
 
 var svg4 = d3.select("#profile-layout2").append("svg")
       .attr("width", 860)
