@@ -70,11 +70,11 @@ app.use('/api', ensureAuthenticated);
 
 //////////////////
 // HTML Endpoints
-// app.get('/', function homepage(req, res) {
-//   res.render('index', {
-//     user: req.user
-//   });
-// });
+app.get('/', function homepage(req, res) {
+  res.render('index', {
+    user: req.user
+  });
+});
 
 app.get('/api/profile', function profile(req, res) {
   res.render('profile', {
