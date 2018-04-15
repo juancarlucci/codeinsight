@@ -14,9 +14,9 @@ var axios           = require('axios');
 const fs            = require('fs');
 const dbUrl         = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
 require('./config/passport')(passport);
-// const User = require('mongoose').model('user');
-var User = require('./models/User');
-console.log(User);
+const User = require('mongoose').model('User');
+// var User = require('./models/User');
+
 
 
 ////////////////////////////////////////////////
