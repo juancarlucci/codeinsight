@@ -293,9 +293,9 @@ function createD3nodes(data) {
       } else if (d.language === "Go") {
         return (width / 1.5)
       } else if (d.language === "Css") {
-        return (width / 1.4)
+        return (width / 1.2)
       } else {
-        return 780
+        return 680
       }
     }).strength(0.5)
 

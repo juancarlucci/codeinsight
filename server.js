@@ -107,28 +107,29 @@ app.get('/api/current_user', (req, res) => {
 })
 
 
-// app.get('/api/user/repo', function userRepo(req, res) {
-//   // var username = req.user.gh.username;
-//   // console.log("username",username);
-//   var encodedURI = encodeURI('https://api.github.com/users/juancarlucci');
-//
-//   axios
-//     .get(encodedURI)
-//     .then(function(response) {
-//
-//       res.json({
-//         user: req.user,
-//         userRepo: response
-//       });
-//
-//     })
-//     .catch(err => {
-//       return err;
-//     })
-//   });
+app.get('/api/user/repo', function userRepo(req, res) {
+  var username = req.user.gh.username;
+  console.log("username",username);
+  var encodedURI = "https://api.github.com/users/juancarlucci";
+
+  axios
+    .get(encodedURI)
+    .then(function(response) {
+
+      res.json({
+        user: req.user,
+        userRepo: response
+      });
+
+    })
+    .catch(err => {
+      return err;
+    })
+  });
 
   app.get('/api/repos/popular2', function hot(req, res) {
-    var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
+    var encodedURI = "https://api.github.com/users/juancarlucci";
+    // var encodedURI = 'https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories';
 
     axios
       .get(encodedURI)
@@ -136,38 +137,38 @@ app.get('/api/current_user', (req, res) => {
 
         res.json({
           user: req.user,
-          popular: response.data.items
+          data: response.data
         });
-        res.json(createReposFromData(json));
+        // res.json(createReposFromData(json));
       })
       .catch(err => {
         return err;
       })
 
-    function createReposFromData(json) {
-        json.data.items.forEach(function(repo) {
-
-            var newRepo = new Repo({
-              id: repo.id,
-              name: repo.name,
-              owner_avatar: repo.owner.avatar_url,
-              homepage: repo.homepage,
-              language: repo.language,
-              stars: repo.stargazers_count,
-              forks_count: repo.forks,
-              created_at: repo.created_at,
-              updated_at: repo.updated_at
-            });
-            newRepo.save(function(err, repo) {
-              if (err) {
-                return console.log("save error: " + err);
-              }
-              console.log("Repo saved:", repo);
-
-            });
-
-          }) //end forEach
-      } //end createReposFromData
+    // function createReposFromData(json) {
+    //     json.data.items.forEach(function(repo) {
+    //
+    //         var newRepo = new Repo({
+    //           id: repo.id,
+    //           name: repo.name,
+    //           owner_avatar: repo.owner.avatar_url,
+    //           homepage: repo.homepage,
+    //           language: repo.language,
+    //           stars: repo.stargazers_count,
+    //           forks_count: repo.forks,
+    //           created_at: repo.created_at,
+    //           updated_at: repo.updated_at
+    //         });
+    //         newRepo.save(function(err, repo) {
+    //           if (err) {
+    //             return console.log("save error: " + err);
+    //           }
+    //           console.log("Repo saved:", repo);
+    //
+    //         });
+    //
+    //       }) //end forEach
+    //   } //end createReposFromData
       //
   });
 
@@ -182,6 +183,7 @@ app.get('/api/current_user/:id', function(req, res) {
 });
 
 app.get('/api/repos/popular', function hot(req, res) {
+  ////*************** wrong encodeURI is twice
   var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
 
   axios
@@ -190,7 +192,7 @@ app.get('/api/repos/popular', function hot(req, res) {
 
       res.json({
         user: req.user,
-        popular: response.data.items
+        popfuular: response.data.items
       });
       // res.json(createReposFromData(json));
     })

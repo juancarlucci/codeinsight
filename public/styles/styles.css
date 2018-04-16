@@ -194,6 +194,10 @@ button {
   margin: 1em;
 }
 
+#search.ui-autocomplete-input {
+  color: gray;
+}
+
 
 /* PROFILE///////////////// */
 
