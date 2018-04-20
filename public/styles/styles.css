@@ -110,6 +110,11 @@ button {
   }
 }
 
+#menu p {
+  font-size: 0.75em;
+
+}
+
 #menu:hover {
   left: 0;
 }
@@ -126,7 +131,7 @@ button {
 
 .menuTitle  {
   position: absolute;
-  top:50%;
+  top:36%;
   transform: rotate(270deg);
   left: 76%;
   font-weight: 400;
@@ -136,9 +141,9 @@ button {
 
 #menu:hover .menuTitle{
   position: absolute;
-  top: -9.5%;
+  top: -19.5%;
   transform: rotate(0deg);
-  left: 2em;
+  left: 3em;
 }
 
 /* ///////////////////////// SVG /////////////////////////// */
@@ -196,6 +201,9 @@ button {
 
 #search.ui-autocomplete-input {
   color: gray;
+}
+.ui-helper-hidden-accessible {
+  background-color: gray;
 }
 
 
