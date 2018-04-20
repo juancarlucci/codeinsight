@@ -32,9 +32,10 @@ mongoose.connect(dbUrl);
 // Middleware
 ///////////////////////////
 app.use(cookieParser());
-app.use(expressSession({
-  secret: process.env.EXPRESS_SESSION_SECRET
-}));
+// app.use(expressSession({
+//   secret: process.env.EXPRESS_SESSION_SECRET
+// }));
+app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
@@ -106,29 +107,69 @@ app.get('/api/current_user', (req, res) => {
   res.send(req.user);
 })
 
+app.get('/api/user/profile', function userRepo(req, res) {
+  var username = req.user.gh.username;
+  var encodedURI = `https://api.github.com/users/${username}`;
 
-// app.get('/api/user/repo', function userRepo(req, res) {
-//   // var username = req.user.gh.username;
-//   // console.log("username",username);
-//   var encodedURI = encodeURI('https://api.github.com/users/juancarlucci');
-//
-//   axios
-//     .get(encodedURI)
-//     .then(function(response) {
-//
-//       res.json({
-//         user: req.user,
-//         userRepo: response
-//       });
-//
-//     })
-//     .catch(err => {
-//       return err;
-//     })
-//   });
+  axios
+    .get(encodedURI)
+    .then(function(response) {
+      res.json({
+        user: req.user,
+        userProfile: response.data
+      });
 
-  app.get('/api/repos/popular2', function hot(req, res) {
-    var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({okay  :'erooor'})
+    })
+  });
+
+  app.get('/api/user/:username/repos', function repoLanguages(req, res) {
+    var username = req.user.gh.username;
+    console.log("username",username);
+    var encodedURI = "https://api.github.com/repos/juancarlucci/about/languages";
+
+    axios
+      .get(encodedURI)
+      .then(function(response) {
+        res.json({
+          user: req.user,
+          data: response.data
+        });
+
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({okay  :'erooor'})
+      })
+    });
+
+  app.get('/api/user/:repo/languages', function repoLanguages(req, res) {
+    var username = req.user.gh.username;
+    var reponame = req.params.repo;
+    console.log("username",username, reponame);
+    var encodedURI = `https://api.github.com/repos/${username}/${reponame}/languages`;
+
+    axios
+      .get(encodedURI)
+      .then(function(response) {
+        res.json({
+          user: req.user,
+          data: response.data
+        });
+
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({okay  :'erooor'})
+      })
+    });
+
+  app.get('/api/repos/popular', function hot(req, res) {
+    // var encodedURI = "https://api.github.com/users/juancarlucci";
+    var encodedURI = 'https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories';
 
     axios
       .get(encodedURI)
@@ -136,38 +177,39 @@ app.get('/api/current_user', (req, res) => {
 
         res.json({
           user: req.user,
-          popular: response.data.items
+          popular: response.data
         });
-        res.json(createReposFromData(json));
+        // res.json(createReposFromData(json));
       })
       .catch(err => {
+        console.log('aaaa')
         return err;
       })
 
-    function createReposFromData(json) {
-        json.data.items.forEach(function(repo) {
-
-            var newRepo = new Repo({
-              id: repo.id,
-              name: repo.name,
-              owner_avatar: repo.owner.avatar_url,
-              homepage: repo.homepage,
-              language: repo.language,
-              stars: repo.stargazers_count,
-              forks_count: repo.forks,
-              created_at: repo.created_at,
-              updated_at: repo.updated_at
-            });
-            newRepo.save(function(err, repo) {
-              if (err) {
-                return console.log("save error: " + err);
-              }
-              console.log("Repo saved:", repo);
-
-            });
-
-          }) //end forEach
-      } //end createReposFromData
+    // function createReposFromData(json) {
+    //     json.data.items.forEach(function(repo) {
+    //
+    //         var newRepo = new Repo({
+    //           id: repo.id,
+    //           name: repo.name,
+    //           owner_avatar: repo.owner.avatar_url,
+    //           homepage: repo.homepage,
+    //           language: repo.language,
+    //           stars: repo.stargazers_count,
+    //           forks_count: repo.forks,
+    //           created_at: repo.created_at,
+    //           updated_at: repo.updated_at
+    //         });
+    //         newRepo.save(function(err, repo) {
+    //           if (err) {
+    //             return console.log("save error: " + err);
+    //           }
+    //           console.log("Repo saved:", repo);
+    //
+    //         });
+    //
+    //       }) //end forEach
+    //   } //end createReposFromData
       //
   });
 
@@ -179,50 +221,6 @@ app.get('/api/current_user/:id', function(req, res) {
     res.json(data);
 
   });
-});
-
-app.get('/api/repos/popular', function hot(req, res) {
-  var encodedURI = encodeURI('https://api.github.com/search/repositories?q=stars:>48000+language:All&sort=stars&order=desc&type=Repositories');
-
-  axios
-    .get(encodedURI)
-    .then(function(response) {
-
-      res.json({
-        user: req.user,
-        popular: response.data.items
-      });
-      // res.json(createReposFromData(json));
-    })
-    .catch(err => {
-      return err;
-    })
-
-  function createReposFromData(json) {
-      json.data.items.forEach(function(repo) {
-
-          var newRepo = new Repo({
-            id: repo.id,
-            name: repo.name,
-            owner_avatar: repo.owner.avatar_url,
-            homepage: repo.homepage,
-            language: repo.language,
-            stars: repo.stargazers_count,
-            forks_count: repo.forks,
-            created_at: repo.created_at,
-            updated_at: repo.updated_at
-          });
-          newRepo.save(function(err, repo) {
-            if (err) {
-              return console.log("save error: " + err);
-            }
-            console.log("Repo saved:", repo);
-
-          });
-
-        }) //end forEach
-    } //end createReposFromData
-    //
 });
 
 /////////////////////////////////////////////////////////////
@@ -242,9 +240,21 @@ app.get('/auth/github/callback',
 
 app.get("/logout", function(req, res) {
   //passport attaches this method automatically
-  //logout destroys cookie
+  //logout destroys cookieParser
+
   req.logout();
-  res.redirect("/")
+
+  req.session.destroy(function (err) {
+   if (err) { return next(err); }
+   // req.session = null;
+   // req.session.clearCookie('connect.sid', {
+		//   path: '/auth',
+		//   httpOnly: true,
+		// })
+   //indicates that user is no longer authenticated
+   res.redirect("/");
+ });
+
 })
 
 ///////////////////////////////////////////

@@ -30,14 +30,7 @@
   <container id=menu>
     <h5 class="menuTitle">profile</h5>
     <div class="menu-items">
-      <p>location: san francisco</p>
-      <p>hireable: true</p>
-      <p>repos: 48</p>
-      <p>gists: 3</p>
-      <p>location: san francisco</p>
-      <p>hireable: true</p>
-      <p>repos: 48</p>
-      <p>gists: 3</p>
+
     </div>
   </container>
 
@@ -45,6 +38,12 @@
 <container class="charts-container">
   <div class="bar-title">
     <h4 class="bar-title">Your repos by language</h4>
+    <form action="/action_page.php" target="_blank" method="GET">
+      Last name:<br>
+      <input type="text" name="reponame" value="Your repo name">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
   </div>
   <svg id="bar-chart" width="860" height="200"></svg>
 
@@ -64,6 +63,62 @@
 </container>
 
 <script>
+
+$.ajax({
+  method: "GET",
+  url: "/api/user/profile",
+  success: handleSuccess,
+  error: handleError
+});
+
+var userProfile = [];
+var node=[];
+
+function handleSuccess(json) {
+  userProfile = json.userProfile;
+  // console.log(userProfile);
+
+  var userHTML = createProfileHtml(userProfile);
+  // console.log(userHTML);
+  // var nodes = createD3nodes(userProfile);
+  // var profileHtml = createProfileHtml(allRepos);
+
+  node.push({
+    id:userProfile.id,
+    name:userProfile.login,
+    owner_avatar:userProfile.avatar_url,
+    public_repos:userProfile.public_repos,
+    public_gists:userProfile.public_gists,
+    repos_url:userProfile.repos_url,
+    following:userProfile.following,
+    followers:userProfile.followers,
+    created_at:userProfile.created_at,
+    updated_at:userProfile.updated_at
+
+  });
+  $(".menu-items").append(userHTML);
+
+}
+
+function handleError(e) {
+  $("#popular-list").text('Failed to load popular repos, is the server working?');
+}
+
+
+    function createProfileHtml(userProfile) {
+      // console.log(userProfile);
+      return `
+        <p>
+          <a href="${userProfile.repos_url}" target="_blank">
+          ${userProfile.login}</a>
+        </p>
+        <p class="userProfile-repo-count">repos: ${userProfile.public_repos}</p>
+        <p class="userProfile-repo-count">gists: ${userProfile.public_gists}</p>
+        <p class="userProfile-repo-count">following: ${userProfile.following}</p>
+        <p class="userProfile-repo-count">followers: ${userProfile.followers}</p>
+        `;
+    }
+
 
 //////////////LINE graph
 //Inspired by https://bl.ocks.org/ocarneiro/a083012a5899c46390681352a549220d
@@ -491,6 +546,8 @@ g.selectAll(".bar")
     .attr("height", function(d) {
       return height3 - y(d.stargazers_count);
     });
+
+// }//end createD3nodes
 
   </script>
   </body>
