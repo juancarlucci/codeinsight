@@ -2,6 +2,7 @@
 
 This is a project to display user’s github statistics in a way that can lead to insights about coding patterns and language usage.
 
+![codeInsight](readme-assets/hot.png "Popular Repos Image")
 
 
 [Sketch: Story board, wireframes, and more details](https://sketch.cloud/s/D44k2/all/welcome/basic-app/play)
@@ -144,10 +145,10 @@ app.get('/auth/github/callback',
 ### Dev and Production Setup
 
 ```
-export GITHUB_CLIENT_ID="32a8c37dfcdddd5b"
-export GITHUB_CLIENT_SECRET="c86b44f3760c0a4ce320d3d365529733a9"
-export EXPRESS_SESSION_SECRET="octopuseatsroundstones"
-export MONGO_URI="mongodb://juancarlucci:octopuseatsroundstones@ds239009.mlab.com:39009/cosdeinsight-dev"
+export GITHUB_CLIENT_ID="32***"
+export GITHUB_CLIENT_SECRET="c86***"
+export EXPRESS_SESSION_SECRET="***"
+export MONGO_URI="mongodb://user***:password***@ds239009.mlab.com:39009/cosdeinsight-dev"
 export CALLBACK_URL="http://localhost:3000/auth/github/callback"
 ```
 ### SVG

@@ -82,6 +82,7 @@ app.get('/api/profile', function profile(req, res) {
     user: req.user
   });
 });
+
 app.get('/api/hot', function hot(req, res) {
   res.render('hot', {
     user: req.user
@@ -92,11 +93,11 @@ app.get('/api/hot', function hot(req, res) {
   // res.sendfile(__dirname + '/views/hot.html');
 });
 
-app.get('/api/popularRepos', function hot(req, res) {
-  res.render('hot', {
-    user: req.user
-  });
-});
+// app.get('/api/popularRepos', function hot(req, res) {
+//   res.render('hot', {
+//     user: req.user
+//   });
+// });
 
 /////////////////////
 //JSON API Endpoints

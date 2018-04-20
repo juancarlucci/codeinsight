@@ -31,7 +31,7 @@ nav {
      */
   background: linear-gradient(to right, #e66465, #c86dd796);
   text-align: center;
-  padding: 1.25em 17.188em;
+  /* padding: 1.25em 17.188em; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,9 +84,12 @@ button {
   color: #C86DD7;
 }
 
+.welcome {
+  margin-bottom: 3em;
+}
 .main-title {
-  margin: auto;
   text-align: center;
+
 }
 
 /*menu ideas from Bret Boss */
@@ -150,13 +153,44 @@ button {
 
 #Layer_1 {
   position: absolute;
-  top: 148px;
+  top: 134px;
+  z-index: -1;
+}
+.intro,
+.action {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.action a{
+  background-color: steelblue;
+  border-radius: 8%;
+}
+.column {
+  margin: auto;
+}
+#logo-intro,
+#github-icon {
+  width: 8em;
+  height: 8em;
+}
+.no-svg #logo {
+  width: 200px;
+  height: 164px;
+  background-image: url(kiwi.png);
 }
 
-#heartBeat {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 5s linear alternate 2;
+#logo-link {
+  stroke: steelblue;
+}
+
+#logo-link {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: dash 3s linear alternate infinite;
 }
 
 @keyframes dash {
@@ -170,7 +204,20 @@ button {
 
 #heartBeat-bottom {
   position: absolute;
-  top: 149px;
+  top: 135px;
+  z-index: -1;
+}
+
+.circle-thick {
+  stroke-width: 5px;
+  stroke: steelblue;
+}
+.circle-red {
+  stroke: orangered;
+}
+
+.block {
+  display: block;
 }
 
 
