@@ -3,7 +3,7 @@
 }
 
 html {
-  font-size: 2vw;
+  /* font-size: 2vw; */
 }
 
 .hamburger {
@@ -69,7 +69,6 @@ body {
   color: #fff;
   font-family: "Relaway", sans-serif;
   background: linear-gradient(to right, #e66465, #c86dd796);
-  font-size: 16px;
 }
 
 h1 {
@@ -173,6 +172,10 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.into {
+  max-width: 52%;
 }
 
 .action a{
@@ -326,6 +329,9 @@ button {
   }
   .intro {
     display: inline;
+  }
+  nav {
+    flex-direction: column;
   }
 
 }

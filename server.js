@@ -236,7 +236,7 @@ app.get('/auth/github/callback',
   }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/api/profile');
   });
 
 app.get("/logout", function(req, res) {

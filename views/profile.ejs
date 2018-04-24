@@ -87,7 +87,8 @@ function handleSuccess(json) {
     following:userProfile.following,
     followers:userProfile.followers,
     created_at:userProfile.created_at,
-    updated_at:userProfile.updated_at
+    updated_at:userProfile.updated_at,
+    rep
 
   });
   $(".menu-items").append(userHTML);
@@ -97,6 +98,26 @@ function handleSuccess(json) {
 function handleError(e) {
   $("#popular-list").text('Failed to load popular repos, is the server working?');
 }
+
+// function createD3nodes(userProfile) {
+//     console.log("userProfile",userProfile);
+//
+//
+//     node.push({
+//       id:userProfile.id,
+//       name:userProfile.login,
+//       owner_avatar:userProfile.avatar_url,
+//       public_repos:userProfile.public_repos,
+//       public_gists:userProfile.public_gists,
+//       repos_url:userProfile.repos_url,
+//       following:userProfile.following,
+//       followers:userProfile.followers,
+//       created_at:userProfile.created_at,
+//       updated_at:userProfile.updated_at
+//
+//     });
+// }
+
 
 
     function createProfileHtml(userProfile) {
@@ -112,7 +133,6 @@ function handleError(e) {
         <p class="userProfile-repo-count">followers: ${userProfile.followers}</p>
         `;
     }
-
 
 //////////////LINE graph
 //Inspired by https://bl.ocks.org/ocarneiro/a083012a5899c46390681352a549220d
