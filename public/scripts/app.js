@@ -12,12 +12,12 @@ $(document).ready(function() {
   // automatically populate list on ready
   $popularList = $("#popular-list");
 
-  $.ajax({
-    method: "GET",
-    url: "/api/repos/popular",
-    success: handleSuccess,
-    error: handleError
-  });
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/api/repos/popular",
+  //   success: handleSuccess,
+  //   error: handleError
+  // });
 
 
   function handleSuccess(json) {
