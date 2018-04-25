@@ -1,25 +1,117 @@
-html { font-size: 2vw; }
+/* html { font-size: 2vw; }
 
 body {
   color: #gray;
   font-family: Helvetica, Arial, sans-serif;
-  /* background: linear-gradient(to right, #C86DD7, #e66465); */
+  background: linear-gradient(to right, #C86DD7, #e66465);
 }
 
 h4 {
-  /* margin-top: 100px; */
   text-align: center;
   font-size: calc(1em + 1vw);
 }
 image {
   disp: block;
+} */
+.flexcontainer {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
 }
 
 .main-wrapper {
-  max-width: 600px;
+  /* max-width: 1600px; */
+  min-width: 270px;
   margin: auto;
+
+}
+.svg-container {
+  /* need flex-grow to work well with viebox set in d3-profile.js */
+  flex-grow: 1;
+  margin: 3em 2em;
+  align-items: center;
+  justify-content: center
 }
 
 #first-line-legend {
   font-size: 0.5em;
+  font-max-size: 1em;
+}
+/* PROFILE///////////////// */
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.bar:hover {
+  fill: orangered;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.bar-title {
+  margin: auto;
+  text-align: center;
+}
+
+#bar-chart,
+#bar-chart2,
+#profile-layout {
+  margin-bottom: 8em;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 2em;
+  align-items: center;
+  justify-content: center
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  margin: 3em 2em;
+  align-items: center;
+  justify-content: center
+}
+
+.axisColor line{
+  stroke: white;
+}
+
+.axisColor path{
+  stroke: white;
+}
+
+.axisColor text{
+  fill: white;
+}
+
+
+
+@media screen and (max-width: 42.5em) {
+
+  body {
+    background: white;
+  }
+
+  .flexcontainer {
+     display: block;
+     margin: 3em 0;
+  }
+  .svg-container {
+    margin: 0;
+  }
+
+
 }
