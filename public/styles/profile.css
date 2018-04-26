@@ -1,18 +1,22 @@
-/* html { font-size: 2vw; }
 
-body {
-  color: #gray;
-  font-family: Helvetica, Arial, sans-serif;
-  background: linear-gradient(to right, #C86DD7, #e66465);
-}
-
-h4 {
+.btn {
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  padding: 1.018em 1.2em;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  font-size: 0.6em;
   text-align: center;
-  font-size: calc(1em + 1vw);
+  background-color: steelblue;
+  cursor: pointer;
 }
-image {
-  disp: block;
-} */
+
+.btn:hover {
+  background-color: rgb(19, 151, 213);
+}
+
 .flexcontainer {
    display: -webkit-flex;
    display: flex;
@@ -22,15 +26,19 @@ image {
    align-items: center;
    -webkit-justify-content: center;
    justify-content: center;
+   flex-wrap: wrap;
 }
 
 .main-wrapper {
-  /* max-width: 1600px; */
+  max-width: 1600px;
   min-width: 270px;
   margin: auto;
 
 }
-.svg-container {
+
+.svg-container,
+.svg-line-container,
+.svg-badge-container {
   /* need flex-grow to work well with viebox set in d3-profile.js */
   flex-grow: 1;
   margin: 3em 2em;
@@ -38,18 +46,48 @@ image {
   justify-content: center
 }
 
-#first-line-legend {
+.svg-line-container,
+.svg-badge-container {
+  max-width: 63em;
+}
+
+.svg-container {
+  min-width: 270px;
+}
+
+.repo-languages-directions {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
+  padding: .8em;
+  padding-top: 1.5em;
+}
+.badges {
+  border-bottom: 1px solid #e5e5e5;
+}
+.profile-stats {
+  padding-top: 0.5em;
+}
+/* ////////////
+LINE GRAPH
+//////////////// */
+
+#first-line-legend,
+.badge-titles,
+.badge-values {
   font-size: 0.5em;
   font-max-size: 1em;
 }
-/* PROFILE///////////////// */
 
 .line {
   fill: none;
-  stroke: steelblue;
   stroke-width: 1.5px;
 }
 
+/* ////////////
+BAR GRAPHS
+/////////// */
 .bar:hover {
   fill: orangered;
 }
@@ -69,12 +107,13 @@ image {
   margin-bottom: 8em;
 }
 
-.charts-container {
-  display: flex;
-  flex-direction: column;
-  margin: 3em 2em;
-  align-items: center;
-  justify-content: center
+.del {
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.del:hover {
+  fill: orangered;
 }
 
 .userInfo {
@@ -104,6 +143,9 @@ image {
   body {
     background: white;
   }
+  h3 {
+    font-size: 1em;
+  }
 
   .flexcontainer {
      display: block;
@@ -111,6 +153,13 @@ image {
   }
   .svg-container {
     margin: 0;
+  }
+  .repo-languages-directions{
+    width: 100%;
+  }
+  .badge-titles,
+  .badge-values {
+    font-size: 1em;
   }
 
 

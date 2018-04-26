@@ -1,4 +1,7 @@
-* {
+/* basic reset */
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -166,12 +169,16 @@ button {
 }
 .intro,
 .action {
+  max-width: 47em;
   width: 60%;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.action {
+  margin-top: 3em;
 }
 
 .into {
@@ -269,58 +276,6 @@ button {
 
 /* PROFILE///////////////// */
 
-/* .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.bar:hover {
-  fill: orangered;
-}
-
-.axis--x path {
-  display: none;
-}
-
-.bar-title {
-  margin: auto;
-  text-align: center;
-}
-
-#bar-chart,
-#bar-chart2,
-#profile-layout {
-  margin-bottom: 8em;
-}
-
-.charts-container {
-  display: flex;
-  flex-direction: column;
-  margin: 3em 2em;
-  align-items: center;
-  justify-content: center
-}
-
-.userInfo {
-  display: flex;
-  flex-direction: column;
-  margin: 3em 2em;
-  align-items: center;
-  justify-content: center
-}
-
-.axisColor line{
-  stroke: white;
-}
-
-.axisColor path{
-  stroke: white;
-}
-
-.axisColor text{
-  fill: white;
-} */
 
 
 @media screen and (max-width: 26.25em) {

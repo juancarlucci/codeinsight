@@ -164,7 +164,7 @@ app.get('/api/user/profile', function userRepo(req, res) {
       })
       .catch((err) => {
         console.log(err);
-        res.json({okay  :'erooor'})
+        res.json({repoLanguages :'erooorrr'})
       })
     });
 
