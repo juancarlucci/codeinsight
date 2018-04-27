@@ -12,18 +12,18 @@ $(document).ready(function() {
   // automatically populate list on ready
   $popularList = $("#popular-list");
 
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/repos/popular",
-  //   success: handleSuccess,
-  //   error: handleError
-  // });
+  $.ajax({
+    method: "GET",
+    url: "/api/repos/popular",
+    success: handleSuccess,
+    error: handleError
+  });
 
 
   function handleSuccess(json) {
     allRepos = json.popular;
     var reposHtml = getAllReposHtml(allRepos);
-    $popularList.append(reposHtml);
+    $popularList.prepend(reposHtml);
     var newNodes = createD3nodes(allRepos.items);
   }
 
@@ -39,6 +39,10 @@ $(document).ready(function() {
   }
 
   function getRepoHtml(repo) {
+    if(repo.language !== null && repo !== '') {
+
+    var star = String.fromCodePoint("0x2606");
+
     return `
           <article class="repo-item">
             <hr>
@@ -48,10 +52,10 @@ $(document).ready(function() {
                 <b class="repo-name">${repo.name}</b>
               </a>
               </p>
-              <span class="repo-stargazers_count">${repo.stargazers_count}</span>
-              <span class="repo-language">${repo.language}</span>
+              <span class="repo-stargazers_count">${star} ${repo.stargazers_count}</span>
           </article>
       `;
+    }
   }
 
   function getAllReposHtml(repos) {
@@ -68,9 +72,18 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////
 //
 // //Get data from success
-function createD3nodes(data) {
+function createD3nodes(data, nodes) {
 
-    var nodes = data.map(function(repo) {
+  const languageOnlyData =[];
+  const initialScaleData = [];
+  data.forEach(function(repo) {
+  if(repo.language !== null && repo.name !== "freeCodeCamp") {
+    languageOnlyData.push(repo);
+    initialScaleData.push(repo.stargazers_count);
+   }
+ });//end data.forEach
+    var nodes = languageOnlyData.map(function(repo) {
+
 
       return {
         id: repo.id,
@@ -86,12 +99,16 @@ function createD3nodes(data) {
       }
     });
 
-
-
+    const newScaledData = [];
+    const minDataPoint = d3.min(initialScaleData);
+    const maxDataPoint = d3.max(initialScaleData);
+    console.log(minDataPoint, maxDataPoint);
     var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-    var width = 840,
-      height = 680;
+    // Set the dimensions of the canvas / graph
+  var margin = {top: 20, right: 10, bottom: 20, left: 10},
+    width = 760 - margin.left - margin.right,
+    height = 680 - margin.top - margin.bottom;
 
     // Define the div for the tooltip
     var div = d3.select("body").append("div")
@@ -100,17 +117,27 @@ function createD3nodes(data) {
 
 
     var svg = d3.select("#stars-layout")
+      // .append("svg")
+      // .attr("height", height)
+      // .attr("width", width)
+      // .append("g")
+      // .attr("transform", "translate(0,0)")
+      .append("div")
+      .classed("svg-container", true) //container class to make it responsive
+      .attr("id", function(d, i) { return (i); })
       .append("svg")
       .attr("height", height)
       .attr("width", width)
-      .append("g")
-      .attr("transform", "translate(0,0)")
+      //responsive SVG needs these 2 attributes and no width and height attr
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 760 680")
+      ;
 
 
     //RADIUS scale
     var radiusScale = d3.scaleSqrt()
-      .domain([8613, 123511])
-      .range([2, 38])
+      .domain([minDataPoint, maxDataPoint])
+      .range([14, 38])
 
     //FORCE SiMULATION
     // a collection of forces to apply to circles
@@ -118,21 +145,23 @@ function createD3nodes(data) {
     //REGULAR Circles
     var forceXSeparate = d3.forceX(function(d) {
       if (d.language === "Shell") {
-        return (width / 4.8)
-      } else if (d.language === "C" || d.language === "C++") {
-        return (width / 3.4)
+        return (width / 8.7)
+      } else if (d.language === "C") {
+        return (width / 4.5)
+      } else if (d.language === "C++"){
+        return (width / 3.1)
       } else if (d.language === "JavaScript") {
-        return (width / 2.4)
+        return (width / 2.2)
       } else if (d.language === "Python") {
-        return (width / 1.8)
-      } else if (d.language === "Css") {
-        return (width / 1.7)
+        return (width / 1.6)
       } else if (d.language === "Go") {
-        return (width / 1.5)
+        return (width / 1.3)
       } else if (d.language === "Css") {
-        return (width / 1.2)
+        return (width / 1.1)
+      } else if (d.language === "TypeScript") {
+        return (width / 1)
       } else {
-        return 680
+        return 620
       }
     }).strength(0.5)
 

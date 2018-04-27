@@ -3,16 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <name>codeInsight</name>
+
+    <title>codeInsight</title>
+
     <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
+
     <!-- VENDOR SCRIPTS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="/scripts/d3.min.js"></script>
+    <script src="/scripts/jquery3.3.1.min.js"></script>
     <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
     <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"></script>
-    <!-- <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script> -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+
     <!-- APPLICATION SCRIPTS -->
     <!-- <script src="/scripts/app.js"></script> -->
   </head>
@@ -23,7 +25,7 @@
       <div class="selectors">
         <button id="language">Language split</button>
         <button id="all">All</button>
-        <button id="concentric">Linear</button>
+        <!-- <button id="concentric">Linear</button> -->
       </div>
       <div class="ui-widget selectors">
         <input id="search" placeholder="search repos...">
@@ -31,10 +33,17 @@
       </div>
     </container>
     <container class="main flex-contaier">
-      <div id="popular-list"></div>
+      <section class="popular-list-container">
+        <h3 class="popular-title">hottest repos</h3>
+        <small>scroll for more</small>
+        <div id="popular-list"></div>
+
+      </section>
+
       <article id="stars-layout"></article>
+
     </container>
     <!-- <script src="/scripts/d3.js" defer></script> -->
-    <script src="/scripts/app.js" defer></script>
+    <script src="/scripts/hot.js" defer></script>
   </body>
 </html>

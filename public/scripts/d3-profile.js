@@ -338,13 +338,6 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
 
 //https://github.com/sanathp/D3js-Bar-Chart-with-delete-option/blob/master/barchart.html
     chart1
-    .on( "click", function() {
-      // need both of these to remove both the graph and the contaier
-      this.parentNode.parentNode.remove();
-      this.parentNode.parentNode.removeChild(this.parentNode);
-
-    }
-    )
     .append("text")
         .attr("x", width - 24)
         .attr("y", 19)
@@ -353,6 +346,13 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
         .attr("fill", "white")
         .attr("class", "del")
         .text("X")
+        .on( "click", function() {
+          // need both of these to remove both the graph and the contaier
+          this.parentNode.parentNode.remove();
+          this.parentNode.parentNode.removeChild(this.parentNode);
+
+        }
+        )
         ;
 
 
