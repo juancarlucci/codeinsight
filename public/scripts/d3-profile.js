@@ -378,7 +378,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
 
   g.append("g")
     .attr("class", "axis axis--y")
-    .call(d3.axisLeft(y).ticks(12, "s"))
+    .call(d3.axisLeft(y).ticks(7, "s"))
     .attr("class", "axisColor")
     .append("text")
     .attr("transform", "rotate(-90)")
