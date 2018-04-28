@@ -142,6 +142,7 @@ function createD3nodes(data, nodes) {
     //FORCE SiMULATION
     // a collection of forces to apply to circles
 
+    
     //REGULAR Circles
     var forceXSeparate = d3.forceX(function(d) {
       if (d.language === "Shell") {
@@ -165,7 +166,9 @@ function createD3nodes(data, nodes) {
       }
     }).strength(0.5)
 
+
     var forceXJoin = d3.forceX(width / 2).strength(0.05)
+
 
     var forceCollide = d3.forceCollide(function(d) {
       return radiusScale(d.stars) + 15

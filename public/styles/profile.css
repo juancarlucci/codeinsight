@@ -51,6 +51,10 @@
   max-width: 63em;
 }
 
+.svg-badge-container {
+  margin-left: 3em;
+}
+
 .svg-container {
   min-width: 270px;
 }
@@ -68,6 +72,15 @@
 }
 .profile-stats {
   padding-top: 0.5em;
+}
+
+.node-item {
+  font: 10px sans-serif;
+  /* background-color: steelblue; */
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
 }
 /* ////////////
 LINE GRAPH

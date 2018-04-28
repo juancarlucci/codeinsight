@@ -76,19 +76,11 @@ function handleError(e) {
     }
 
 userRepoName = $('#repo-name').val();
-console.log(userRepoName);
-    // $.ajax({
-    //   method: "GET",
-    //   url: "/api/user/:repo/languages",
-    //   success: handleLanguageSuccess,
-    //   error: handleError
-    // });
+
   $('form').on("submit", function(e){
 
     e.preventDefault();
-    // var data = $(this).serialize();
-    // console.log(data);
-    // var reponame = "about";
+
     var reponame= $("input#repo-name").val();
 
     $.ajax({
@@ -106,141 +98,121 @@ console.log(userRepoName);
 
     function handleLanguageSuccess(json) {
       repoLanguagesData = json.data;
-      // var userHTML = createProfileHtml(userProfile);
-      // console.log(userHTML);
-      var repoLanguages = getRepoLanguages(repoLanguagesData);
-      // var profileHtml = createProfileHtml(allRepos);
 
+      var repoLanguages = getRepoLanguages(repoLanguagesData);
 
     }
     ///////////////////////////////////////////////////////////
     // BADGES
-
+    /////////////////////////////////////////////////
     function makeBadges(json){
       var margin = {top: 10, right: 20, bottom: 10, left: 10},
         width = 400 - margin.left - margin.right,
         height = 130 - margin.top - margin.bottom;
 
       var data=[];
+
       var badgesvg = d3.select(".badges")
-          // .attr("width", 550)
-          // .attr("height", 300)
           .append("div")
           .classed("svg-badge-container", true) //container class to make it responsive
-          .attr("id", function(d, i) { return (i); })
-          .append("svg")
-          //responsive SVG needs these 2 attributes and no width and height attr
-          .attr("preserveAspectRatio", "xMinYMin meet")
+          // .attr("id", function(d, i) { return (i); })
+          // .append("svg")
+          // //responsive SVG needs these 2 attributes and no width and height attr
+          // .attr("preserveAspectRatio", "xMinYMin meet")
           .attr("viewBox", "0 0 400 130")
-          //class to make it responsive
-          .classed("svg-content-responsive", true)
+          // //class to make it responsive
+          // .classed("svg-content-responsive", true)
 
 
-
+      const initialRepoScaleData = [];
       for(elem in json){
-        if(typeof json[elem] === "number")
-        data.push({
-          elem,
-          data: json[elem]
-
-        });
+        if(typeof json[elem] === "number"){
+          data.push({
+            elem,
+            data: json[elem]
+          });
+          initialRepoScaleData.push(json.repos);
+        }
       }
-
-      //FAKE DATA
-      // data= [{
-      //   elem: repos,
-      //   data: 49,
-      //   elem: gists,
-      //   data: 4,
-      //   elem: following,
-      //   data: 2,
-      //   elem: followers,
-      //   data: 12}];
-      // console.log("data",data);
+      const minDataPoint = d3.min(initialRepoScaleData);
+      const maxDataPoint = d3.max(initialRepoScaleData);
+      console.log(0, maxDataPoint);
       var color = d3.scaleOrdinal(d3.schemeCategory20);
 
+      var x = d3.scaleLinear()
+        .domain([0, maxDataPoint])
+        .range([0, 250]);
+
       var radiusScale = d3.scaleSqrt()
-        .domain([0, 223])
-        .range([1, 58])
+        .domain([0, maxDataPoint])
+        .range([1, 48])
 
-      var elem = badgesvg.selectAll("g  circleText")
-          .data(data)
-
-
-      /*Create and place the "blocks" containing the circle and the text */
-      var elemEnter = elem.enter()
-        .append("g")
-        .attr("class", "node-group")
-        // .attr("transform", function(d){return `translate(200 ,100)`})
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      /*Create the circle for each block */
-      var circleInner = elemEnter.append("circle")
-        .attr("r", function(d) {
-          return radiusScale(d.data)
-        })
-        .attr("stroke", "white")
-        .attr("fill", "steelblue")
-        // .attr("cx", function(d, i) { return i * 50 + 30; })
-        .attr("cx", function(d, i) { return i * 80 + 50; })
-        .attr("cy", 20)
-        ;
-
-        // Location of text for data values
-        elemEnter.append("text")
-          .text(function(d,i){return d.data})
-          .attr("class", "badge-values")
-          .attr("text-anchor", "middle")
-          .attr("fill", "white")
-          // .attr("font-size", function(d, i) { return 5 + 5*i; })
-          .attr("dx", function(d, i) { return i * 80 + 50; })
-          // .attr("dy", function(d, i) { return 85 + 5*i; })
-          .attr("dy", 105 - margin.top)
-          ;
-
-      // Location for title of elements
-      elemEnter.append("text")
-        .text(function(d,i){return d.elem})
-        .attr("class", "badge-titles")
-        .attr("text-anchor", "middle")
-        .attr("fill", "white")
-        .attr("dx", function(d, i) { return i * 80 + 50; })
-        .attr("dy", 117 - margin.top)
-        ;
+        badgesvg
+          .selectAll("div")
+            .data(data)
+          .enter().append("div")
+            .style('background-color', function(d) { return color(d.elem); })
+            .attr("class", "node-item")
+            .style("width", 0)
+            .text(function(d) { return d.elem; })
+            .attr("text-anchor", "middle")
+            .transition().duration(1500)
+            .ease(d3.easeBack)
+            .style("width", function(d) { return x(d.data) + "px"; })
+            .attr("dx", function(d) { return x(d.data)/2 + "px"; })
+            .attr("dy", -2)
+            ;
 
 
-    //   console.log(userProfileNodes);
-    // var format = d3.format(",d");
-    //
-    //
-    // var side = 2 * radius * Math.cos(Math.PI / 4),
-    //   dx = radius - side / 2;
-    //
-    // var badges = d3.select(".badges");
-    //
-    // var g = badges.append('g')
-    //   .attr('transform', 'translate(' + [dx, dx] + ')');
-    //
-    // g.append("foreignObject")
-    //   .attr("width", side)
-    //   .attr("height", side)
-    //   .append("xhtml:body")
-    //   .html("Lorem ipsum dolor sit amet, ...");
-      // .transition()
-      //   .duration(2500)
-      //   .on("start", function repeat() {
-      //     d3.active(this)
-      //         .tween("text", function() {
-      //           var that = d3.select(this),
-      //               i = d3.interpolateNumber(that.text().replace(/,/g, ""), Math.random() * 1e6);
-      //           return function(t) { that.text(format(i(t))); };
-      //         })
-      //       .transition()
-      //         .delay(1500)
-      //         .on("start", repeat);
-      //   });
+      // var elem = badgesvg.selectAll("g  circleText")
+      //     .data(data)
+
+
+      //Create and place the circle and the text
+      // var elemEnter = elem.enter()
+      //   .append("g")
+      //   .attr("class", "node-group")
+      //   // .attr("transform", function(d){return `translate(200 ,100)`})
+      //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      //
+      // //Create the circles
+      // var circleInner = elemEnter.append("circle")
+      //   .attr("r", function(d) {
+      //     return radiusScale(d.data)
+      //   })
+      //   .attr("stroke", "white")
+      //   .attr("fill", "steelblue")
+      //   // .attr("cx", function(d, i) { return i * 50 + 30; })
+      //   .attr("cx", function(d, i) { return i * 80 + 50; })
+      //   .attr("cy", 20)
+      //   ;
+      //
+      //   // Location of text for data values
+      //   elemEnter.append("text")
+      //     .text(function(d,i){return d.data})
+      //     .attr("class", "badge-values")
+      //     .attr("text-anchor", "middle")
+      //     .attr("fill", "white")
+      //     // .attr("font-size", function(d, i) { return 5 + 5*i; })
+      //     .attr("dx", function(d, i) { return i * 80 + 50; })
+      //     // .attr("dy", function(d, i) { return 85 + 5*i; })
+      //     .attr("dy", 105 - margin.top)
+      //     ;
+      //
+      // // Location for title of elements
+      // elemEnter.append("text")
+      //   .text(function(d,i){return d.elem})
+      //   .attr("class", "badge-titles")
+      //   .attr("text-anchor", "middle")
+      //   .attr("fill", "white")
+      //   .attr("dx", function(d, i) { return i * 80 + 50; })
+      //   .attr("dy", 117 - margin.top)
+      //   ;
+
+
 
     } //end makeBadges
+    //////////////////////////////////////////////////////
 
     function getRepoLanguages(repo) {
 
@@ -385,7 +357,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
     .attr("y", 6)
     .attr("dy", "0.71em")
     .attr("text-anchor", "end")
-    .text("lines of code")
+    .text("bytes of code")
     .attr("fill", "white")
 
   g.selectAll(".bar")

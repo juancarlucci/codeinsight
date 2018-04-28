@@ -37,7 +37,7 @@ nav {
   /* padding: 1.25em 17.188em; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 @media screen and (max-width: 26.25em) {
@@ -47,8 +47,8 @@ nav {
 }
 
 nav .user {
-  margin-right: .5em;
-  margin-top: .5em;
+  margin-right: 1.5em;
+  margin-top: 1em;
 }
 
 a {
@@ -102,15 +102,33 @@ h1 {
   height: 1em;
 }
 
+#codeinsight-main {
+  position: absolute;
+  top: 150px;
+  z-index: -1;
+  opacity: 0.2;
+}
 
 .welcome {
   margin-top: 3em;
   margin-bottom: 3em;
 }
-.main-title {
+.main-title,
+.main-welcome
+ {
   text-align: center;
   max-width: 60%;
   margin: 2em auto;
+  color: darkslategray;
+}
+.main-welcome {
+  color: white;
+}
+
+.welcome-span {
+  font-size: 0.8em;
+  font-weight: 200;
+  color: white;
 }
 
 
@@ -205,21 +223,21 @@ h1 {
 }
 #logo-intro,
 #github-icon {
-  width: 8em;
-  height: 8em;
+  width: 13em;
+  height: 13em;
 }
 .no-svg #logo {
   width: 200px;
   height: 164px;
-  background-image: url(kiwi.png);
+  background-image: url(logo.png);
 }
 
-#logo-link {
+.logo-link {
   stroke: steelblue;
   stroke-width: .5em;
 }
 
-#logo-link {
+.logo-link {
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
   animation: dash 3s linear alternate infinite;
@@ -233,11 +251,30 @@ h1 {
     stroke-dashoffset: 0;
   }
 }
+.logo-link2 {
+  stroke-dasharray: 1460;
+  stroke-dashoffset: 1460;
+  animation: dash2 3s linear alternate infinite;
+}
 
-#heartBeat-bottom {
-  position: absolute;
-  top: 135px;
-  z-index: -1;
+@keyframes dash2 {
+  from {
+    stroke-dashoffset: 1460;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+#bar-right {
+    width: 20px;
+    background: red;
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
+}
+@keyframes width {
+0% {width: 160px; }
+50% {width: 200px;}
+100% {width: 160px;}
 }
 
 .circle-thick {
@@ -333,7 +370,26 @@ h1 {
     width: 100%;
     max-width: 100%;
   }
-
+  nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  nav h3 {
+    width: 100%;
+  }
+  nav .user {
+    display: none;
+  }
+  nav a {
+    margin: auto;
+  }
+  #codeinsight-main {
+    top: 453px;
+    left: 0px;
+  }
+  #title {
+    display: none
+  }
 
 }
 @media screen and (max-width: 48em) {
