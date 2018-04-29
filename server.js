@@ -127,10 +127,10 @@ app.get('/api/user/profile', function userRepo(req, res) {
     })
   });
 
-  app.get('/api/user/:username/repos', function repoLanguages(req, res) {
+  app.get('/api/user/username/repos', function allReposNames(req, res) {
     var username = req.user.gh.username;
     console.log("username",username);
-    var encodedURI = "https://api.github.com/repos/juancarlucci/about/languages";
+    var encodedURI = `https://api.github.com/users/${username}/repos`;
 
     axios
       .get(encodedURI)
@@ -143,7 +143,7 @@ app.get('/api/user/profile', function userRepo(req, res) {
       })
       .catch((err) => {
         console.log(err);
-        res.json({okay  :'erooor'})
+        res.json({error  :'erooor'})
       })
     });
 

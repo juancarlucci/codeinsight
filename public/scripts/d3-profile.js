@@ -40,29 +40,8 @@ function handleError(e) {
   $(".message").text('Failed to load user repos, is the server working?');
 }
 
-// function createD3nodes(userProfile) {
-//     console.log("userProfile",userProfile);
-//
-//
-//     node.push({
-//       id:userProfile.id,
-//       name:userProfile.login,
-//       owner_avatar:userProfile.avatar_url,
-//       public_repos:userProfile.public_repos,
-//       public_gists:userProfile.public_gists,
-//       repos_url:userProfile.repos_url,
-//       following:userProfile.following,
-//       followers:userProfile.followers,
-//       created_at:userProfile.created_at,
-//       updated_at:userProfile.updated_at
-//
-//     });
-// }
-
-
-
     function createProfileHtml(userProfile) {
-      // console.log(userProfile);
+
       return `
         <p>
           <a href="${userProfile.repos_url}" target="_blank">
@@ -74,7 +53,87 @@ function handleError(e) {
         <p class="userProfile-repo-count">followers: ${userProfile.followers}</p>
         `;
     }
+////////////////////////////////////////
+// ALL REPOS DETAILS
+////////////////////////////////////////
+$.ajax({
+  method: "GET",
+  url: "/api/user/username/repos",
+  success: handleAllReposSuccess,
+  error: handleError
+});
 
+var userAllRepos = [];
+var userAllReposNodes=[];
+
+function handleAllReposSuccess(json) {
+  userRepos = json.data;
+
+  var userReposHTML = createAllReposHtml(userRepos);
+
+  userRepos.map(function(repo) {
+    // console.log("repo",repo);
+    userAllReposNodes.push({
+      name: repo.name,
+      avatar: repo.owner.avatar_url,
+      homepage: repo.html_url,
+      language: repo.language,
+      stars: repo.stargazers_count,
+      forks: repo.forks,
+      created: repo.created_at,
+      updated: repo.updated_at,
+      size: repo.size
+    })
+    // return {
+    //   name: repo.name,
+    //   avatar: repo.owner.avatar_url,
+    //   homepage: repo.html_url,
+    //   language: repo.language,
+    //   stars: repo.stargazers_count,
+    //   forks: repo.forks,
+    //   created: repo.created_at,
+    //   updated: repo.updated_at,
+    //   size: repo.size
+    // }
+  });
+
+  $(".all-repos").append(userReposHTML);
+
+} //end handleAllReposSuccess
+
+function createAllReposHtml(repos) {
+    return repos.map(getRepoHtml).join("");
+  }
+
+function getRepoHtml(repo) {
+  var monthNames = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+
+var newDate = new Date(repo.created_at);
+var formattedDate = newDate.getMonth()+1 + ' ' + newDate.getFullYear();
+  // return userRepos.forEach(function(repo) {
+  //   console.log("repo", repo.name);
+
+    return `
+    <article class="repo-info">
+      <p>
+        <a href="${repo.html_url}" target="_blank">
+        ${repo.name}</a>
+      </p>
+      <p class="repo-info-item">forks: ${repo.forks}</p>
+      <p class="repo-info-item">language: ${repo.language}</p>
+      <p class="repo-info-item">date: ${formattedDate}</p>
+      <hr>
+    </article>
+      `;
+  // });
+
+}
+
+
+////////////////////////////////////////
+// REPO BY LANGUAGE
+////////////////////////////////////////
 userRepoName = $('#repo-name').val();
 
   $('form').on("submit", function(e){
@@ -103,7 +162,7 @@ userRepoName = $('#repo-name').val();
 
     }
     ///////////////////////////////////////////////////////////
-    // BADGES
+    // BADGES BAR GRAPH
     /////////////////////////////////////////////////
     function makeBadges(json){
       var margin = {top: 10, right: 20, bottom: 10, left: 10},
@@ -114,15 +173,8 @@ userRepoName = $('#repo-name').val();
 
       var badgesvg = d3.select(".badges")
           .append("div")
-          .classed("svg-badge-container", true) //container class to make it responsive
-          // .attr("id", function(d, i) { return (i); })
-          // .append("svg")
-          // //responsive SVG needs these 2 attributes and no width and height attr
-          // .attr("preserveAspectRatio", "xMinYMin meet")
+          .classed("svg-badge-container", true)
           .attr("viewBox", "0 0 400 130")
-          // //class to make it responsive
-          // .classed("svg-content-responsive", true)
-
 
       const initialRepoScaleData = [];
       for(elem in json){
@@ -136,7 +188,6 @@ userRepoName = $('#repo-name').val();
       }
       const minDataPoint = d3.min(initialRepoScaleData);
       const maxDataPoint = d3.max(initialRepoScaleData);
-      console.log(0, maxDataPoint);
       var color = d3.scaleOrdinal(d3.schemeCategory20);
 
       var x = d3.scaleLinear()
@@ -234,52 +285,8 @@ function remove() {
 ///////////////////////////////////////////////////////////
 // BAR GRAPH REPO LANGUAGES
 ///////////////////////////////////////////////////////////
-  var  data3 = [
-    {
-      name:"vue",
-      language: 'JavaScript',
-      stargazers_count: 1,
-      avatar_url: 'https://avatars1.githubusercontent.com/u/6128107?v=4',
-      homepage: 'http://vuejs.org'
-    },
-    {
-      name:"bootstrap",
-      language: 'Python',
-      stargazers_count: 13,
-      avatar_url: 'https://avatars0.githubusercontent.com/u/2918581?v=4',
-      homepage: 'http://getbootstrap.com'
-    },
-    {
-      name:"reaJact",
-      language: 'Python',
-      stargazers_count: 31,
-      avatar_url: 'https://avatars3.githubusercontent.com/u/69631?v=4',
-    },
-    {
-    name:"javascript",
-    language: 'JavaScript',
-    stargazers_count: 36,
-    avatar_url: 'https://avatars3.githubusercontent.com/u/698437?v=4'
-    },
-    {
-      name:"eJava",
-      language: 'C++',
-      stargazers_count: 15
-    },
-    {
-      name:"jquery",
-      language: 'Python',
-      stargazers_count: 43
-    },
-    {
-      name:"lamda",
-      language: 'Clojure',
-      stargazers_count: 3
-    }
 
-  ];
-
-  var color = d3.scaleOrdinal(d3.schemeCategory20);
+var color = d3.scaleOrdinal(d3.schemeCategory20);
 
   // Set the dimensions of the canvas / graph
 var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
