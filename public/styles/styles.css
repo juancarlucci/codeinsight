@@ -102,7 +102,7 @@ h1 {
   height: 1em;
 }
 
-#codeinsight-main {
+#codeinsight-radial {
   position: absolute;
   top: 150px;
   z-index: -1;
@@ -383,7 +383,7 @@ h1 {
   nav a {
     margin: auto;
   }
-  #codeinsight-main {
+  #codeinsight-radial {
     top: 453px;
     left: 0px;
   }

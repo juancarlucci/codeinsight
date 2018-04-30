@@ -60,14 +60,14 @@ require("./config/passport")(passport)
 /////////////////////////////////////////
 
 // VERIFY AUTHENTICATION
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("User authenticated.");
-    return next();
-  }
-}
-
-app.use('/api', ensureAuthenticated);
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     console.log("User authenticated.");
+//     return next();
+//   }
+// }
+//
+// app.use('/api', ensureAuthenticated);
 
 //////////////////
 // HTML Endpoints

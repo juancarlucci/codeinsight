@@ -102,7 +102,14 @@ function handleAllReposSuccess(json) {
 } //end handleAllReposSuccess
 
 function createAllReposHtml(repos) {
-    return repos.map(getRepoHtml).join("");
+  console.log(repos);
+    return repos.map(getRepoHtml)
+    .sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(b.created_at) - new Date(a.created_at);
+    })
+    .join("");
   }
 
 function getRepoHtml(repo) {
@@ -134,9 +141,7 @@ var formattedDate = newDate.getMonth()+1 + ' ' + newDate.getFullYear();
 ////////////////////////////////////////
 // REPO BY LANGUAGE
 ////////////////////////////////////////
-userRepoName = $('#repo-name').val();
-
-  $('form').on("submit", function(e){
+$('form').on("submit", function(e){
 
     e.preventDefault();
 
@@ -196,7 +201,7 @@ userRepoName = $('#repo-name').val();
 
       var radiusScale = d3.scaleSqrt()
         .domain([0, maxDataPoint])
-        .range([1, 48])
+        .range([1, 250])
 
         badgesvg
           .selectAll("div")
@@ -213,6 +218,34 @@ userRepoName = $('#repo-name').val();
             .attr("dx", function(d) { return x(d.data)/2 + "px"; })
             .attr("dy", -2)
             ;
+
+
+            //CIRCLE
+
+            badgesvg.selectAll("div")
+              .data(data)
+              .enter().append("circle")
+              .attr("cx", function(d) {
+                return d.x;
+              })
+              .attr("cy", function(d) {
+                return d.y;
+              })
+              .attr("r", 20)
+              .attr("fill", function(d) {
+                return color(d.elem);
+              })
+
+            //TEXT
+            badgesvg.append("text")
+              .attr("text-anchor", "middle")
+              .text(function(d) {
+                return d.data;
+              })
+              .attr("dx", 0)
+              .attr("dy", ".35em")
+              .attr("fill", "white")
+              .attr("font-size", "1em")
 
 
       // var elem = badgesvg.selectAll("g  circleText")
