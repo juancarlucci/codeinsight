@@ -1,3 +1,11 @@
+:root {
+  --main-bg-color: linear-gradient(to right, #e66465, #c86dd796);
+  --main-text-color: #fff;
+  --main-font-family: 'Knockout 30 A', 'Knockout 30 B', sans-serif;
+  --nav-font-family: 'Archer SSm A', 'Archer SSm B', serif;
+
+}
+
 /* basic reset */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
@@ -5,8 +13,14 @@
   box-sizing: border-box;
 }
 
-html {
-  /* font-size: 2vw; */
+html,
+body {
+  color: #fff;
+  font-family: var(--main-font-family);
+  background: var(--main-bg-color);
+}
+body{
+  height: 100vh;
 }
 
 .hamburger {
@@ -30,14 +44,18 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  /* background-color: #fff;
-     */
-  background: linear-gradient(to right, #e66465, #c86dd796);
+  background: var(--main-bg-color);
   text-align: center;
-  /* padding: 1.25em 17.188em; */
   display: flex;
   align-items: center;
   justify-content: space-around;
+  font-family: var(--nav-font-family);
+
+
+}
+
+nav a {
+  font-variant-caps: petite-caps;
 }
 
 @media screen and (max-width: 26.25em) {
@@ -52,7 +70,6 @@ nav .user {
 }
 
 a {
-  font-family: "Relaway", sans-serif;
   font-weight: 600;
   text-decoration: none;
   color: #fff;
@@ -68,10 +85,43 @@ a:hover {
   border-color: gray;
 }
 
-body {
-  color: #fff;
-  font-family: "Relaway", sans-serif;
-  background: linear-gradient(to right, #e66465, #c86dd796);
+.widget {
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  width: 100%;
+  /* overflow: hidden; */
+  background-color: #ffffff99;
+  height: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .blur {
+  background-size: cover;
+  overflow: hidden;
+  filter: blur(13px);
+  position: absolute;
+  height: 230px;
+  top: 4px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  pointer-events: none;
+} */
+
+.title {
+ /* display: flex;
+ justify-content: center;
+ align-items: center; */
+  /* display: inline-flex;
+  position: relative; */
+}
+#title {
+  margin: 70px;
+  z-index: 1;
+  color: steelblue;
+  font-variant-caps: petite-caps;
 }
 
 button {
@@ -89,8 +139,8 @@ button {
 }
 
 h1 {
-  margin-top: 100px;
-  text-align: center;
+  /* margin-top: 100px;
+  text-align: center; */
   font-size: calc(1em + 6vw);
 }
 
@@ -119,7 +169,8 @@ h1 {
   text-align: center;
   max-width: 60%;
   margin: 2em auto;
-  color: darkslategray;
+  color: steelblue;
+  text-transform: uppercase;
 }
 .main-welcome {
   color: white;
@@ -201,30 +252,45 @@ h1 {
   max-width: 47em;
   width: 60%;
   margin: auto;
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  text-align: center; */
 }
 .action {
-  margin-top: 3em;
+  margin-top: 8em;
 }
 
-.into {
+.intro {
   max-width: 52%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .action a{
   background-color: steelblue;
   border-radius: 8%;
 }
+
 .column {
   margin: auto;
+  display: inline-flex;
+  align-items: center;
 }
+
 #logo-intro,
-#github-icon {
+#github-icon {''
   width: 13em;
   height: 13em;
+}
+#logo-intro {
+  /* position: relative;
+  left: 42%;
+  top: -378px; */
+  /* position: absolute;
+  left: 8%;
+  top: 90px; */
 }
 .no-svg #logo {
   width: 200px;
@@ -317,7 +383,7 @@ h1 {
 
 
 .node text {
-  font-family: "Relaway", sans-serif
+  font-family: var(--main-font-family);
 }
 
 .selectors {
@@ -343,9 +409,7 @@ h1 {
   body{
     font-size: 16px;
   }
-  .intro {
-    display: inline;
-  }
+
   nav {
     flex-direction: column;
   }
@@ -353,14 +417,23 @@ h1 {
   .welcome {
     max-width: 100%;
     width: 100%;
-    margin: 1em auto;
   }
   #logo-intro, #github-icon {
     width: 6em;
     height: 6em;
   }
+  .widget {
+    height: 3em;
+  }
+  #title {
+    margin: 1em;
+  }
   #first-line-legend text{
     font-size: 100px;
+  }
+  .action {
+    width: 69%;
+    margin-top: 3em;
   }
   .flex-contaier {
     flex-direction: column-reverse;
@@ -386,9 +459,6 @@ h1 {
   #codeinsight-radial {
     top: 453px;
     left: 0px;
-  }
-  #title {
-    display: none
   }
 
 }
