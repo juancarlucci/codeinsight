@@ -123,8 +123,8 @@ var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear()
 
     return `
     <article class="repo-info">
-      <button name="repo" value="${repo.name}">${repo.name}</button>
-      <small class="repo-info-item">date: ${formattedDate}</small>
+      <p class="repo-info-name">${repo.name}</p>
+      <small class="repo-info-item">${formattedDate}</small>
       <hr>
     </article>
       `;
