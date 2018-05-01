@@ -421,6 +421,8 @@ h1 {
   #logo-intro, #github-icon {
     width: 6em;
     height: 6em;
+    position: relative;
+    left: 1em;
   }
   .widget {
     height: 3em;

@@ -1,22 +1,22 @@
+$(document).ready(function () {
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/api/user/profile",
+  //   success: handleSuccess,
+  //   error: handleError
+  // });
 
-$.ajax({
-  method: "GET",
-  url: "/api/user/profile",
-  success: handleSuccess,
-  error: handleError
-});
+  var userProfile = [];
+  var userProfileNodes=[];
 
-var userProfile = [];
-var userProfileNodes=[];
+  function handleSuccess(json) {
+    userProfile = json.userProfile;
+    // console.log(userProfile);
 
-function handleSuccess(json) {
-  userProfile = json.userProfile;
-  // console.log(userProfile);
-
-  var userHTML = createProfileHtml(userProfile);
-  // console.log(userHTML);
-  // var nodes = createD3nodes(userProfile);
-  // var profileHtml = createProfileHtml(allRepos);
+    var userHTML = createProfileHtml(userProfile);
+    // console.log(userHTML);
+    // var nodes = createD3nodes(userProfile);
+    // var profileHtml = createProfileHtml(allRepos);
 
   userProfileNodes.push({
     name:userProfile.login,
@@ -107,29 +107,24 @@ function createAllReposHtml(repos) {
     .sort(function(a,b){
       // Turn your strings into dates, and then subtract them
       // to get a value that is either negative, positive, or zero.
-      return new Date(b.created_at) - new Date(a.created_at);
+      return new Date(b.created) - new Date(a.created);
     })
     .join("");
   }
 
 function getRepoHtml(repo) {
-  var monthNames = [ "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December" ];
+  var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
 var newDate = new Date(repo.created_at);
-var formattedDate = newDate.getMonth()+1 + ' ' + newDate.getFullYear();
+var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear();
   // return userRepos.forEach(function(repo) {
   //   console.log("repo", repo.name);
 
     return `
     <article class="repo-info">
-      <p>
-        <a href="${repo.html_url}" target="_blank">
-        ${repo.name}</a>
-      </p>
-      <p class="repo-info-item">forks: ${repo.forks}</p>
-      <p class="repo-info-item">language: ${repo.language}</p>
-      <p class="repo-info-item">date: ${formattedDate}</p>
+      <button name="repo" value="${repo.name}">${repo.name}</button>
+      <small class="repo-info-item">date: ${formattedDate}</small>
       <hr>
     </article>
       `;
@@ -141,16 +136,42 @@ var formattedDate = newDate.getMonth()+1 + ' ' + newDate.getFullYear();
 ////////////////////////////////////////
 // REPO BY LANGUAGE
 ////////////////////////////////////////
+
+// $('.repo-info-name').on("click", function(e){
+  // $("button").click(function(e){
+// var formData = {
+//   'reponame': $(this).attr('value')
+// }
+// $('.repo-info').on('click', function(e) {
+//   let target = e.target;
+// $('button').on('click', function(e) {
+//        e.preventDefault();
+       // alert($(this).parent('form').serialize() + '&' + $(this).attr('name') + '=' + $(this).val());
+       // $(this).parent('form').submit();
+
+
+// $('.repo-info-name').click(function(){
+  // var formData = {
+  //   'reponame': $(this).attr('value')
+  // };
+
 $('form').on("submit", function(e){
 
     e.preventDefault();
 
-    var reponame= $("input#repo-name").val();
+    var reponame = $("input#repo-name").val();
+    // var reponame = $(this).attr('value');
+    // var formData = {
+    //   'reponame': $(this).attr('value')
+    // }
+    // console.log("clciekcd", formData, target);
 
     $.ajax({
       method: "GET",
       url: `/api/user/${reponame}/languages`,
       data: $(this).serialize(),
+      // data: $(this).parent('form').serialize() + '&' + $(this).attr('name') + '=' + $(this).val(),
+      // data: formData,
       success: handleLanguageSuccess,
       error: handleError
     });
@@ -201,7 +222,7 @@ $('form').on("submit", function(e){
 
       var radiusScale = d3.scaleSqrt()
         .domain([0, maxDataPoint])
-        .range([1, 250])
+        .range([1, 48])
 
         badgesvg
           .selectAll("div")
@@ -218,34 +239,6 @@ $('form').on("submit", function(e){
             .attr("dx", function(d) { return x(d.data)/2 + "px"; })
             .attr("dy", -2)
             ;
-
-
-            //CIRCLE
-
-            badgesvg.selectAll("div")
-              .data(data)
-              .enter().append("circle")
-              .attr("cx", function(d) {
-                return d.x;
-              })
-              .attr("cy", function(d) {
-                return d.y;
-              })
-              .attr("r", 20)
-              .attr("fill", function(d) {
-                return color(d.elem);
-              })
-
-            //TEXT
-            badgesvg.append("text")
-              .attr("text-anchor", "middle")
-              .text(function(d) {
-                return d.data;
-              })
-              .attr("dx", 0)
-              .attr("dy", ".35em")
-              .attr("fill", "white")
-              .attr("font-size", "1em")
 
 
       // var elem = badgesvg.selectAll("g  circleText")
@@ -569,3 +562,6 @@ var svg = d3.select("#lineChartResponsive")
         .attr("id", "first-line-legend")
         .text(function(d) { return d; });
 } //end forin categories
+
+
+});//end documentREAdy

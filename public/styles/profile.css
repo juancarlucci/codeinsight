@@ -59,6 +59,14 @@
   min-width: 270px;
 }
 
+.repo-info {
+  display: flex;
+  flex-direction: column;
+    /* flex-wrap: wrap; */
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
 .repo-languages-directions {
   margin: auto;
   width: 70%;
