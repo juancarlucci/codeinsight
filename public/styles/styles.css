@@ -19,9 +19,6 @@ body {
   font-family: var(--main-font-family);
   background: var(--main-bg-color);
 }
-body{
-  height: 100vh;
-}
 
 .hamburger {
   display: none;

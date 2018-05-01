@@ -84,17 +84,7 @@ function handleAllReposSuccess(json) {
       updated: repo.updated_at,
       size: repo.size
     })
-    // return {
-    //   name: repo.name,
-    //   avatar: repo.owner.avatar_url,
-    //   homepage: repo.html_url,
-    //   language: repo.language,
-    //   stars: repo.stargazers_count,
-    //   forks: repo.forks,
-    //   created: repo.created_at,
-    //   updated: repo.updated_at,
-    //   size: repo.size
-    // }
+
   });
 
   $(".all-repos").append(userReposHTML);
@@ -102,7 +92,7 @@ function handleAllReposSuccess(json) {
 } //end handleAllReposSuccess
 
 function createAllReposHtml(repos) {
-  console.log(repos);
+  // console.log(repos);
     return repos.map(getRepoHtml)
     .sort(function(a,b){
       // Turn your strings into dates, and then subtract them
@@ -123,9 +113,9 @@ var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear()
 
     return `
     <article class="repo-info">
-      <p class="repo-info-name">${repo.name}</p>
+      <p class="repo-info-name" tooltip=”simple tooltip here ${repo.size}”>${repo.name}</p>
       <small class="repo-info-item">${formattedDate}</small>
-      <hr>
+
     </article>
       `;
   // });
@@ -154,12 +144,13 @@ var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear()
   // var formData = {
   //   'reponame': $(this).attr('value')
   // };
-
+var currentRepoName =[];
 $('form').on("submit", function(e){
 
     e.preventDefault();
-
+    currentRepoName =[];
     var reponame = $("input#repo-name").val();
+    currentRepoName.push(reponame);
     // var reponame = $(this).attr('value');
     // var formData = {
     //   'reponame': $(this).attr('value')
@@ -180,8 +171,8 @@ $('form').on("submit", function(e){
   });
 
     var repoLanguages=[];
-
     function handleLanguageSuccess(json) {
+      // console.log(json);
       repoLanguagesData = json.data;
 
       var repoLanguages = getRepoLanguages(repoLanguagesData);
@@ -353,8 +344,9 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
         .text("X")
         .on( "click", function() {
           // need both of these to remove both the graph and the contaier
-          this.parentNode.parentNode.remove();
+          this.parentNode.parentNode.remove(this.parentNode);
           this.parentNode.parentNode.removeChild(this.parentNode);
+          // this.parentNode.parentNode.parentNode.remove();
 
         }
         )
@@ -381,6 +373,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
     .call(d3.axisBottom(x))
     .attr("class", "axisColor slantedAxis")
 
+  // var currentReponame = $("input#repo-name").val();
   g.append("g")
     .attr("class", "axis axis--y")
     .call(d3.axisLeft(y).ticks(7, "s"))
@@ -390,7 +383,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
     .attr("y", 6)
     .attr("dy", "0.71em")
     .attr("text-anchor", "end")
-    .text("bytes of code")
+    .text(`${currentRepoName}`)
     .attr("fill", "white")
 
   g.selectAll(".bar")
