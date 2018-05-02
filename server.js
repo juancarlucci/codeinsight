@@ -35,7 +35,7 @@ app.use(cookieParser());
 // app.use(expressSession({
 //   secret: process.env.EXPRESS_SESSION_SECRET
 // }));
-app.use(expressSession({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
+app.use(expressSession({ secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
@@ -64,6 +64,9 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     console.log("User authenticated.");
     return next();
+  }
+  else{
+    res.redirect('/');
   }
 }
 

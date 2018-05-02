@@ -1,3 +1,42 @@
+/* Global
+================================================================ */
+:root {
+  /* --main-bg-color: linear-gradient(to right, #e66465, #c86dd796); */
+  --main-bg-color: #24292e;
+  /* --main-text-color: #fff; */
+  --main-text-color: #fff;
+  --main-secondary-color: #513d63;
+  /* --main-font-family: 'Knockout 30 A', 'Knockout 30 B', sans-serif; */
+  --main-font-family: "Roboto","-apple-system","BlinkMacSystemFont","Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
+  --nav-font-family: 'Archer SSm A', 'Archer SSm B', serif;
+
+}
+
+.flexcontainer {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+/* Text Styles (a, a:hover, a:visited, a:active, p, h1, h2, h3, h4, etc.)
+   ================================================================ */
+
+ h3 {
+   font-family: var(--main-font-family);
+   font-size: 56px;
+   margin: 10px 0;
+   font-weight: 500;
+ }
+
+ /* Layout (columns, floats, etc.)
+    ================================================================ */
+
 
 .btn {
   border: none;
@@ -17,23 +56,19 @@
   background-color: rgb(19, 151, 213);
 }
 
-.flexcontainer {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
-   justify-content: center;
-   flex-wrap: wrap;
-}
-
 .main-wrapper {
   max-width: 1600px;
   min-width: 270px;
   margin: auto;
 
+}
+
+.user-profile-items {
+  display: flex;
+  justify-content: space-evenly;
+}
+.user-profile-items h3{
+  color:
 }
 
 .svg-container,
@@ -77,12 +112,12 @@
   align-items: center; */
 }
 
-.repo-info-name{
-  margin: 10px;
+.repo-info-name {
+  margin: 3px;
   border: none;
   border-radius: 2px;
   outline: none;
-  padding: 1.018em 1.2em;
+  padding: 0.5em;
   color: #fff;
   text-transform: uppercase;
   transition: all 0.3s;
@@ -92,16 +127,17 @@
   width: auto;
 
 }
-.repo-info small{
-  visibility: hidden;
-  position: relative;
 
+.repo-info small{
+  /* visibility: hidden;
+  position: relative; */
 }
-[tooltip]{
+/* .repo-tooltip {
   margin:20px;
   position:relative;
-}
-[tooltip]::before {
+} */
+
+/* .repo-tooltip::before {
     content: "";
     position: absolute;
     top:-6px;
@@ -112,13 +148,13 @@
     border-color: rgba(0,0,0,0.7) transparent transparent     transparent;
     z-index: 100;
 }
-[tooltip]::after {
+.repo-tooltip::after {
     content: attr(tooltip);
     position: absolute;
     left:50%;
     top:-6px;
     transform: translateX(-50%)   translateY(-100%);
-    background: rgba(0,0,0,0.7);
+    background: blue;
     text-align: center;
     color: #fff;
     padding:4px 2px;
@@ -126,7 +162,7 @@
     min-width: 80px;
     border-radius: 5px;
     pointer-events: none;
-}
+} */
 
 .repo-info:hover small{
   visibility: visible;
@@ -154,9 +190,10 @@
   margin: 1px;
   color: white;
 }
-/* ////////////
-LINE GRAPH
-//////////////// */
+
+
+/* LINE GRAPH
+   ================================================================ */
 
 #first-line-legend,
 .badge-titles,

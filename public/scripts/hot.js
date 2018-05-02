@@ -15,6 +15,7 @@ $(document).ready(function() {
   $.ajax({
     method: "GET",
     url: "/api/repos/popular",
+    timeout: 2000,
     success: handleSuccess,
     error: handleError
   });
@@ -27,8 +28,15 @@ $(document).ready(function() {
     var newNodes = createD3nodes(allRepos.items);
   }
 
-  function handleError(e) {
-    $("#popular-list").text('Failed to load popular repos, is the server working?');
+  function handleError(e,ts) {
+    if(ts==="timeout") {
+              alert("Call has timed out"); //Handle the timeout
+          } else {
+    $(".message").text('Failed to load user repos, is the server working?');
+
+
+  }
+
   }
 
   function changeStyle(reposHtml) {
@@ -111,7 +119,7 @@ function createD3nodes(data, nodes) {
     height = 680 - margin.top - margin.bottom;
 
     // Define the div for the tooltip
-    var div = d3.select("body").append("div")
+    var tip = d3.select("body").append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
 
@@ -142,7 +150,7 @@ function createD3nodes(data, nodes) {
     //FORCE SiMULATION
     // a collection of forces to apply to circles
 
-    
+
     //REGULAR Circles
     var forceXSeparate = d3.forceX(function(d) {
       if (d.language === "Shell") {
@@ -209,14 +217,30 @@ function createD3nodes(data, nodes) {
 
     })
 
+    var star = String.fromCodePoint("0x2606");
 
     var node = svg.selectAll("circle.node")
       .data(nodes)
       .enter().append("g")
-      .attr("class", "node")
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
+      .attr("stroke-width", 1)
+      .attr("stroke", "white")
+      .on("mouseover", function(d) {
+           tip.transition()
+               .duration(200)
+               .style("opacity", .9);
+           tip.html( d.name + "<br/>" + d.language + "<br/>"+ `${star}`+d.stars + "<br/>")
+               .style("left", (d3.event.pageX) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+           })
+       .on("mouseout", function(d) {
+           tip.transition()
+               .duration(500)
+               .style("opacity", 0);
+       })
+      .attr("class", "node");
+      // .on("start", dragstarted)
+      // .on("drag", dragged)
+      // .on("end", dragended);
 
     function dragstarted(d) {
       d3.select(this).raise().classed("active", true);
@@ -245,16 +269,34 @@ function createD3nodes(data, nodes) {
         return color(d.language);
       })
 
-    //TEXT
-    node.append("text")
-      .attr("text-anchor", "middle")
-      .text(function(d) {
-        return d.name;
-      })
-      .attr("dx", 0)
-      .attr("dy", ".35em")
-      .attr("fill", "white")
-      .attr("font-size", "1em")
+    //TEXT label
+    // node.append("text")
+    //   .attr("class", "textLabels")
+    //   .attr("text-anchor", "middle")
+    //   .text(function(d) {
+    //     return d.name;
+    //   })
+    //   .attr("dx", 0)
+    //   .attr("dy", ".35em")
+    //   .attr("fill", "blue")
+    //   .attr("font-size", "1em")
+
+   //Toggle Labels visibility
+   // svg.append("text")
+   //  .attr("x", 0)
+   //  .attr("y", height + margin.top + 10)
+   //  .attr("class", "legend")
+   //  .style("fill", "steelblue")
+   //  .on("click", function(){
+   //      // Determine if current line is visible
+   //      var active   = textLabels.active ? false : true,
+   //        newOpacity = active ? 1 : 0;
+   //      // Hide or show the elements
+   //      d3.select(".textLabels").style("opacity", newOpacity);
+   //      // Update whether or not the elements are active
+   //      textLabels.active = active;
+   //   })
+   //  .text("Toggle lables");
 
     //LEGEND
     var legend = svg.selectAll(".legend")
