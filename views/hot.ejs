@@ -12,8 +12,7 @@
     <!-- VENDOR SCRIPTS -->
     <script src="/scripts/d3.min.js"></script>
     <script src="/scripts/jquery3.3.1.min.js"></script>
-    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-    <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"></script>
+    <script src="/scripts/jquery-ui.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
     <!-- <script src="/scripts/app.js"></script> -->
@@ -21,30 +20,44 @@
   <body>
     <!-- <div id="nav">Nav</div> -->
     <%- include('nav'); %>
-    <container class "flex-contaier">
+    <h1 class="hot-title">what's hot on github</h1>
+  <container class="main flex-container">
+    <section class="popular-list-container">
+      <h2 class="popular-title">hottest repos</h2>
+      <small>scroll for more</small>
+      <div id="popular-list"></div>
+    </section>
+    <!-- <section class="flex-container selectors-container">
       <div class="selectors">
         <button id="language">Language split</button>
         <button id="all">All</button>
-        <!-- <button id="concentric">Linear</button> -->
+
       </div>
       <div class="ui-widget selectors">
         <input id="search" placeholder="search repos...">
         <button id="searchbutton" type="button">Search</button>
       </div>
-    </container>
-    <container class="main flex-contaier">
-      <section class="popular-list-container">
-        <h2 class="popular-title">hottest repos</h2>
-        <small>scroll for more</small>
-        <div id="popular-list"></div>
+    </section> -->
+
+    <!-- <container class="main flex-container"> -->
+    <section id="stars-layout">
+      <section class="flex-container selectors-container">
+        <div id="ui-widget-selectors" class="ui-widget selectors">
+          <input id="search" placeholder="search repos...">
+          <button id="searchbutton" type="button">Search</button>
+        </div>
+
+        <div class="selectors">
+          <button id="language">language split</button>
+          <button id="all">join</button>
+          <!-- <button id="concentric">Linear</button> -->
+        </div>
 
       </section>
+      <!-- <h1>what's hot on github</h1> -->
+    </section>
 
-      <article id="stars-layout">
-        <h1>what's hot on github</h1>
-      </article>
-
-    </container>
+  </container>
     <!-- <script src="/scripts/d3.js" defer></script> -->
     <script src="/scripts/hot.js" defer></script>
   </body>

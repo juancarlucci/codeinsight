@@ -142,23 +142,6 @@ var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear()
 // REPO BY LANGUAGE
 ////////////////////////////////////////
 
-// $('.repo-info-name').on("click", function(e){
-  // $("button").click(function(e){
-// var formData = {
-//   'reponame': $(this).attr('value')
-// }
-// $('.repo-info').on('click', function(e) {
-//   let target = e.target;
-// $('button').on('click', function(e) {
-//        e.preventDefault();
-       // alert($(this).parent('form').serialize() + '&' + $(this).attr('name') + '=' + $(this).val());
-       // $(this).parent('form').submit();
-
-
-// $('.repo-info-name').click(function(){
-  // var formData = {
-  //   'reponame': $(this).attr('value')
-  // };
 var currentRepoName =[];
 $('form').on("submit", function(e){
 
@@ -166,18 +149,11 @@ $('form').on("submit", function(e){
     currentRepoName =[];
     var reponame = $("input#repo-name").val();
     currentRepoName.push(reponame);
-    // var reponame = $(this).attr('value');
-    // var formData = {
-    //   'reponame': $(this).attr('value')
-    // }
-    // console.log("clciekcd", formData, target);
 
     $.ajax({
       method: "GET",
       url: `/api/user/${reponame}/languages`,
       data: $(this).serialize(),
-      // data: $(this).parent('form').serialize() + '&' + $(this).attr('name') + '=' + $(this).val(),
-      // data: formData,
       success: handleLanguageSuccess,
       error: handleError
     });
@@ -187,7 +163,6 @@ $('form').on("submit", function(e){
 
     var repoLanguages=[];
     function handleLanguageSuccess(json) {
-      // console.log(json);
       repoLanguagesData = json.data;
 
       var repoLanguages = getRepoLanguages(repoLanguagesData);
@@ -221,6 +196,9 @@ $('form').on("submit", function(e){
       const minDataPoint = d3.min(initialRepoScaleData);
       const maxDataPoint = d3.max(initialRepoScaleData);
       var color = d3.scaleOrdinal(d3.schemeCategory20);
+      // var color = d3.scaleLinear().domain([minDataPoint,maxDataPoint])
+      //       .interpolate(d3.interpolateHcl)
+      //       .range([d3.rgb("#e66465"), d3.rgb("#c86dd796")]);
 
       var x = d3.scaleLinear()
         .domain([0, maxDataPoint])
@@ -234,7 +212,7 @@ $('form').on("submit", function(e){
           .selectAll("div")
             .data(data)
           .enter().append("div")
-            .style('background-color', function(d) { return color(d.elem); })
+            .style('background-color', function(d) { return color(d.data); })
             .attr("class", "node-item")
             .style("width", 0)
             .text(function(d) { return d.elem; })
@@ -252,23 +230,23 @@ $('form').on("submit", function(e){
 
 
       // Create and place the circle and the text
-      var elemEnter = elem.enter()
-        .append("g")
-        .attr("class", "node-group")
-        // .attr("transform", function(d){return `translate(200 ,100)`})
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      // var elemEnter = elem.enter()
+      //   .append("g")
+      //   .attr("class", "node-group")
+      //   // .attr("transform", function(d){return `translate(200 ,100)`})
+      //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      //Create the circles
-      var circleInner = elemEnter.append("circle")
-        .attr("r", function(d) {
-          return radiusScale(d.data)
-        })
-        .attr("stroke", "white")
-        .attr("fill", "steelblue")
-        // .attr("cx", function(d, i) { return i * 50 + 30; })
-        .attr("cx", function(d, i) { return i * 80 + 50; })
-        .attr("cy", 20)
-        ;
+      // //Create the circles
+      // var circleInner = elemEnter.append("circle")
+      //   .attr("r", function(d) {
+      //     return radiusScale(d.data)
+      //   })
+      //   .attr("stroke", "white")
+      //   .attr("fill", "steelblue")
+      //   // .attr("cx", function(d, i) { return i * 50 + 30; })
+      //   .attr("cx", function(d, i) { return i * 80 + 50; })
+      //   .attr("cy", 20)
+      //   ;
 
         // Location of text for data values
         elemEnter.append("text")
@@ -320,6 +298,7 @@ function remove() {
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
+
   // Set the dimensions of the canvas / graph
 var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
   width3 = 667 - margin3.left - margin3.right,
@@ -360,7 +339,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
         .attr("class", "del")
         .text("X")
         .on( "click", function() {
-          // need both of these to remove both the graph and the contaier
+          // need both of these to remove both the graph and the container
           this.parentNode.parentNode.remove();
           // this.parentNode.parentNode.removeChild();
           this.parentNode.parentNode.removeChild(this.parentNode);

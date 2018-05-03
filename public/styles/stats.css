@@ -1,16 +1,5 @@
 /* Global
 ================================================================ */
-:root {
-  --main-bg-color: linear-gradient(to right, #e66465, #c86dd796);
-  --main-bg-color: #fff;
-  --main-text-color: #24292e;
-  --main-text-color: #fff;
-  --main-secondary-color: #513d63;
-  /* --main-font-family: 'Knockout 30 A', 'Knockout 30 B', sans-serif; */
-  --main-font-family: "Roboto","-apple-system","BlinkMacSystemFont","Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
-  --nav-font-family: 'Archer SSm A', 'Archer SSm B', serif;
-
-}
 
 .flexcontainer {
    display: -webkit-flex;
@@ -39,21 +28,21 @@
 
 
 .btn {
-  border: none;
   border-radius: 2px;
   outline: none;
+  border: solid 0.5px var(--main-light-text-color);
   padding: 1.018em 1.2em;
-  color: #fff;
+  color: var(--main-text-color);
   text-transform: uppercase;
   transition: all 0.3s;
   font-size: 0.6em;
   text-align: center;
-  background-color: steelblue;
+  background-color: var(--main-dark-bg-color)
   cursor: pointer;
 }
 
 .btn:hover {
-  background-color: rgb(19, 151, 213);
+  background-color: var(--main-secondary-color);
 }
 
 .main-wrapper {
@@ -66,10 +55,9 @@
 .user-profile-items {
   display: flex;
   justify-content: space-evenly;
+  text-align: center;
 }
-.user-profile-items h3{
-  color:
-}
+
 
 .svg-container,
 .svg-line-container,
@@ -119,12 +107,12 @@
   border-radius: 2px;
   outline: none;
   padding: 0.5em;
-  color: #fff;
+  color: var(--main-dark-bg-color);
   text-transform: uppercase;
   transition: all 0.3s;
   font-size: 0.6em;
   text-align: center;
-  background-color: steelblue;
+  background-color: var(--main-light-bg-color);
   width: auto;
 
 }
@@ -185,7 +173,6 @@
 
 .node-item {
   font: 10px sans-serif;
-  /* background-color: steelblue; */
   text-align: right;
   padding: 3px;
   margin: 1px;
@@ -211,7 +198,7 @@
 
 /* /////////second line graph */
 path {
-    stroke: steelblue;
+    stroke: var(--main-dark-bg-color)
     stroke-width: 2;
     fill: none;
 }
@@ -231,16 +218,12 @@ path {
 }
 
 
-
-
-
-
 /* ////////////
 BAR GRAPHS
 /////////// */
-.bar:hover {
-  fill: orangered;
-}
+/* .bar:hover {
+  fill: var(--main-secondary-color);
+} */
 
 .axis--x path {
   display: none;
@@ -263,7 +246,7 @@ BAR GRAPHS
 }
 
 .del:hover {
-  fill: orangered;
+  fill: var(--main-accent-color);
 }
 
 .userInfo {
@@ -275,15 +258,15 @@ BAR GRAPHS
 }
 
 .axisColor line{
-  stroke: white;
+  stroke: var(--main-light-text-color);
 }
 
 .axisColor path{
-  stroke: white;
+  stroke: var(--main-light-text-color);
 }
 
 .axisColor text{
-  fill: white;
+  fill: var(--main-light-text-color);
 }
 
 
@@ -291,7 +274,7 @@ BAR GRAPHS
 @media screen and (max-width: 42.5em) {
 
   body {
-    background: white;
+    background: var(--main-light-bg-color)
   }
   h3 {
     font-size: 3em;

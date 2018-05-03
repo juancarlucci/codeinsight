@@ -80,8 +80,8 @@ app.get('/', function homepage(req, res) {
   });
 });
 
-app.get('/api/profile', function profile(req, res) {
-  res.render('profile', {
+app.get('/api/stats', function stats(req, res) {
+  res.render('stats', {
     user: req.user
   });
 });
