@@ -51,10 +51,6 @@ function handleError(e,ts) {
     function createProfileHtml(userProfile) {
 
       return `
-        <p>
-          <a href="${userProfile.repos_url}" target="_blank">
-          ${userProfile.login}</a>
-        </p>
         <div class="">
           <p class="userProfile-repo-count">repos</p>
           <h3 class="userProfile-repo-count user-stats">${userProfile.public_repos}</h3>
@@ -326,8 +322,8 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 
   // Set the dimensions of the canvas / graph
 var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
-  width3 = 400 - margin3.left - margin3.right,
-  height3 = 220 - margin3.top - margin3.bottom;
+  width3 = 667 - margin3.left - margin3.right,
+  height3 = 375 - margin3.top - margin3.bottom;
 
   // var svg3 = d3.select("#bar-chart2"),
   //   margin3 = {
@@ -336,18 +332,20 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
   //     bottom: 30,
   //     left: 40
   //   },
-  //   width3 = +svg2.attr("width") - margin3.left - margin3.right,
-  //   height3 = +svg2.attr("height") - margin3.top - margin3.bottom;
+    // width3 = +svg2.attr("width") - margin3.left - margin3.right,
+    // height3 = +svg2.attr("height") - margin3.top - margin3.bottom;
   var chart1 = d3.select("#chartResponsive")
    .append("div")
    .classed("svg-container", true) //container class to make it responsive
    .attr("id", function(d, i) { return (i); })
    .append("svg")
+   // .attr("height", 172)
+   // .attr("width", 344)
    //responsive SVG needs these 2 attributes and no width and height attr
    .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 400 200")
+   .attr("viewBox", "0 0 667 375")
    //class to make it responsive
-   .classed("svg-content-responsive", true)
+   // .classed("svg-content-responsive", true)
    .append('g')
     .attr("transform", "translate(0," + margin3.top + ")");
 
@@ -364,7 +362,8 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
         .on( "click", function() {
           // need both of these to remove both the graph and the contaier
           this.parentNode.parentNode.remove();
-          this.parentNode.parentNode.removeChild();
+          // this.parentNode.parentNode.removeChild();
+          this.parentNode.parentNode.removeChild(this.parentNode);
           // this.parentNode.parentNode.parentNode.remove();
 
         }

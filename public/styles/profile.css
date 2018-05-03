@@ -1,9 +1,9 @@
 /* Global
 ================================================================ */
 :root {
-  /* --main-bg-color: linear-gradient(to right, #e66465, #c86dd796); */
-  --main-bg-color: #24292e;
-  /* --main-text-color: #fff; */
+  --main-bg-color: linear-gradient(to right, #e66465, #c86dd796);
+  --main-bg-color: #fff;
+  --main-text-color: #24292e;
   --main-text-color: #fff;
   --main-secondary-color: #513d63;
   /* --main-font-family: 'Knockout 30 A', 'Knockout 30 B', sans-serif; */
@@ -92,6 +92,7 @@
 
 .svg-container {
   min-width: 270px;
+  max-width: 547px;
 }
 
 .all-repos {
@@ -293,12 +294,12 @@ BAR GRAPHS
     background: white;
   }
   h3 {
-    font-size: 1em;
+    font-size: 3em;
   }
 
   .flexcontainer {
      display: block;
-     margin: 3em 0;
+     /* margin: 3em 0; */
   }
   .svg-container {
     margin: 0;
