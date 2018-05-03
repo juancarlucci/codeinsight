@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>codeInsight</title>
+  <title>codeInsight</title>
 
-    <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="/styles/stats.css">
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="/styles/stats.css">
 
-    <!-- VENDOR SCRIPTS -->
-    <script src="/scripts/d3.min.js"></script>
-    <script src="/scripts/jquery3.3.1.min.js"></script>
-    <script src="/scripts/jquery-ui.min.js"></script>
+  <!-- VENDOR SCRIPTS -->
+  <script src="/scripts/d3.min.js"></script>
+  <script src="/scripts/jquery3.3.1.min.js"></script>
+  <script src="/scripts/jquery-ui.min.js"></script>
 
-    <!-- APPLICATION SCRIPTS -->
+  <!-- APPLICATION SCRIPTS -->
 
-    <script src="/scripts/d3-stats.js" defer></script>
-  </head>
+  <script src="/scripts/d3-stats.js" defer></script>
+</head>
 
-  <body>
+<body>
 
+  <%- include('nav'); %>
 
-    <%- include('nav'); %>
+    <h3 class="profile-stats flexcontainer">your profile stats</h3>
+    <div class="user-profile-items"></div>
+    <section class="badges main-wrapper flexcontainer">
 
-  <h3 class="profile-stats flexcontainer">your profile stats</h3>
-  <div class="user-profile-items"></div>
-  <section class="badges main-wrapper flexcontainer">
+    </section>
 
-  </section>
-
-  <article class="repo-languages-directions">
+    <article class="repo-languages-directions">
       <h3>the languages of your own repos</h3>
       <section class="main-wrapper flexcontainer" id="chartResponsive">
       </section>
@@ -43,16 +42,10 @@
         <input class="btn" type="submit" name="search">
         <small>(scroll to view)</small>
       </form>
-  </article>
- <div class="repo-languages"></div>
-  <section class="all-repos main-wrapper">
-  </section>
+    </article>
+    <div class="repo-languages"></div>
+    <section class="all-repos main-wrapper">
+    </section>
+</body>
 
-  <!-- <h3 class="profile-stats flexcontainer">your trends</h3>
-  <section class="main-wrapper flexcontainer" id="lineChartResponsive">
-  </section> -->
-
-   <!-- <section class="main-wrapper flexcontainer" id="chartResponsive">
-   </section> -->
-  </body>
 </html>

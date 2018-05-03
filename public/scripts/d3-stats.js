@@ -12,12 +12,8 @@ $(document).ready(function () {
 
   function handleSuccess(json) {
     userProfile = json.userProfile;
-    // console.log(userProfile);
 
     var userHTML = createProfileHtml(userProfile);
-    // console.log(userHTML);
-    // var nodes = createD3nodes(userProfile);
-    // var profileHtml = createProfileHtml(allRepos);
 
   userProfileNodes.push({
     name:userProfile.login,
@@ -109,7 +105,6 @@ function handleAllReposSuccess(json) {
 } //end handleAllReposSuccess
 
 function createAllReposHtml(repos) {
-  // console.log(repos);
     return repos.map(getRepoHtml)
     .sort(function(a,b){
       // Turn your strings into dates, and then subtract them
@@ -125,16 +120,12 @@ function getRepoHtml(repo) {
 
 var newDate = new Date(repo.created_at);
 var formattedDate = monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear();
-  // return userRepos.forEach(function(repo) {
-  //   console.log("repo", repo.name);
 
     return `
     <article class="repo-info">
       <p class="repo-info-name" >${repo.name}</p>
     </article>
       `;
-  // });
-
 }
 
 
@@ -196,9 +187,6 @@ $('form').on("submit", function(e){
       const minDataPoint = d3.min(initialRepoScaleData);
       const maxDataPoint = d3.max(initialRepoScaleData);
       var color = d3.scaleOrdinal(d3.schemeCategory20);
-      // var color = d3.scaleLinear().domain([minDataPoint,maxDataPoint])
-      //       .interpolate(d3.interpolateHcl)
-      //       .range([d3.rgb("#e66465"), d3.rgb("#c86dd796")]);
 
       var x = d3.scaleLinear()
         .domain([0, maxDataPoint])
@@ -228,35 +216,13 @@ $('form').on("submit", function(e){
       var elem = badgesvg.selectAll("g  circleText")
           .data(data)
 
-
-      // Create and place the circle and the text
-      // var elemEnter = elem.enter()
-      //   .append("g")
-      //   .attr("class", "node-group")
-      //   // .attr("transform", function(d){return `translate(200 ,100)`})
-      //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      // //Create the circles
-      // var circleInner = elemEnter.append("circle")
-      //   .attr("r", function(d) {
-      //     return radiusScale(d.data)
-      //   })
-      //   .attr("stroke", "white")
-      //   .attr("fill", "steelblue")
-      //   // .attr("cx", function(d, i) { return i * 50 + 30; })
-      //   .attr("cx", function(d, i) { return i * 80 + 50; })
-      //   .attr("cy", 20)
-      //   ;
-
         // Location of text for data values
         elemEnter.append("text")
           .text(function(d,i){return d.data})
           .attr("class", "badge-values")
           .attr("text-anchor", "middle")
           .attr("fill", "white")
-          // .attr("font-size", function(d, i) { return 5 + 5*i; })
           .attr("dx", function(d, i) { return i * 80 + 50; })
-          // .attr("dy", function(d, i) { return 85 + 5*i; })
           .attr("dy", 105 - margin.top)
           ;
 
@@ -304,27 +270,14 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
   width3 = 667 - margin3.left - margin3.right,
   height3 = 375 - margin3.top - margin3.bottom;
 
-  // var svg3 = d3.select("#bar-chart2"),
-  //   margin3 = {
-  //     top: 20,
-  //     right: 20,
-  //     bottom: 30,
-  //     left: 40
-  //   },
-    // width3 = +svg2.attr("width") - margin3.left - margin3.right,
-    // height3 = +svg2.attr("height") - margin3.top - margin3.bottom;
   var chart1 = d3.select("#chartResponsive")
    .append("div")
    .classed("svg-container", true) //container class to make it responsive
    .attr("id", function(d, i) { return (i); })
    .append("svg")
-   // .attr("height", 172)
-   // .attr("width", 344)
    //responsive SVG needs these 2 attributes and no width and height attr
    .attr("preserveAspectRatio", "xMinYMin meet")
    .attr("viewBox", "0 0 667 375")
-   //class to make it responsive
-   // .classed("svg-content-responsive", true)
    .append('g')
     .attr("transform", "translate(0," + margin3.top + ")");
 
@@ -343,8 +296,6 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
           this.parentNode.parentNode.remove();
           // this.parentNode.parentNode.removeChild();
           this.parentNode.parentNode.removeChild(this.parentNode);
-          // this.parentNode.parentNode.parentNode.remove();
-
         }
         )
         ;
@@ -411,34 +362,7 @@ var margin3 = {top: 30, right: 20, bottom: 70, left: 50},
     });
 
 
-  //   //LEGEND
-  //   var legend1 = chart1.selectAll(".legend1")
-  //     .data(repoLanguages)
-  //   .enter().append("g")
-  //     .attr("class", "legend1")
-  //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-  //
-  // legend1.append("rect")
-  //     .attr("x", width - 18)
-  //     .attr("width", 18)
-  //     .attr("height", 18)
-  //     .style("fill", function(d, i) { return color(i); })
-  //     .style("opacity", 0.8)
-  //
-  // legend1.append("text")
-  //     .attr("x", width - 24)
-  //     .attr("y", 9)
-  //     .attr("dy", ".35em")
-  //     .style("text-anchor", "end")
-  //     .attr("fill", "white")
-  //     .attr("id", function(d, i) { return d+i; })
-  //     .text(function(d) { return d.lang; });
-
 } // end getRepoLanguages
-
-
-
-
 
 ///////////////////////////////////////////////////
 //////////////LINE graph
@@ -449,9 +373,6 @@ var margin = {top: 30, right: 20, bottom: 90, left: 50},
   height = 220 - margin.top - margin.bottom;
 
 var svg = d3.select("#lineChartResponsive")
-    // .append("svg")
-    //   .attr("width", 860)
-    //   .attr("height", 200)
       .append("div")
          .classed("svg-line-container", true) //container class to make it responsive
          .append("svg")
