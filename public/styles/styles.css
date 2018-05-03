@@ -103,9 +103,26 @@ button {
   /* display: flex;
   align-items: center; */
 }
+#nav-button-a {
+  position: relative;
+  left: 541px;
+  border: solid 0.5px white;
+  border-radius: 2px;
+  outline: none;
+  padding: 1.018em 1.2em;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  font-size: 0.6em;
+  text-align: center;
+  color: var(--main-light-text-color);
+  background-color: var(--main-dark-bg-color);
+  cursor: pointer;
+}
 #nav-button-a a{
   display: flex;
   align-items: center;
+
 }
 
 a {
@@ -187,14 +204,15 @@ h1 {
 }
 
 #codeinsight-radial {
+  display: none;
   position: absolute;
   top: 150px;
-  z-index: -1;
-  opacity: 0.2;
+  z-index: 0;
+  opacity: 0.1;
 }
 
 .welcome {
-  margin-top: 7em;
+  margin-top: 9em;
   margin-bottom: 3em;
 }
 .main-title,
@@ -339,7 +357,7 @@ h1 {
 }
 
 .logo-link {
-  stroke: steelblue;
+  stroke: var(--main-dark-bg-color);
   stroke-width: .3em;
 }
 
@@ -385,10 +403,11 @@ h1 {
 
 .circle-thick {
   stroke-width: 5px;
-  stroke: steelblue;
+  stroke: var(--main-dark-bg-color);
 }
 .circle-red {
   stroke: orangered;
+  stroke-width: 3px;
 }
 
 .block {
@@ -476,6 +495,9 @@ h1 {
     max-width: 100%;
     width: 100%;
   }
+  .welcome {
+    margin-top: 3em;
+  }
   #logo-intro {
     width: 5em;
   }
@@ -535,16 +557,15 @@ h1 {
   nav a {
     margin: auto;
   }
-  #nav-button {
-    left: 126px;
+  #nav-button-a {
+    /* left: 126px; */
   }
   #codeinsight-radial {
-    top: 453px;
-    left: 0px;
+    display: none;
   }
 
 }
-@media screen and (max-width: 48em) {
+@media screen and (max-width: 52em) {
   body{
     font-size: 16px;
   }
@@ -558,5 +579,8 @@ h1 {
   #popular-list {
     width: 100%;
     max-width: 100%;
+  }
+  #nav-button-a {
+    position: unset;
   }
 }
