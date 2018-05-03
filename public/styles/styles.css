@@ -53,7 +53,6 @@ nav {
   align-items: center;
   justify-content: space-around;
   font-family: var(--nav-font-family);
-  font-size: 16px;
   line-height: 24px;
   overflow-wrap: break-word;
   padding-bottom: 16px;
@@ -67,6 +66,7 @@ nav a {
   display: flex;
   align-items: center;
   margin: 2px;
+  font-size: 1.3em;
 }
 
 @media screen and (max-width: 26.25em) {
@@ -468,6 +468,7 @@ h1 {
   }
   nav a {
     margin: auto;
+    font-size: 1em;
   }
   #nav-button-a {
     /* left: 126px; */

@@ -32,7 +32,7 @@ $(document).ready(function() {
     if(ts==="timeout") {
               alert("Call has timed out"); //Handle the timeout
           } else {
-    $(".message").text('Failed to load user repos, is the server working?');
+    coneole.log('Failed to load user repos, is the server working?');
 
 
   }
