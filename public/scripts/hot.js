@@ -273,20 +273,20 @@ function createD3nodes(data, nodes) {
   // Toggle Labels visibility
   //adapted from https://bl.ocks.org/d3noob/4abb9dc578abf070fe62302282a29c41
   svg.append("text")
-   .attr("x", width/2)
-   .attr("y", margin.top + 10)
-   .attr("class", "labels-toggle")
-   .style("fill", "white")
-   .on("click", function(){
-       // Determine if current labels are visible
-       var active   = textLabels.active ? false : true,
-         newOpacity = active ? 1 : 0;
-       // Hide or show the elements. Select all.
-       d3.selectAll(".textLabels").style("opacity", newOpacity);
-       // Update whether or not the elements are active
-       textLabels.active = active;
+    .attr("x", width / 2)
+    .attr("y", margin.top + 10)
+    .attr("class", "labels-toggle")
+    .style("fill", "white")
+    .on("click", function() {
+      // Determine if current labels are visible
+      var active = textLabels.active ? false : true,
+        newOpacity = active ? 1 : 0;
+      // Hide or show the elements. Select all.
+      d3.selectAll(".textLabels").style("opacity", newOpacity);
+      // Update whether or not the elements are active
+      textLabels.active = active;
     })
-   .text("Toggle lables");
+    .text("Toggle lables");
 
   //LEGEND
   var legend = svg.selectAll(".legend")

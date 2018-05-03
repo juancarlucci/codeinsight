@@ -44,14 +44,17 @@
      justify-content: space-evenly;
      text-align: center;
 }
- .svg-container, .svg-line-container, .svg-badge-container {
+ .svg-container,
+ .svg-line-container,
+ .svg-badge-container {
     /* need flex-grow to work well with viebox set in stats.js */
      flex-grow: 1;
      margin: 3em 2em;
      align-items: center;
      justify-content: center
 }
- .svg-line-container, .svg-badge-container {
+ .svg-line-container,
+ .svg-badge-container {
      max-width: 63em;
 }
  .svg-badge-container {
@@ -139,7 +142,9 @@
      margin: auto;
      text-align: center;
 }
- #bar-chart, #bar-chart2, #profile-layout {
+ #bar-chart,
+ #bar-chart2,
+ #profile-layout {
      margin-bottom: 8em;
 }
  .del {
@@ -183,8 +188,8 @@
      .repo-languages-directions{
          width: 100%;
     }
-     .badge-titles, .badge-values {
+     .badge-titles,
+     .badge-values {
          font-size: 1em;
     }
 }
- 
