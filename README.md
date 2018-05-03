@@ -2,6 +2,7 @@
 
 This is a project to display user’s github statistics in a way that can lead to insights about coding patterns and language usage.
 
+![codeInsight-login](readme-assets/login.png "Popular Repos Image")
 ![codeInsight](readme-assets/hot.png "Popular Repos Image")
 
 
@@ -49,6 +50,7 @@ User can navigate to What’s Hot page for statistics for all Github repos
 6. Begin front-end: basic HTML/CSS/SASS.
     Display basic data: languages, number of repos, etc. as per user story. Monday, April 9th.
 7. Incorporate D3.js. Tuesday, April 10th.
+8. Incorporate force layout graph in D3, April 11th.
 
 ## User story in detail:
 
@@ -75,27 +77,24 @@ User receives a welcome email after creating an account.
 2. On hover graphical elements will display pertinent data. For example, while hovering over a bar graph of user languages the total number of repos for that language is displayed.
 
 #### Bonus features:
-User sees github profile image next to their name
+
 User sees a color representation of hotness for the languages they know. This data is derived by stats of repos with most stars on github. For example, currently if the user knows React.js that language would be considered “hot” and be colored appropriately. Whereas, if they know Erlang, then the language would be “obscure” and be colored in a muted, “cold” color.
 
 ### Sprint 3 - What’s Hot Page
 #### User can:
 1. On home page user sees a link a to a page called What’s Hot.
-2.  What’s Hot is a list of the technologies ranked by language.
-3. Ranking includes repo stars, followers, and number of forks.
+2. What’s Hot is a list of the technologies ranked by language.
+3. Ranking is by repo stars.
 
 #### Bonus features:
 A second API call is made, this time to LinkedIn or Glassdoor to get statistics on jobs by technology. This data is superimposed on the Github data to see correlations.
 
 
-## Unsolved problems:
-
-
-
-
 ## Biggest wins and challenges:
 
 [passport callback](https://www.evernote.com/l/ARxWA_O_P6pGrquz_4T5ycrV4OW_BJvzJyo)
+Debugging express-session cookie that caused what seemed like a bug that would log user out after interacting with the graphs. After looking at the documentation and asking for guidance found an issue with how long the cookies were set to expire. On updating cookie expiration, the bug was fixed.
+
 ![oauth with github](readme-assets/oauth.png "OAuth Github")
 
 ## Code Snippets
@@ -153,29 +152,43 @@ export CALLBACK_URL="http://localhost:3000/auth/github/callback"
 ```
 ### SVG
 
+Created SVG using Adobe Illustrator.
+Added animation to SVG with CSS.
 ```
-<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 513 93.8" enable-background="new 0 0 513 93.8"
-    xml:space="preserve">
+<svg version="1.1" id="logo" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 260.3 260.3"
+	 style="enable-background:new 0 0 260.3 260.3;" xml:space="preserve">
 
-
-<path id="heartBeat" fill="none" stroke="#F26522" stroke-width="3" d="M0,72.2c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
-  c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
-  c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
-  c8,0.7,16,17.3,16,17.3s28,0,28,0c8.8-0.3,77.5-0.3,77.5-0.3c10.3-6,17.5-12.2,21.8-12.5c2.7-0.2,3.5,0.5,5.2,2.5
-  c1.3,1.6,6.8,6.9,9,9c0.6,0.6,1.5,1,2.4,1h15.9c0.8,0,1.6,0.5,2,1.3c2.1,4.5,9.3,19.2,10.4,12.1c1.3-8.4,3-51.8,4-82.5
-  c0.1-1.8,2.7-1.8,2.8,0l5.1,90c0.1,1.4,2,1.6,2.4,0.2l5.1-19.4c0.2-0.8,0.9-1.3,1.7-1.3l26-0.3c0,0,13.3-19,21.3-18.3
-  s16,17.3,16,17.3h28"/>
+	 <g i:extraneous="self">
+ 		<circle fill="white" stroke="steelblue" id="outer-circle" class="st0" cx="130.2" cy="130.2" r="129.7"/>
+ 		<polyline fill="none"  stroke="steelblue" id="logo-link" class="logo-link" points="104.4,79.6 180,60.1 205.3,120.4 146.9,152.5 63.8,146.2 110.8,192
+ 			160.4,210.9 147.9,158.5 		"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle7" class="circle-thick" cx="160.4" cy="210.9" r="21.9"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle6" class="circle-thin" cx="110.8" cy="192" r="13.5"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle5" class="circle-thin" cx="63.8" cy="146.2" r="25.8"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle4" class="circle-red" cx="146.9" cy="152.5" r="13.5"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle3" class="circle-thick" cx="205.3" cy="120.4" r="18.5"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle2" class="circle-thin" cx="180" cy="60.1" r="19.6"/>
+ 		<circle fill="white"  stroke="steelblue" id="circle1" class="circle-thick" cx="104.4" cy="79.6" r="37"/>
+ 	</g>
 </svg>
 ```
-![heart beat svg](readme-assets/heartBeat.png "Heart Beat SVG")
+![heart beat svg](readme-assets/logo.png "Heart Beat SVG")
+
+
 ### D3
 
 #### Radius scale
 
+Setup scale to display data with proportionality.
+
 ```
+const minDataPoint = d3.min(initialRepoScaleData);
+const maxDataPoint = d3.max(initialRepoScaleData);
+
 var radiusScale = d3.scaleSqrt()
-  .domain([8613, 123511])
-  .range([2, 28])
+  .domain([0, maxDataPoint])
+  .range([1, 48])
 ```
 
 #### Force Simulations
