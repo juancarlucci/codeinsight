@@ -25,7 +25,7 @@ Do basic usability testing
 ## DELIVERABLES
 
 ### Techonolgy Stack for codeInsight
-Node.js/MongoDb/Express for the back-end
+Node.js|MongoDb|Express, mLab for the back-end
 
 HTML/CSS/JavaScript for the front-end
 
@@ -141,8 +141,66 @@ app.get('/auth/github/callback',
     res.redirect('/');
   });
   ```
-### Dev and Production Setup
 
+
+### Database Setup (mLab)
+
+#### 1. Set up DB model
+
+```
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+UserSchema = new Schema({
+  gh: {
+   id: String,
+   username: String,
+   accessToken: String,
+   refreshToken: String,
+   location: String,
+   hireable: Boolean,
+   email: String,
+   blog: String,
+   repos:Number,
+   gists:Number,
+   followers: Number,
+   following: Number
+ }
+});
+var User = mongoose.model('User', UserSchema);
+module.exports = User;
+```
+#### 2. Connect to mLab for DB
+```
+server.js
+
+const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/codeinsight';
+
+//mongoose via mlab
+
+mongoose.connect(dbUrl);
+
+```
+#### 3. Setup local env
+```
+.bashrc file
+
+export GITHUB_CLIENT_ID="32a8c37dfc"
+export GITHUB_CLIENT_SECRET="ca686b44f3760c0a4ce32"
+export EXPRESS_SESSION_SECRET="octopuslikes"
+export MONGO_URI="mongodb://juancarlucci:octopus@ds2399.mlab.com:39009/cosdeinsight-dev"
+export CALLBACK_URL="http://localhost:3000/auth/github/callback"
+
+```
+#### 4. Heroku Config Vars for mlab
+
+![mLab setup](readme-assets/m-lab-heroku.png "mLab setup")
+
+#### 5. User data stored on mLab
+
+![mLab setup heroku](readme-assets/m-lab.png "mLab setup heroku")
+
+### Dev and Production Setup
 ```
 export GITHUB_CLIENT_ID="32***"
 export GITHUB_CLIENT_SECRET="c86***"
