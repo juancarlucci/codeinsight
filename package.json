@@ -22,7 +22,7 @@
     "express-session": "^1.0.4",
     "find-or-create": "^1.1.0",
     "method-override": "^1.0.2",
-    "mongoose": "4.1.1",
+    "mongoose": "5.7.5",
     "morgan": "~1.9.1",
     "passport": "^0.2.0",
     "passport-facebook": "^2.0.0",
